@@ -22,6 +22,7 @@ const StockSearchForm = ({ onSubmit }) => {
                   <label>Date comptable</label>
                   <Controller
                     name="accounting_date"
+                    defaultValue={null}
                     control={control}
                     render={({ onChange, value }) => (
                       <DatePicker value={value} onChange={onChange} />
@@ -35,6 +36,7 @@ const StockSearchForm = ({ onSubmit }) => {
                   <label>Date bourse</label>
                   <Controller
                     name="stock_exchange_date"
+                    defaultValue={null}
                     control={control}
                     render={({ onChange, value }) => (
                       <DatePicker value={value} onChange={onChange} />

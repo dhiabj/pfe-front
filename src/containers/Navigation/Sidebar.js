@@ -124,7 +124,9 @@ const SideBar = ({ children, logged }) => {
         </div>
       )}
 
-      <div className={logged ? "col-9 content" : ""}>{children}</div>
+      <div className={logged ? "col content container pr-3 pl-1" : ""}>
+        {children}
+      </div>
     </div>
   );
 };

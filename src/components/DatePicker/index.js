@@ -14,7 +14,7 @@ const DatePicker = ({ value, onChange }) => {
       onDateChange={onChangeDate} // PropTypes.func.isRequired
       focused={focused} // PropTypes.bool
       onFocusChange={({ focused }) => setFocused(focused)} // PropTypes.func.isRequired
-      id="your_unique_id" // PropTypes.string.isRequired,
+      id={Math.floor(Math.random() * 10).toString()} // PropTypes.string.isRequired,
     />
   );
 };

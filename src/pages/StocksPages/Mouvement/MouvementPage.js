@@ -17,11 +17,14 @@ const StocksPage = () => {
   const onSubmit = (values) => {
     console.log({
       ...values,
-      stock_exchange_date: moment(values.stock_exchange_date).format(
-        "YYYY-MM-DD"
-      ),
-      accounting_date: moment(values.accounting_date).format("YYYY-MM-DD"),
+      stock_exchange_date: values.stock_exchange_date
+        ? moment(values.stock_exchange_date).format("YYYY-MM-DD")
+        : "",
+      accounting_date: values.accounting_date
+        ? moment(values.accounting_date).format("YYYY-MM-DD")
+        : "",
     });
+    //console.log(typeof values.accounting_date);
   };
   return (
     <div>
