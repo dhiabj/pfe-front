@@ -12,6 +12,7 @@ const DatePicker = ({ value, onChange }) => {
     <SingleDatePicker
       date={date} // momentPropTypes.momentObj or null
       onDateChange={onChangeDate} // PropTypes.func.isRequired
+      isOutsideRange={() => false}
       focused={focused} // PropTypes.bool
       onFocusChange={({ focused }) => setFocused(focused)} // PropTypes.func.isRequired
       id={Math.floor(Math.random() * 10).toString()} // PropTypes.string.isRequired,

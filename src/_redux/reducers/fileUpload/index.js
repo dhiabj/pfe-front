@@ -3,6 +3,11 @@ const initialState = { uploadPercentage: 0 };
 export default (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
+    case "LOADING_PRGOGRESS":
+      return {
+        ...state,
+        uploadPercentage: payload,
+      };
     case "MOUVEMENT_UPLOAD_SUCCESS":
       return {
         ...state,
@@ -23,10 +28,15 @@ export default (state = initialState, action) => {
         ...state,
         error: payload,
       };
-    case "LOADING_PRGOGRESS":
+    case "INTERM_UPLOAD_SUCCESS":
       return {
         ...state,
-        uploadPercentage: payload,
+        intermResponse: payload,
+      };
+    case "INTERM_UPLOAD_FAILED":
+      return {
+        ...state,
+        error: payload,
       };
     default:
       return state;

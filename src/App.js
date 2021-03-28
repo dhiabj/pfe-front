@@ -19,6 +19,9 @@ import ReferentielPage from "./pages/ReferentielPages/ReferentielPage";
 import ChargementStock from "./pages/ChargementPages/ChargementStock";
 import ChargementMouvement from "./pages/ChargementPages/ChargementMouvement";
 import SideBar from "./containers/Navigation/Sidebar";
+import RenseignementStock from "./pages/StocksPages/Stock/RenseignementStock";
+import RenseignementMvt from "./pages/StocksPages/Mouvement/RenseignementMvt";
+import ChargementInterm from "./pages/ChargementPages/ChargementInterm";
 function App() {
   const loading = useSelector((state) => state.loading.loading);
   const { logged, isVerified } = useSelector((state) => state.auth);
@@ -32,12 +35,10 @@ function App() {
     <div className="App">
       {loading ? (
         <div className="d-flex justify-content-center">
-          <div className="lds-ring spinner-pos">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
+          <div
+            className="spinner-border text-primary spinner-pos"
+            style={{ width: "3rem", height: "3rem" }}
+            role="status"></div>
         </div>
       ) : (
         <div>
@@ -77,8 +78,23 @@ function App() {
                     />
                     <LoggedInRoute
                       exact
+                      path="/renseignements-stock"
+                      component={RenseignementStock}
+                    />
+                    <LoggedInRoute
+                      exact
                       path="/chargement-mouvement"
                       component={ChargementMouvement}
+                    />
+                    <LoggedInRoute
+                      exact
+                      path="/renseignements-mouvement"
+                      component={RenseignementMvt}
+                    />
+                    <LoggedInRoute
+                      exact
+                      path="/chargement-intermediaire"
+                      component={ChargementInterm}
                     />
                   </Switch>
                 </SideBar>

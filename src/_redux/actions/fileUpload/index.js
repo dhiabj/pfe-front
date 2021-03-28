@@ -61,3 +61,35 @@ export const stockUpload = (formData) => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const intermUpload = (formData) => async (dispatch) => {
+  const token = localStorage.token;
+  try {
+    const config = {
+      onUploadProgress: (progressEvent) => {
+        const { loaded, total } = progressEvent;
+        let percent = parseInt(Math.round((loaded * 100) / total));
+        console.log(percent);
+        dispatch({ type: "LOADING_PRGOGRESS", payload: percent });
+      },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await axios.post(
+      `${api}/intermediaires-fill`,
+      formData,
+      config
+    );
+    dispatch({ type: "INTERM_UPLOAD_SUCCESS", payload: response.data });
+    toast.success("Le chargement a réussi");
+    console.log(response);
+  } catch (error) {
+    dispatch({
+      type: "INTERM_UPLOAD_FAILED",
+      payload: error.response.data,
+    });
+    toast.error("Le chargement a échoué");
+    console.log(error);
+  }
+};

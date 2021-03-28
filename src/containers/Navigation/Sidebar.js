@@ -72,11 +72,25 @@ const SideBar = ({ children, logged }) => {
                         STICODEVAM
                       </div>
                     }>
-                    <Collapsible open={false} header="Historique Stock">
+                    <Collapsible
+                      open={false}
+                      header={
+                        <div>
+                          <FontAwesomeIcon icon="chart-line" className="mr-2" />
+                          Historique Stock
+                        </div>
+                      }>
                       <Link to="/stocks">Historique STOCK par jour</Link>
                       <Link to="/sticodevam">Historique STOCK par periode</Link>
                     </Collapsible>
-                    <Collapsible open={false} header="Historique Mouvement">
+                    <Collapsible
+                      open={false}
+                      header={
+                        <div>
+                          <FontAwesomeIcon icon="chart-line" className="mr-2" />
+                          Historique Mouvement
+                        </div>
+                      }>
                       <Link to="/mouvements">Historique Mouvement</Link>
                     </Collapsible>
                   </Collapsible>
@@ -102,10 +116,41 @@ const SideBar = ({ children, logged }) => {
                         Administration-Chargement
                       </div>
                     }>
-                    <Collapsible open={false} header="Chargement STICODEVAM">
+                    <Collapsible
+                      open={false}
+                      header={
+                        <div>
+                          <FontAwesomeIcon
+                            icon="file-upload"
+                            className="mr-2"
+                          />
+                          Chargement STICODEVAM
+                        </div>
+                      }>
                       <Link to="/chargement-stock">Chargemenent STOCK</Link>
+                      <Link to="/renseignements-stock">
+                        Renseignements STOCK
+                      </Link>
                       <Link to="/chargement-mouvement">
                         Chargemenent MOUVEMENT
+                      </Link>
+                      <Link to="/renseignements-mouvement">
+                        Renseignements Mouvements
+                      </Link>
+                    </Collapsible>
+                    <Collapsible
+                      open={false}
+                      header={
+                        <div>
+                          <FontAwesomeIcon
+                            icon="file-upload"
+                            className="mr-2"
+                          />
+                          Chargement INTERMEDIAIRES
+                        </div>
+                      }>
+                      <Link to="/chargement-intermediaire">
+                        Chargemenent INTERMEDIAIRES
                       </Link>
                     </Collapsible>
                   </Collapsible>

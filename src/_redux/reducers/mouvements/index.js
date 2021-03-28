@@ -8,6 +8,11 @@ export default (state = initialState, action) => {
         ...state,
         data: payload,
       };
+    case "MOUVEMENT_UPLOADS":
+      return {
+        ...state,
+        uploads: payload,
+      };
     default:
       return state;
   }
