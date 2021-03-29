@@ -8,7 +8,7 @@ export default (state = initialState, action) => {
         ...state,
         data: payload,
       };
-    case "STOCKS_UPLOADS":
+    case "STOCK_UPLOADS":
       return {
         ...state,
         uploads: payload,

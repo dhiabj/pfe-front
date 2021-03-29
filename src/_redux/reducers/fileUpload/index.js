@@ -38,6 +38,11 @@ export default (state = initialState, action) => {
         ...state,
         error: payload,
       };
+    case "UPLOAD_RESET":
+      return {
+        ...state,
+        uploadPercentage: 0,
+      };
     default:
       return state;
   }

@@ -93,3 +93,7 @@ export const intermUpload = (formData) => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const resetUpload = () => (dispatch) => {
+  dispatch({ type: "UPLOAD_RESET" });
+};

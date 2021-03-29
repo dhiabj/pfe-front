@@ -21,7 +21,7 @@ export const getStockUploads = () => async (dispatch) => {
     const response = await axios.get(`${api}/stock-upload-table`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    dispatch({ type: "STOCKS_UPLOADS", payload: response.data });
+    dispatch({ type: "STOCK_UPLOADS", payload: response.data });
     //console.log(response.data);
   }
 };
