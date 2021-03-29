@@ -94,6 +94,6 @@ export const intermUpload = (formData) => async (dispatch) => {
   }
 };
 
-export const resetUpload = () => (dispatch) => {
-  dispatch({ type: "UPLOAD_RESET" });
+export const resetProgress = () => (dispatch) => {
+  dispatch({ type: "PROGRESS_RESET" });
 };

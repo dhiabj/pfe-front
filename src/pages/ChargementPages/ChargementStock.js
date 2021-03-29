@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { resetUpload, stockUpload } from "../../_redux/actions/fileUpload";
+import { resetProgress, stockUpload } from "../../_redux/actions/fileUpload";
 import Message from "../../containers/Message";
 import ProgressBar from "../../containers/ProgressBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,15 +17,15 @@ const ChargementStock = () => {
     setSelectedFile(e.target.files[0]);
     setFilename(e.target.files[0].name);
     setFilePicked(true);
-    dispatch(resetUpload());
-    //console.log(selectedFile);
+    dispatch(resetProgress());
+    console.log(selectedFile);
   };
   const dispatch = useDispatch();
   const onFileUpload = () => {
     if (filePicked) {
       const formData = new FormData();
       formData.append("stocks", selectedFile, selectedFile.name);
-      console.log(selectedFile);
+      //console.log(selectedFile);
       dispatch(stockUpload(formData));
     } else {
       setMessage("Selectionner un fichier");

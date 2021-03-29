@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { mouvementUpload, resetUpload } from "../../_redux/actions/fileUpload";
+import {
+  mouvementUpload,
+  resetProgress,
+} from "../../_redux/actions/fileUpload";
 import Message from "../../containers/Message";
 import ProgressBar from "../../containers/ProgressBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,19 +16,19 @@ const ChargementMouvement = () => {
   const [filePicked, setFilePicked] = useState(false);
   const [filename, setFilename] = useState("Choisir le fichier");
   const [message, setMessage] = useState("");
+  const dispatch = useDispatch();
   const onFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
     setFilename(e.target.files[0].name);
     setFilePicked(true);
-    dispatch(resetUpload());
-    //console.log(selectedFile);
+    dispatch(resetProgress());
+    console.log(selectedFile);
   };
-  const dispatch = useDispatch();
   const onFileUpload = () => {
     if (filePicked) {
       const formData = new FormData();
-      formData.append("movments", selectedFile, selectedFile.name);
-      console.log(selectedFile);
+      formData.append("mouvements", selectedFile, selectedFile.name);
+      //console.log(selectedFile);
       dispatch(mouvementUpload(formData));
     } else {
       setMessage("Selectionner un fichier");

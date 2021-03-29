@@ -38,7 +38,7 @@ export default (state = initialState, action) => {
         ...state,
         error: payload,
       };
-    case "UPLOAD_RESET":
+    case "PROGRESS_RESET":
       return {
         ...state,
         uploadPercentage: 0,
