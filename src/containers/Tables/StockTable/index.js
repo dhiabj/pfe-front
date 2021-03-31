@@ -61,7 +61,6 @@ const StockTable = ({ stocks }) => {
           overflowY
           columns={columns}
           data={stocks}
-          defaultSortField="title"
           pagination
           selectableRows
           selectableRowsComponent={BootyCheckbox}

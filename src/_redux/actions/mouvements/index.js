@@ -25,3 +25,20 @@ export const getMvtUploads = () => async (dispatch) => {
     //console.log(response.data);
   }
 };
+
+export const deleteMvtUploads = (id) => async (dispatch) => {
+  const token = localStorage.token;
+  try {
+    const response = await axios
+      .delete(`${api}/delete-mouvement/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        window.location.reload();
+      });
+    dispatch({ type: "MOUVEMENT_DELETE_SUCCESS", payload: response });
+    //console.log(response.data);
+  } catch (error) {
+    dispatch({ type: "MOUVEMENT_DELETE_FAILED", payload: error.response });
+  }
+};

@@ -25,3 +25,20 @@ export const getStockUploads = () => async (dispatch) => {
     //console.log(response.data);
   }
 };
+
+export const deleteStockUploads = (id) => async (dispatch) => {
+  const token = localStorage.token;
+  try {
+    const response = await axios
+      .delete(`${api}/delete-stock/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        window.location.reload();
+      });
+    dispatch({ type: "STOCK_DELETE_SUCCESS", payload: response });
+    //console.log(response.data);
+  } catch (error) {
+    dispatch({ type: "STOCK_DELETE_FAILED", payload: error.response });
+  }
+};

@@ -1,9 +1,28 @@
 import React from "react";
 import DataTable from "react-data-table-component";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
 import "../../../css/styles.css";
 import moment from "moment";
+import { useDispatch } from "react-redux";
+import { deleteStockUploads } from "../../../_redux/actions/stocks";
 const StockUploadTable = ({ stockUploads }) => {
+  const dispatch = useDispatch();
+  const deleteStock = (id) => {
+    dispatch(deleteStockUploads(id));
+  };
   const columns = [
+    {
+      name: "Supprimer",
+      cell: (row) => (
+        <IconButton
+          aria-label="delete"
+          color="secondary"
+          onClick={() => deleteStock(row.id)}>
+          <DeleteIcon />
+        </IconButton>
+      ),
+    },
     {
       name: "Fichier Stock",
       selector: "FileName",
@@ -51,7 +70,6 @@ const StockUploadTable = ({ stockUploads }) => {
           overflowY
           columns={columns}
           data={stockUploads}
-          defaultSortField="title"
           pagination
           selectableRows
           selectableRowsComponent={BootyCheckbox}

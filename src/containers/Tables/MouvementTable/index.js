@@ -77,7 +77,6 @@ const MouvementTable = ({ mouvements }) => {
           overflowY
           columns={columns}
           data={mouvements}
-          defaultSortField="title"
           pagination
           selectableRows
           selectableRowsComponent={BootyCheckbox}

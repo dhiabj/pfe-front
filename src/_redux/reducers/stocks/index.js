@@ -13,6 +13,16 @@ export default (state = initialState, action) => {
         ...state,
         uploads: payload,
       };
+    case "STOCK_DELETE_SUCCESS":
+      return {
+        ...state,
+        res: payload,
+      };
+    case "STOCK_DELETE_FAILED":
+      return {
+        ...state,
+        error: payload,
+      };
     default:
       return state;
   }
