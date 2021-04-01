@@ -104,7 +104,20 @@ const SideBar = ({ children, logged }) => {
                         Administration-Référentiel
                       </div>
                     }>
-                    <Link to="/referentiel">Administration-Référentiel</Link>
+                    <Collapsible
+                      open={false}
+                      header={
+                        <div>
+                          <FontAwesomeIcon icon="user-cog" className="mr-2" />
+                          Référentiel STICODEVAM
+                        </div>
+                      }>
+                      <Link to="/natures-comptes">Nature de comptes</Link>
+                      <Link to="/codes-operations">Codes opérations</Link>
+                      <Link to="/categories-avoir">Catégories d'avoir</Link>
+                      <Link to="/adherents">Adhérents</Link>
+                      <Link to="/types-adherents">Types des adhérents</Link>
+                    </Collapsible>
                   </Collapsible>
                 </li>
                 <li>

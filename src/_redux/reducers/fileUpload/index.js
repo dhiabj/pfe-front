@@ -3,7 +3,7 @@ const initialState = { uploadPercentage: 0 };
 export default (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
-    case "LOADING_PRGOGRESS":
+    case "LOADING_PROGRESS":
       return {
         ...state,
         uploadPercentage: payload,

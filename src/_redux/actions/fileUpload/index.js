@@ -10,7 +10,7 @@ export const mouvementUpload = (formData) => async (dispatch) => {
         const { loaded, total } = progressEvent;
         let percent = parseInt(Math.round((loaded * 100) / total));
         console.log(percent);
-        dispatch({ type: "LOADING_PRGOGRESS", payload: percent });
+        dispatch({ type: "LOADING_PROGRESS", payload: percent });
       },
       headers: {
         Authorization: `Bearer ${token}`,
@@ -42,7 +42,7 @@ export const stockUpload = (formData) => async (dispatch) => {
         const { loaded, total } = progressEvent;
         let percent = parseInt(Math.round((loaded * 100) / total));
         console.log(percent);
-        dispatch({ type: "LOADING_PRGOGRESS", payload: percent });
+        dispatch({ type: "LOADING_PROGRESS", payload: percent });
       },
       headers: {
         Authorization: `Bearer ${token}`,
@@ -70,7 +70,7 @@ export const intermUpload = (formData) => async (dispatch) => {
         const { loaded, total } = progressEvent;
         let percent = parseInt(Math.round((loaded * 100) / total));
         console.log(percent);
-        dispatch({ type: "LOADING_PRGOGRESS", payload: percent });
+        dispatch({ type: "LOADING_PROGRESS", payload: percent });
       },
       headers: {
         Authorization: `Bearer ${token}`,

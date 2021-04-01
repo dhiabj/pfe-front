@@ -15,13 +15,17 @@ import TransactionsPage from "./pages/TransactionsPages/TransactionsPage";
 import OrdresPage from "./pages/OrdresPages/OrdresPage";
 import StockPage from "./pages/StocksPages/Stock/StockPage";
 import MouvementPage from "./pages/StocksPages/Mouvement/MouvementPage";
-import ReferentielPage from "./pages/ReferentielPages/ReferentielPage";
 import ChargementStock from "./pages/ChargementPages/ChargementStock";
 import ChargementMouvement from "./pages/ChargementPages/ChargementMouvement";
 import SideBar from "./containers/Navigation/Sidebar";
 import RenseignementStock from "./pages/StocksPages/Stock/RenseignementStock";
 import RenseignementMvt from "./pages/StocksPages/Mouvement/RenseignementMvt";
 import ChargementInterm from "./pages/ChargementPages/ChargementInterm";
+import NaturesComptes from "./pages/ReferentielPages/SticodevamPages/NaturesComptes";
+import CodesOperations from "./pages/ReferentielPages/SticodevamPages/CodesOperations";
+import CategoriesAvoir from "./pages/ReferentielPages/SticodevamPages/CategoriesAvoir";
+import Adherents from "./pages/ReferentielPages/SticodevamPages/Adherents";
+import TypesAdherents from "./pages/ReferentielPages/SticodevamPages/TypesAdherents";
 function App() {
   const loading = useSelector((state) => state.loading.loading);
   const { logged, isVerified } = useSelector((state) => state.auth);
@@ -68,8 +72,28 @@ function App() {
                     />
                     <LoggedInRoute
                       exact
-                      path="/referentiel"
-                      component={ReferentielPage}
+                      path="/natures-comptes"
+                      component={NaturesComptes}
+                    />
+                    <LoggedInRoute
+                      exact
+                      path="/codes-operations"
+                      component={CodesOperations}
+                    />
+                    <LoggedInRoute
+                      exact
+                      path="/categories-avoir"
+                      component={CategoriesAvoir}
+                    />
+                    <LoggedInRoute
+                      exact
+                      path="/adherents"
+                      component={Adherents}
+                    />
+                    <LoggedInRoute
+                      exact
+                      path="/types-adherents"
+                      component={TypesAdherents}
                     />
                     <LoggedInRoute
                       exact
