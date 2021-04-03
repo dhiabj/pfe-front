@@ -16,7 +16,7 @@ export default (state = initialState, action) => {
     case "MOUVEMENT_DELETE_SUCCESS":
       return {
         ...state,
-        res: payload,
+        uploads: state.uploads.filter((mouvement) => mouvement.id !== payload),
       };
     case "MOUVEMENT_DELETE_FAILED":
       return {

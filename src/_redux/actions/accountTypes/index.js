@@ -15,15 +15,10 @@ export const getAccountTypes = () => async (dispatch) => {
 export const deleteAccountType = (NatureCode) => async (dispatch) => {
   const token = localStorage.token;
   try {
-    const response = await axios
-      .delete(`${api}/delete-account-type/${NatureCode}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => {
-        window.location.reload();
-      });
-    dispatch({ type: "ACCOUNT_DELETE_SUCCESS", payload: response });
-    //console.log(response.data);
+    await axios.delete(`${api}/delete-account-type/${NatureCode}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    dispatch({ type: "ACCOUNT_DELETE_SUCCESS", payload: NatureCode });
   } catch (error) {
     dispatch({ type: "ACCOUNT_DELETE_FAILED", payload: error.response });
   }

@@ -2,6 +2,7 @@ const initialState = {};
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state = initialState, action) => {
   const { type, payload } = action;
+  //console.log(action);
   switch (type) {
     case "ACCOUNT_TYPES":
       return {
@@ -11,7 +12,7 @@ export default (state = initialState, action) => {
     case "ACCOUNT_DELETE_SUCCESS":
       return {
         ...state,
-        res: payload,
+        data: state.data.filter((account) => account.NatureCode !== payload),
       };
     case "ACCOUNT_DELETE_FAILED":
       return {

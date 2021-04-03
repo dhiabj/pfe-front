@@ -11,7 +11,7 @@ export default (state = initialState, action) => {
     case "MEMBER_DELETE_SUCCESS":
       return {
         ...state,
-        res: payload,
+        data: state.data.filter((member) => member.MembershipCode !== payload),
       };
     case "MEMBER_DELETE_FAILED":
       return {

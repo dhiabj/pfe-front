@@ -15,15 +15,10 @@ export const getOperationCodes = () => async (dispatch) => {
 export const deleteOperation = (OperationCode) => async (dispatch) => {
   const token = localStorage.token;
   try {
-    const response = await axios
-      .delete(`${api}/delete-operation/${OperationCode}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => {
-        window.location.reload();
-      });
-    dispatch({ type: "OPERATION_DELETE_SUCCESS", payload: response });
-    //console.log(response.data);
+    await axios.delete(`${api}/delete-operation/${OperationCode}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    dispatch({ type: "OPERATION_DELETE_SUCCESS", payload: OperationCode });
   } catch (error) {
     dispatch({ type: "OPERATION_DELETE_FAILED", payload: error.response });
   }

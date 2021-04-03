@@ -15,15 +15,10 @@ export const getMembers = () => async (dispatch) => {
 export const deleteMember = (MembershipCode) => async (dispatch) => {
   const token = localStorage.token;
   try {
-    const response = await axios
-      .delete(`${api}/delete-member/${MembershipCode}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => {
-        window.location.reload();
-      });
-    dispatch({ type: "MEMBER_DELETE_SUCCESS", payload: response });
-    //console.log(response.data);
+    await axios.delete(`${api}/delete-member/${MembershipCode}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    dispatch({ type: "MEMBER_DELETE_SUCCESS", payload: MembershipCode });
   } catch (error) {
     dispatch({ type: "MEMBER_DELETE_FAILED", payload: error.response });
   }

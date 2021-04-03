@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import {
@@ -17,6 +17,7 @@ const ChargementMouvement = () => {
   const [filename, setFilename] = useState("Choisir le fichier");
   const [message, setMessage] = useState("");
   const dispatch = useDispatch();
+
   const onFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
     setFilename(e.target.files[0].name);
@@ -24,6 +25,14 @@ const ChargementMouvement = () => {
     dispatch(resetProgress());
     console.log(selectedFile);
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetProgress());
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const onFileUpload = () => {
     if (filePicked) {
       const formData = new FormData();

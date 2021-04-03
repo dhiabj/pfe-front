@@ -11,7 +11,9 @@ export default (state = initialState, action) => {
     case "CATEGORY_DELETE_SUCCESS":
       return {
         ...state,
-        res: payload,
+        data: state.data.filter(
+          (category) => category.CategoryCode !== payload
+        ),
       };
     case "CATEGORY_DELETE_FAILED":
       return {

@@ -16,7 +16,7 @@ export default (state = initialState, action) => {
     case "STOCK_DELETE_SUCCESS":
       return {
         ...state,
-        res: payload,
+        uploads: state.uploads.filter((stock) => stock.id !== payload),
       };
     case "STOCK_DELETE_FAILED":
       return {

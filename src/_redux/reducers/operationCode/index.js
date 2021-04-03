@@ -11,7 +11,9 @@ export default (state = initialState, action) => {
     case "OPERATION_DELETE_SUCCESS":
       return {
         ...state,
-        res: payload,
+        data: state.data.filter(
+          (operation) => operation.OperationCode !== payload
+        ),
       };
     case "OPERATION_DELETE_FAILED":
       return {

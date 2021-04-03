@@ -29,15 +29,10 @@ export const getMvtUploads = () => async (dispatch) => {
 export const deleteMvtUploads = (id) => async (dispatch) => {
   const token = localStorage.token;
   try {
-    const response = await axios
-      .delete(`${api}/delete-mouvement/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => {
-        window.location.reload();
-      });
-    dispatch({ type: "MOUVEMENT_DELETE_SUCCESS", payload: response });
-    //console.log(response.data);
+    await axios.delete(`${api}/delete-mouvement/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    dispatch({ type: "MOUVEMENT_DELETE_SUCCESS", payload: id });
   } catch (error) {
     dispatch({ type: "MOUVEMENT_DELETE_FAILED", payload: error.response });
   }

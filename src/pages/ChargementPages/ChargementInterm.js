@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { intermUpload, resetProgress } from "../../_redux/actions/fileUpload";
@@ -21,6 +21,14 @@ const ChargementInterm = () => {
     dispatch(resetProgress());
     console.log(selectedFile);
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetProgress());
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const onFileUpload = () => {
     if (filePicked) {
       const formData = new FormData();

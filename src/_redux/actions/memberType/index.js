@@ -15,15 +15,10 @@ export const getMemberTypes = () => async (dispatch) => {
 export const deleteMemberType = (MemberTypeCode) => async (dispatch) => {
   const token = localStorage.token;
   try {
-    const response = await axios
-      .delete(`${api}/delete-member-type/${MemberTypeCode}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => {
-        window.location.reload();
-      });
-    dispatch({ type: "MEMBER_TYPE_DELETE_SUCCESS", payload: response });
-    //console.log(response.data);
+    await axios.delete(`${api}/delete-member-type/${MemberTypeCode}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    dispatch({ type: "MEMBER_TYPE_DELETE_SUCCESS", payload: MemberTypeCode });
   } catch (error) {
     dispatch({ type: "MEMBER_TYPE_DELETE_FAILED", payload: error.response });
   }
