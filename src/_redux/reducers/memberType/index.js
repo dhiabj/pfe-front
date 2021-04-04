@@ -11,11 +11,29 @@ export default (state = initialState, action) => {
     case "MEMBER_TYPE_DELETE_SUCCESS":
       return {
         ...state,
-        data: state.data.filter(
-          (membertype) => membertype.MemberTypeCode !== payload
-        ),
+        data: state.data.filter((membertype) => membertype.id !== payload),
       };
     case "MEMBER_TYPE_DELETE_FAILED":
+      return {
+        ...state,
+        error: payload,
+      };
+    case "MEMBER_TYPE_ADD_SUCCESS":
+      return {
+        ...state,
+        addRes: payload,
+      };
+    case "MEMBER_TYPE_ADD_FAILED":
+      return {
+        ...state,
+        error: payload,
+      };
+    case "MEMBER_TYPE_EDIT_SUCCESS":
+      return {
+        ...state,
+        editRes: payload,
+      };
+    case "MEMBER_TYPE_EDIT_FAILED":
       return {
         ...state,
         error: payload,

@@ -12,13 +12,13 @@ export const getMembers = () => async (dispatch) => {
   }
 };
 
-export const deleteMember = (MembershipCode) => async (dispatch) => {
+export const deleteMember = (id) => async (dispatch) => {
   const token = localStorage.token;
   try {
-    await axios.delete(`${api}/delete-member/${MembershipCode}`, {
+    await axios.delete(`${api}/delete-member/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    dispatch({ type: "MEMBER_DELETE_SUCCESS", payload: MembershipCode });
+    dispatch({ type: "MEMBER_DELETE_SUCCESS", payload: id });
   } catch (error) {
     dispatch({ type: "MEMBER_DELETE_FAILED", payload: error.response });
   }
