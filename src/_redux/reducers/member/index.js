@@ -18,6 +18,26 @@ export default (state = initialState, action) => {
         ...state,
         error: payload,
       };
+    case "MEMBER_ADD_SUCCESS":
+      return {
+        ...state,
+        addRes: payload,
+      };
+    case "MEMBER_ADD_FAILED":
+      return {
+        ...state,
+        error: payload,
+      };
+    case "MEMBER_EDIT_SUCCESS":
+      return {
+        ...state,
+        editRes: payload,
+      };
+    case "MEMBER_EDIT_FAILED":
+      return {
+        ...state,
+        error: payload,
+      };
     default:
       return state;
   }

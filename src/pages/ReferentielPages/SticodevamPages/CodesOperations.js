@@ -5,12 +5,10 @@ import { getOperationCodes } from "../../../_redux/actions/operationCode";
 
 const CodesOperations = () => {
   const dispatch = useDispatch();
-  const token = localStorage.token;
   useEffect(() => {
-    if (!token) return;
     dispatch(getOperationCodes());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token]);
+  }, []);
   const operations = useSelector((state) => state.operationCode.data);
   return (
     <div>

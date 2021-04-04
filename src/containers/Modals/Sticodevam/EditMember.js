@@ -3,8 +3,8 @@ import { Modal, Button, Row, Col, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import Select from "react-select";
-import { addMember } from "../../../_redux/actions/member";
-const AddMember = (props) => {
+import { editMember } from "../../../_redux/actions/member";
+const EditMember = (props) => {
   const dispatch = useDispatch();
 
   const { register, handleSubmit, errors } = useForm();
@@ -25,7 +25,7 @@ const AddMember = (props) => {
   const onSubmit = (values) => {
     if (selectedOption) {
       const addValues = { ...values, MemberTypeId: selectedOption.value };
-      dispatch(addMember(addValues));
+      dispatch(editMember(props.id, addValues));
     }
   };
   return (
@@ -37,7 +37,7 @@ const AddMember = (props) => {
         centered>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Insérer un Adhérent
+            Modifier un Adhérent
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -93,7 +93,7 @@ const AddMember = (props) => {
                   </div>
                   <Form.Group controlId="AddButton">
                     <Button variant="primary" type="submit">
-                      Insérer
+                      Modifier
                     </Button>
                   </Form.Group>
                 </Form>
@@ -111,4 +111,4 @@ const AddMember = (props) => {
   );
 };
 
-export default AddMember;
+export default EditMember;

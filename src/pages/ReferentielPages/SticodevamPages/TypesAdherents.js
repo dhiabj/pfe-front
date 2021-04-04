@@ -5,12 +5,10 @@ import { getMemberTypes } from "../../../_redux/actions/memberType";
 
 const TypesAdherents = () => {
   const dispatch = useDispatch();
-  const token = localStorage.token;
   useEffect(() => {
-    if (!token) return;
     dispatch(getMemberTypes());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token]);
+  }, []);
   const mTypes = useSelector((state) => state.memberType.data);
   return (
     <div>

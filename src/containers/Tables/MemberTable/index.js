@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -8,11 +8,26 @@ import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import "../../../css/styles.css";
 import moment from "moment";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteMember } from "../../../_redux/actions/member";
 import AddMember from "../../Modals/Sticodevam/AddMember";
+import EditMember from "../../Modals/Sticodevam/EditMember";
+import { getMemberTypes } from "../../../_redux/actions/memberType";
 const MemberTable = ({ members }) => {
+  useEffect(() => {
+    dispatch(getMemberTypes());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const membertypes = useSelector((state) => state.memberType.data);
   const [addModalShow, setAddModalShow] = useState(false);
+  const [editModalShow, setEditModalShow] = useState(false);
+  const [id, setId] = useState();
+
+  const openSelectedMemberModal = (id) => {
+    setEditModalShow(true);
+    setId(id);
+  };
+
   const dispatch = useDispatch();
   const deleteMc = (id) => {
     dispatch(deleteMember(id));
@@ -28,7 +43,10 @@ const MemberTable = ({ members }) => {
             onClick={() => deleteMc(row.id)}>
             <DeleteIcon />
           </IconButton>
-          <IconButton aria-label="edit" color="primary">
+          <IconButton
+            aria-label="edit"
+            color="primary"
+            onClick={() => openSelectedMemberModal(row.id)}>
             <EditIcon />
           </IconButton>
         </div>
@@ -44,7 +62,7 @@ const MemberTable = ({ members }) => {
     },
     {
       name: "Type Adhérent",
-      selector: "MemberTypeCode",
+      selector: "MemberType.memberTypeCode",
     },
     {
       name: "Date de mise à jour",
@@ -99,7 +117,17 @@ const MemberTable = ({ members }) => {
           <AddIcon />
         </Fab>
       </div>
-      <AddMember show={addModalShow} onHide={() => setAddModalShow(false)} />
+      <AddMember
+        show={addModalShow}
+        onHide={() => setAddModalShow(false)}
+        membertypes={membertypes}
+      />
+      <EditMember
+        show={editModalShow}
+        onHide={() => setEditModalShow(false)}
+        membertypes={membertypes}
+        id={id}
+      />
     </>
   );
 };
