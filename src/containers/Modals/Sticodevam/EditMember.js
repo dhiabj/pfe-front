@@ -6,9 +6,9 @@ import Select from "react-select";
 import { editMember } from "../../../_redux/actions/member";
 const EditMember = (props) => {
   const dispatch = useDispatch();
-
   const { register, handleSubmit, errors } = useForm();
   const [selectedOption, setSelectedOption] = useState();
+  //console.log(props.id);
 
   const newLabelValuesFromMemberTypesArray = props.membertypes?.map(
     (memberType) => ({
@@ -16,8 +16,16 @@ const EditMember = (props) => {
       label: memberType.MemberTypeCode,
     })
   );
-
   //console.log(newLabelValuesFromMemberTypesArray);
+
+  const memberData = props.members?.find((member) => member.id === props.id);
+  //console.log(memberData);
+
+  const defaultSelect = {
+    value: memberData?.MemberType.id,
+    label: memberData?.MemberType.memberTypeCode,
+  };
+  //console.log(defaultSelect);
 
   const onChangeSelect = (selectedOption) => {
     setSelectedOption(selectedOption);
@@ -26,6 +34,7 @@ const EditMember = (props) => {
     if (selectedOption) {
       const addValues = { ...values, MemberTypeId: selectedOption.value };
       dispatch(editMember(props.id, addValues));
+      props.onHide();
     }
   };
   return (
@@ -59,6 +68,7 @@ const EditMember = (props) => {
                         errors.MembershipCode ? "is-invalid" : ""
                       }`}
                       placeholder="Code Adhérent"
+                      defaultValue={memberData ? memberData.MembershipCode : ""}
                     />
                     {errors.MembershipCode && (
                       <small className="text-danger">Code incorrect</small>
@@ -77,6 +87,7 @@ const EditMember = (props) => {
                         errors.MemberName ? "is-invalid" : ""
                       }`}
                       placeholder="Nom Adhérent"
+                      defaultValue={memberData ? memberData.MemberName : ""}
                     />
                     {errors.MemberName && (
                       <small className="text-danger">Nom incorrect</small>
@@ -89,6 +100,7 @@ const EditMember = (props) => {
                       onChange={onChangeSelect}
                       options={newLabelValuesFromMemberTypesArray}
                       placeholder="Choisissez un type d'adhérent"
+                      defaultValue={defaultSelect}
                     />
                   </div>
                   <Form.Group controlId="AddButton">

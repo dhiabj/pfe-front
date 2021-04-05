@@ -3,7 +3,6 @@ import DataTable from "react-data-table-component";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
-import { makeStyles } from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import "../../../css/styles.css";
@@ -21,27 +20,35 @@ const MemberTypesTable = ({ mTypes }) => {
     setEditModalShow(true);
     setId(id);
   };
+
   const dispatch = useDispatch();
   const deleteMtc = (id) => {
     dispatch(deleteMemberType(id));
   };
+
   const columns = [
     {
       name: "Actions",
       cell: (row) => (
         <div>
-          <IconButton
-            aria-label="delete"
-            color="secondary"
-            onClick={() => deleteMtc(row.id)}>
-            <DeleteIcon />
-          </IconButton>
-          <IconButton
-            aria-label="edit"
-            color="primary"
-            onClick={() => openSelectedMemberTypeModal(row.id)}>
-            <EditIcon />
-          </IconButton>
+          {row.id !== 1 ? (
+            <div>
+              <IconButton
+                aria-label="delete"
+                color="secondary"
+                onClick={() => deleteMtc(row.id)}>
+                <DeleteIcon />
+              </IconButton>
+              <IconButton
+                aria-label="edit"
+                color="primary"
+                onClick={() => openSelectedMemberTypeModal(row.id)}>
+                <EditIcon />
+              </IconButton>
+            </div>
+          ) : (
+            <div className="ml-4">-</div>
+          )}
         </div>
       ),
     },
@@ -51,7 +58,9 @@ const MemberTypesTable = ({ mTypes }) => {
     },
     {
       name: "Libellé Type Adhérent",
-      selector: "MemberTypeLabel",
+      cell: (row) => (
+        <div>{row.MemberTypeLabel ? row.MemberTypeLabel : "-"}</div>
+      ),
     },
     {
       name: "Date de mise à jour",
@@ -74,24 +83,24 @@ const MemberTypesTable = ({ mTypes }) => {
       <label className="custom-control-label" onClick={onClick} />
     </div>
   ));
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      "& > *": {
-        margin: theme.spacing(1),
-        position: "absolute",
-        top: theme.spacing(62),
-        right: theme.spacing(2),
-      },
-    },
-  }));
-  const classes = useStyles();
+
+  const style = {
+    margin: 0,
+    top: "auto",
+    right: 20,
+    bottom: 20,
+    left: "auto",
+    position: "fixed",
+  };
 
   return (
     <>
       <div className="card">
         <DataTable
           title="Liste des types des adhérents"
+          responsive
           overflowY
+          overflowYOffset="150px"
           columns={columns}
           data={mTypes}
           pagination
@@ -99,7 +108,7 @@ const MemberTypesTable = ({ mTypes }) => {
           selectableRowsComponent={BootyCheckbox}
         />
       </div>
-      <div className={classes.root}>
+      <div style={style}>
         <Fab
           color="primary"
           aria-label="add"

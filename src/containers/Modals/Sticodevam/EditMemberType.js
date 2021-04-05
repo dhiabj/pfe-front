@@ -10,6 +10,7 @@ const EditMemberType = (props) => {
   const onSubmit = (values) => {
     //console.log(values);
     dispatch(editMemberType(props.id, values));
+    props.onHide();
   };
   //console.log(props.id);
   return (

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { api } from "../../../api/api";
+import { toast } from "react-toastify";
 
 export const getMemberTypes = () => async (dispatch) => {
   const token = localStorage.token;
@@ -36,9 +37,11 @@ export const addMemberType = (values) => async (dispatch) => {
     );
     dispatch({ type: "MEMBER_TYPE_ADD_SUCCESS", payload: response.data });
     dispatch(getMemberTypes());
+    toast.success("Type Adhérent inséré avec succès");
   } catch (error) {
     //console.log({ error });
     dispatch({ type: "MEMBER_TYPE_ADD_FAILED", payload: error.response });
+    toast.error("Type Adhérent déjà existé");
   }
 };
 

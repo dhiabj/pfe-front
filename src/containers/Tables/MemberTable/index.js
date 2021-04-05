@@ -3,21 +3,23 @@ import DataTable from "react-data-table-component";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
-import { makeStyles } from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import "../../../css/styles.css";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteMember } from "../../../_redux/actions/member";
+import { deleteMember, getMembers } from "../../../_redux/actions/member";
 import AddMember from "../../Modals/Sticodevam/AddMember";
 import EditMember from "../../Modals/Sticodevam/EditMember";
 import { getMemberTypes } from "../../../_redux/actions/memberType";
-const MemberTable = ({ members }) => {
+const MemberTable = () => {
   useEffect(() => {
+    dispatch(getMembers());
     dispatch(getMemberTypes());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const members = useSelector((state) => state.member.data);
   const membertypes = useSelector((state) => state.memberType.data);
   const [addModalShow, setAddModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
@@ -32,6 +34,7 @@ const MemberTable = ({ members }) => {
   const deleteMc = (id) => {
     dispatch(deleteMember(id));
   };
+
   const columns = [
     {
       name: "Actions",
@@ -55,10 +58,11 @@ const MemberTable = ({ members }) => {
     {
       name: "Code Adhérent",
       selector: "MembershipCode",
+      sortable: true,
     },
     {
       name: "Nom Adhérent",
-      selector: "MemberName",
+      cell: (row) => <div>{row.MemberName ? row.MemberName : "-"}</div>,
     },
     {
       name: "Type Adhérent",
@@ -73,6 +77,7 @@ const MemberTable = ({ members }) => {
       ),
     },
   ];
+
   const BootyCheckbox = React.forwardRef(({ onClick, ...rest }, ref) => (
     <div className="custom-control custom-checkbox">
       <input
@@ -84,32 +89,33 @@ const MemberTable = ({ members }) => {
       <label className="custom-control-label" onClick={onClick} />
     </div>
   ));
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      "& > *": {
-        margin: theme.spacing(1),
-        position: "absolute",
-        top: theme.spacing(62),
-        right: theme.spacing(2),
-      },
-    },
-  }));
-  const classes = useStyles();
+
+  const style = {
+    margin: 0,
+    top: "auto",
+    right: 20,
+    bottom: 20,
+    left: "auto",
+    position: "fixed",
+  };
 
   return (
     <>
       <div className="card">
         <DataTable
           title="Liste des adhérents"
+          responsive
           overflowY
+          overflowYOffset="150px"
           columns={columns}
           data={members}
+          defaultSortField="Code Adhérent"
           pagination
           selectableRows
           selectableRowsComponent={BootyCheckbox}
         />
       </div>
-      <div className={classes.root}>
+      <div style={style}>
         <Fab
           color="primary"
           aria-label="add"
@@ -126,6 +132,7 @@ const MemberTable = ({ members }) => {
         show={editModalShow}
         onHide={() => setEditModalShow(false)}
         membertypes={membertypes}
+        members={members}
         id={id}
       />
     </>

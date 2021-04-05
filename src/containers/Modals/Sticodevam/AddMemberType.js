@@ -9,6 +9,7 @@ const AddMemberType = (props) => {
   const dispatch = useDispatch();
   const onSubmit = (values) => {
     dispatch(addMemberType(values));
+    props.onHide();
   };
   return (
     <div>

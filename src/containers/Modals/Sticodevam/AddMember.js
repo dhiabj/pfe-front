@@ -26,6 +26,7 @@ const AddMember = (props) => {
     if (selectedOption) {
       const addValues = { ...values, MemberTypeId: selectedOption.value };
       dispatch(addMember(addValues));
+      props.onHide();
     }
   };
   return (
