@@ -67,7 +67,9 @@ const MvtUploadTable = ({ mvtUploads }) => {
       <div className="card">
         <DataTable
           title="Renseignements sur les chargements de données MOUVEMENT"
+          responsive
           overflowY
+          overflowYOffset="150px"
           columns={columns}
           data={mvtUploads}
           pagination

@@ -29,7 +29,7 @@ export const addMember = (values) => async (dispatch) => {
   } catch (error) {
     //console.log({ error });
     dispatch({ type: "MEMBER_ADD_FAILED", payload: error.response });
-    toast.error("Adhérent déjà existé");
+    toast.error("Code adhérent déjà existé");
   }
 };
 
@@ -47,6 +47,7 @@ export const editMember = (id, values) => async (dispatch) => {
     dispatch(getMembers());
   } catch (error) {
     dispatch({ type: "MEMBER_EDIT_FAILED", payload: error.response });
+    toast.error("Code adhérent déjà existé");
     console.log(error);
   }
 };

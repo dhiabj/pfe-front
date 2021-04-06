@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -7,11 +7,20 @@ import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import "../../../css/styles.css";
 import moment from "moment";
-import { useDispatch } from "react-redux";
-import { deleteMemberType } from "../../../_redux/actions/memberType";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  deleteMemberType,
+  getMemberTypes,
+} from "../../../_redux/actions/memberType";
 import AddMemberType from "../../Modals/Sticodevam/AddMemberType";
 import EditMemberType from "../../Modals/Sticodevam/EditMemberType";
-const MemberTypesTable = ({ mTypes }) => {
+const MemberTypesTable = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getMemberTypes());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const mTypes = useSelector((state) => state.memberType.data);
   const [addModalShow, setAddModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
   const [id, setId] = useState();
@@ -21,7 +30,6 @@ const MemberTypesTable = ({ mTypes }) => {
     setId(id);
   };
 
-  const dispatch = useDispatch();
   const deleteMtc = (id) => {
     dispatch(deleteMemberType(id));
   };
@@ -31,7 +39,7 @@ const MemberTypesTable = ({ mTypes }) => {
       name: "Actions",
       cell: (row) => (
         <div>
-          {row.id !== 1 ? (
+          {row.MemberTypeCode !== "-" ? (
             <div>
               <IconButton
                 aria-label="delete"
@@ -123,6 +131,7 @@ const MemberTypesTable = ({ mTypes }) => {
       <EditMemberType
         show={editModalShow}
         onHide={() => setEditModalShow(false)}
+        mTypes={mTypes}
         id={id}
       />
     </>

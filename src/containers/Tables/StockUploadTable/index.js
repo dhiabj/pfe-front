@@ -67,7 +67,9 @@ const StockUploadTable = ({ stockUploads }) => {
       <div className="card">
         <DataTable
           title="Renseignements sur les chargements de données STOCK"
+          responsive
           overflowY
+          overflowYOffset="150px"
           columns={columns}
           data={stockUploads}
           pagination

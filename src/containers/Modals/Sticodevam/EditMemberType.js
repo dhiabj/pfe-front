@@ -13,6 +13,12 @@ const EditMemberType = (props) => {
     props.onHide();
   };
   //console.log(props.id);
+
+  const memberTypeData = props.mTypes?.find(
+    (memberType) => memberType.id === props.id
+  );
+  //console.log(memberTypeData);
+
   return (
     <div>
       <Modal
@@ -35,14 +41,14 @@ const EditMemberType = (props) => {
                     <Form.Control
                       type="text"
                       name="MemberTypeCode"
-                      ref={register({
-                        required: true,
-                        pattern: /^[A-Za-z]+$/i,
-                      })}
+                      ref={register({ required: true })}
                       className={`form-control ${
                         errors.MemberTypeCode ? "is-invalid" : ""
                       }`}
                       placeholder="Code Type Adhérent"
+                      defaultValue={
+                        memberTypeData ? memberTypeData.MemberTypeCode : ""
+                      }
                     />
                     {errors.MemberTypeCode && (
                       <small className="text-danger">Code incorrect</small>
@@ -53,14 +59,14 @@ const EditMemberType = (props) => {
                     <Form.Control
                       type="text"
                       name="MemberTypeLabel"
-                      ref={register({
-                        required: true,
-                        pattern: /^[A-Za-z]+$/i,
-                      })}
+                      ref={register({ required: true })}
                       className={`form-control ${
                         errors.MemberTypeLabel ? "is-invalid" : ""
                       }`}
                       placeholder="Libellé Type Adhérent"
+                      defaultValue={
+                        memberTypeData ? memberTypeData.MemberTypeLabel : ""
+                      }
                     />
                     {errors.MemberTypeLabel && (
                       <small className="text-danger">Libellé incorrect</small>

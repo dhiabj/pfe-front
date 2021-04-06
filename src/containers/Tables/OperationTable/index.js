@@ -1,31 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
-import { makeStyles } from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import "../../../css/styles.css";
 import moment from "moment";
-import { useDispatch } from "react-redux";
-import { deleteOperation } from "../../../_redux/actions/operationCode";
-const OperationTable = ({ operations }) => {
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      "& > *": {
-        margin: theme.spacing(1),
-        position: "absolute",
-        top: theme.spacing(62),
-        right: theme.spacing(2),
-      },
-    },
-  }));
-  const classes = useStyles();
+import { useDispatch, useSelector } from "react-redux";
+import {
+  deleteOperation,
+  getOperations,
+} from "../../../_redux/actions/operationCode";
+import AddOperation from "../../Modals/Sticodevam/AddOperation";
+import EditOperation from "../../Modals/Sticodevam/EditOperation";
+const OperationTable = () => {
   const dispatch = useDispatch();
-  const deleteOc = (OperationCode) => {
-    dispatch(deleteOperation(OperationCode));
+  useEffect(() => {
+    dispatch(getOperations());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const operations = useSelector((state) => state.operationCode.data);
+  const [addModalShow, setAddModalShow] = useState(false);
+  const [editModalShow, setEditModalShow] = useState(false);
+  const [id, setId] = useState();
+
+  const openSelectedOperationModal = (id) => {
+    setEditModalShow(true);
+    setId(id);
   };
+
+  const deleteOc = (id) => {
+    dispatch(deleteOperation(id));
+  };
+
   const columns = [
     {
       name: "Actions",
@@ -34,10 +42,13 @@ const OperationTable = ({ operations }) => {
           <IconButton
             aria-label="delete"
             color="secondary"
-            onClick={() => deleteOc(row.OperationCode)}>
+            onClick={() => deleteOc(row.id)}>
             <DeleteIcon />
           </IconButton>
-          <IconButton aria-label="edit" color="primary">
+          <IconButton
+            aria-label="edit"
+            color="primary"
+            onClick={() => openSelectedOperationModal(row.id)}>
             <EditIcon />
           </IconButton>
         </div>
@@ -49,7 +60,7 @@ const OperationTable = ({ operations }) => {
     },
     {
       name: "Libellé Opération",
-      selector: "OperationLabel",
+      cell: (row) => <div>{row.OperationLabel ? row.OperationLabel : "-"}</div>,
     },
     {
       name: "Date de mise à jour",
@@ -72,12 +83,24 @@ const OperationTable = ({ operations }) => {
       <label className="custom-control-label" onClick={onClick} />
     </div>
   ));
+
+  const style = {
+    margin: 0,
+    top: "auto",
+    right: 20,
+    bottom: 20,
+    left: "auto",
+    position: "fixed",
+  };
+
   return (
-    <div>
+    <>
       <div className="card">
         <DataTable
           title="Liste des codes opérations"
+          responsive
           overflowY
+          overflowYOffset="150px"
           columns={columns}
           data={operations}
           pagination
@@ -85,12 +108,22 @@ const OperationTable = ({ operations }) => {
           selectableRowsComponent={BootyCheckbox}
         />
       </div>
-      <div className={classes.root}>
-        <Fab color="primary" aria-label="add">
+      <div style={style}>
+        <Fab
+          color="primary"
+          aria-label="add"
+          onClick={() => setAddModalShow(true)}>
           <AddIcon />
         </Fab>
       </div>
-    </div>
+      <AddOperation show={addModalShow} onHide={() => setAddModalShow(false)} />
+      <EditOperation
+        show={editModalShow}
+        onHide={() => setEditModalShow(false)}
+        operations={operations}
+        id={id}
+      />
+    </>
   );
 };
 

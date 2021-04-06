@@ -2,13 +2,13 @@ import React from "react";
 import { Modal, Button, Row, Col, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { addMemberType } from "../../../_redux/actions/memberType";
+import { addAccountType } from "../../../_redux/actions/accountTypes";
 
-const AddMemberType = (props) => {
+const AddAccountType = (props) => {
   const { register, handleSubmit, errors } = useForm();
   const dispatch = useDispatch();
   const onSubmit = (values) => {
-    dispatch(addMemberType(values));
+    dispatch(addAccountType(values));
     props.onHide();
   };
   return (
@@ -20,7 +20,7 @@ const AddMemberType = (props) => {
         centered>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Insérer un type d'adhérent
+            Insérer un nature de compte
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -28,33 +28,37 @@ const AddMemberType = (props) => {
             <Row>
               <Col>
                 <Form onSubmit={handleSubmit(onSubmit)}>
-                  <Form.Group controlId="AddMemberTypeCode">
-                    <Form.Label>Code Type Adhérent</Form.Label>
+                  <Form.Group controlId="AddAccountTypeCode">
+                    <Form.Label>Code Nature de Compte</Form.Label>
                     <Form.Control
                       type="text"
-                      name="MemberTypeCode"
-                      ref={register({ required: true })}
+                      name="AccountTypeCode"
+                      ref={register({
+                        required: true,
+                        pattern: /[0-9]{2}/,
+                        maxLength: 2,
+                      })}
                       className={`form-control ${
-                        errors.MemberTypeCode ? "is-invalid" : ""
+                        errors.AccountTypeCode ? "is-invalid" : ""
                       }`}
-                      placeholder="Code Type Adhérent"
+                      placeholder="Code Nature de Compte"
                     />
-                    {errors.MemberTypeCode && (
+                    {errors.AccountTypeCode && (
                       <small className="text-danger">Code incorrect</small>
                     )}
                   </Form.Group>
-                  <Form.Group controlId="AddMemberTypeLabel">
-                    <Form.Label>Libellé Type Adhérent</Form.Label>
+                  <Form.Group controlId="AddAccountTypeLabel">
+                    <Form.Label>Libellé Nature de Compte</Form.Label>
                     <Form.Control
                       type="text"
-                      name="MemberTypeLabel"
+                      name="AccountTypeLabel"
                       ref={register({ required: true })}
                       className={`form-control ${
-                        errors.MemberTypeLabel ? "is-invalid" : ""
+                        errors.AccountTypeLabel ? "is-invalid" : ""
                       }`}
-                      placeholder="Libellé Type Adhérent"
+                      placeholder="Libellé Nature de Compte"
                     />
-                    {errors.MemberTypeLabel && (
+                    {errors.AccountTypeLabel && (
                       <small className="text-danger">Libellé incorrect</small>
                     )}
                   </Form.Group>
@@ -78,4 +82,4 @@ const AddMemberType = (props) => {
   );
 };
 
-export default AddMemberType;
+export default AddAccountType;

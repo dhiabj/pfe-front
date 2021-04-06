@@ -38,7 +38,7 @@ const AddMember = (props) => {
         centered>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Insérer un Adhérent
+            Insérer un adhérent
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -70,10 +70,7 @@ const AddMember = (props) => {
                     <Form.Control
                       type="text"
                       name="MemberName"
-                      ref={register({
-                        required: true,
-                        pattern: /^[A-Za-z.]+$/i,
-                      })}
+                      ref={register({ required: true })}
                       className={`form-control ${
                         errors.MemberName ? "is-invalid" : ""
                       }`}

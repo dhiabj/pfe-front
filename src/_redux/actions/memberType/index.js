@@ -37,11 +37,11 @@ export const addMemberType = (values) => async (dispatch) => {
     );
     dispatch({ type: "MEMBER_TYPE_ADD_SUCCESS", payload: response.data });
     dispatch(getMemberTypes());
-    toast.success("Type Adhérent inséré avec succès");
+    toast.success("Type adhérent inséré avec succès");
   } catch (error) {
     //console.log({ error });
     dispatch({ type: "MEMBER_TYPE_ADD_FAILED", payload: error.response });
-    toast.error("Type Adhérent déjà existé");
+    toast.error("Code type adhérent déjà existé");
   }
 };
 
@@ -59,6 +59,7 @@ export const editMemberType = (id, values) => async (dispatch) => {
     dispatch(getMemberTypes());
   } catch (error) {
     dispatch({ type: "MEMBER_TYPE_EDIT_FAILED", payload: error.response });
+    toast.error("Code type adhérent déjà existé");
     console.log(error);
   }
 };

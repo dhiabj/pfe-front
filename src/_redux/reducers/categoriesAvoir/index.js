@@ -8,12 +8,30 @@ export default (state = initialState, action) => {
         ...state,
         data: payload,
       };
+    case "CATEGORY_ADD_SUCCESS":
+      return {
+        ...state,
+        addRes: payload,
+      };
+    case "CATEGORY_ADD_FAILED":
+      return {
+        ...state,
+        error: payload,
+      };
+    case "CATEGORY_EDIT_SUCCESS":
+      return {
+        ...state,
+        editRes: payload,
+      };
+    case "CATEGORY_EDIT_FAILED":
+      return {
+        ...state,
+        error: payload,
+      };
     case "CATEGORY_DELETE_SUCCESS":
       return {
         ...state,
-        data: state.data.filter(
-          (category) => category.CategoryCode !== payload
-        ),
+        data: state.data.filter((category) => category.id !== payload),
       };
     case "CATEGORY_DELETE_FAILED":
       return {

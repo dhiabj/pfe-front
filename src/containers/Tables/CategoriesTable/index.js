@@ -1,30 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
-import { makeStyles } from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import "../../../css/styles.css";
-import { useDispatch } from "react-redux";
-import { deleteCategory } from "../../../_redux/actions/categoriesAvoir";
-const CategoriesTable = ({ categories }) => {
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      "& > *": {
-        margin: theme.spacing(1),
-        position: "absolute",
-        top: theme.spacing(62),
-        right: theme.spacing(2),
-      },
-    },
-  }));
-  const classes = useStyles();
+import { useDispatch, useSelector } from "react-redux";
+import {
+  deleteCategory,
+  getCategories,
+} from "../../../_redux/actions/categoriesAvoir";
+import AddCategory from "../../Modals/Sticodevam/AddCategory";
+import EditCategory from "../../Modals/Sticodevam/EditCategory";
+const CategoriesTable = () => {
   const dispatch = useDispatch();
-  const deleteCc = (CategoryCode) => {
-    dispatch(deleteCategory(CategoryCode));
+  useEffect(() => {
+    dispatch(getCategories());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const categories = useSelector((state) => state.categoriesAvoir.data);
+  const [addModalShow, setAddModalShow] = useState(false);
+  const [editModalShow, setEditModalShow] = useState(false);
+  const [id, setId] = useState();
+
+  const openSelectedCategoryModal = (id) => {
+    setEditModalShow(true);
+    setId(id);
   };
+
+  const deleteCc = (id) => {
+    dispatch(deleteCategory(id));
+  };
+
   const columns = [
     {
       name: "Actions",
@@ -33,10 +41,13 @@ const CategoriesTable = ({ categories }) => {
           <IconButton
             aria-label="delete"
             color="secondary"
-            onClick={() => deleteCc(row.CategoryCode)}>
+            onClick={() => deleteCc(row.id)}>
             <DeleteIcon />
           </IconButton>
-          <IconButton aria-label="edit" color="primary">
+          <IconButton
+            aria-label="edit"
+            color="primary"
+            onClick={() => openSelectedCategoryModal(row.id)}>
             <EditIcon />
           </IconButton>
         </div>
@@ -45,10 +56,11 @@ const CategoriesTable = ({ categories }) => {
     {
       name: "Code Catégorie d'avoir",
       selector: "CategoryCode",
+      sortable: true,
     },
     {
       name: "Libellé Catégorie d'avoir",
-      selector: "CategoryLabel",
+      cell: (row) => <div>{row.CategoryLabel ? row.CategoryLabel : "-"}</div>,
     },
   ];
 
@@ -63,25 +75,48 @@ const CategoriesTable = ({ categories }) => {
       <label className="custom-control-label" onClick={onClick} />
     </div>
   ));
+
+  const style = {
+    margin: 0,
+    top: "auto",
+    right: 20,
+    bottom: 20,
+    left: "auto",
+    position: "fixed",
+  };
+
   return (
-    <div>
+    <>
       <div className="card">
         <DataTable
           title="Liste des catégories d'avoir"
+          responsive
           overflowY
+          overflowYOffset="150px"
           columns={columns}
           data={categories}
+          defaultSortField="Code Catégorie d'avoir"
           pagination
           selectableRows
           selectableRowsComponent={BootyCheckbox}
         />
       </div>
-      <div className={classes.root}>
-        <Fab color="primary" aria-label="add">
+      <div style={style}>
+        <Fab
+          color="primary"
+          aria-label="add"
+          onClick={() => setAddModalShow(true)}>
           <AddIcon />
         </Fab>
       </div>
-    </div>
+      <AddCategory show={addModalShow} onHide={() => setAddModalShow(false)} />
+      <EditCategory
+        show={editModalShow}
+        onHide={() => setEditModalShow(false)}
+        categories={categories}
+        id={id}
+      />
+    </>
   );
 };
 

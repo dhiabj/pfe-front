@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 import { api } from "../../../api/api";
 
 export const getAccountTypes = () => async (dispatch) => {
@@ -12,14 +13,53 @@ export const getAccountTypes = () => async (dispatch) => {
   }
 };
 
-export const deleteAccountType = (NatureCode) => async (dispatch) => {
+export const addAccountType = (values) => async (dispatch) => {
   const token = localStorage.token;
   try {
-    await axios.delete(`${api}/delete-account-type/${NatureCode}`, {
+    const response = await axios.post(
+      `${api}/add-account-type`,
+      { ...values },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    dispatch({ type: "ACCOUNT_TYPE_ADD_SUCCESS", payload: response.data });
+    dispatch(getAccountTypes());
+    toast.success("Nature de compte inséré avec succès");
+  } catch (error) {
+    //console.log({ error });
+    dispatch({ type: "ACCOUNT_TYPE_ADD_FAILED", payload: error.response });
+    toast.error("Code nature de compte déjà existé");
+  }
+};
+
+export const editAccountType = (id, values) => async (dispatch) => {
+  const token = localStorage.token;
+  try {
+    const response = await axios.put(
+      `${api}/edit-account-type/${id}`,
+      { ...values },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    dispatch({ type: "ACCOUNT_TYPE_EDIT_SUCCESS", payload: response.data });
+    dispatch(getAccountTypes());
+  } catch (error) {
+    dispatch({ type: "ACCOUNT_TYPE_EDIT_FAILED", payload: error.response });
+    toast.error("Code nature de compte déjà existé");
+    console.log(error);
+  }
+};
+
+export const deleteAccountType = (id) => async (dispatch) => {
+  const token = localStorage.token;
+  try {
+    await axios.delete(`${api}/delete-account-type/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    dispatch({ type: "ACCOUNT_DELETE_SUCCESS", payload: NatureCode });
+    dispatch({ type: "ACCOUNT_TYPE_DELETE_SUCCESS", payload: id });
   } catch (error) {
-    dispatch({ type: "ACCOUNT_DELETE_FAILED", payload: error.response });
+    dispatch({ type: "ACCOUNT_TYPE_DELETE_FAILED", payload: error.response });
   }
 };
