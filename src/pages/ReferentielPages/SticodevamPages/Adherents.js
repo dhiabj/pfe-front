@@ -1,5 +1,5 @@
 import React from "react";
-import MemberTable from "../../../containers/Tables/MemberTable";
+import MemberTable from "../../../containers/Tables/SticodevamTables/MemberTable";
 
 const Adherents = () => {
   return (

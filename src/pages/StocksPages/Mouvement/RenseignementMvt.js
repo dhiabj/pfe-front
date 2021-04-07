@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import MvtUploadTable from "../../../containers/Tables/MvtUploadTable";
+import MvtUploadTable from "../../../containers/Tables/SticodevamTables/MvtUploadTable";
 import { getMvtUploads } from "../../../_redux/actions/mouvements";
 
 const RenseignementMvt = () => {

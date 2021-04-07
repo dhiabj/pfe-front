@@ -35,7 +35,7 @@ const EditOperation = (props) => {
           <div className="container">
             <Row>
               <Col>
-                <Form onSubmit={handleSubmit(onSubmit)}>
+                <Form onSubmit={handleSubmit(onSubmit)} id="editOperationForm">
                   <Form.Group controlId="EditOperationCode">
                     <Form.Label>Code Opération</Form.Label>
                     <Form.Control
@@ -63,23 +63,12 @@ const EditOperation = (props) => {
                     <Form.Control
                       type="text"
                       name="OperationLabel"
-                      ref={register({ required: true })}
-                      className={`form-control ${
-                        errors.OperationLabel ? "is-invalid" : ""
-                      }`}
+                      ref={register({ required: false })}
                       placeholder="Libellé Type Adhérent"
                       defaultValue={
                         operationData ? operationData.OperationLabel : ""
                       }
                     />
-                    {errors.OperationLabel && (
-                      <small className="text-danger">Libellé incorrect</small>
-                    )}
-                  </Form.Group>
-                  <Form.Group controlId="EditButton">
-                    <Button variant="primary" type="submit">
-                      Modifier
-                    </Button>
                   </Form.Group>
                 </Form>
               </Col>
@@ -89,6 +78,9 @@ const EditOperation = (props) => {
         <Modal.Footer>
           <Button variant="danger" onClick={props.onHide}>
             Fermer
+          </Button>
+          <Button variant="success" type="submit" form="editOperationForm">
+            Modifier
           </Button>
         </Modal.Footer>
       </Modal>

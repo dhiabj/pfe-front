@@ -5,34 +5,29 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
-import "../../../css/styles.css";
-import moment from "moment";
+import "../../../../css/styles.css";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteMember, getMembers } from "../../../_redux/actions/member";
-import AddMember from "../../Modals/Sticodevam/AddMember";
-import EditMember from "../../Modals/Sticodevam/EditMember";
-import { getMemberTypes } from "../../../_redux/actions/memberType";
-const MemberTable = () => {
+import { deleteValue, getValues } from "../../../../_redux/actions/values";
+import AddValue from "../../../Modals/GeneralRef/AddValue";
+import EditValue from "../../../Modals/GeneralRef/EditValue";
+const ValuesTable = () => {
+  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getMembers());
-    dispatch(getMemberTypes());
+    dispatch(getValues());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const members = useSelector((state) => state.member.data);
-  const membertypes = useSelector((state) => state.memberType.data);
+  const values = useSelector((state) => state.values.data);
   const [addModalShow, setAddModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
   const [id, setId] = useState();
 
-  const openSelectedMemberModal = (id) => {
+  const openSelectedValueModal = (id) => {
     setEditModalShow(true);
     setId(id);
   };
 
-  const dispatch = useDispatch();
-  const deleteMc = (id) => {
-    dispatch(deleteMember(id));
+  const deleteCv = (id) => {
+    dispatch(deleteValue(id));
   };
 
   const columns = [
@@ -43,38 +38,53 @@ const MemberTable = () => {
           <IconButton
             aria-label="delete"
             color="secondary"
-            onClick={() => deleteMc(row.id)}>
+            onClick={() => deleteCv(row.id)}>
             <DeleteIcon />
           </IconButton>
           <IconButton
             aria-label="edit"
             color="primary"
-            onClick={() => openSelectedMemberModal(row.id)}>
+            onClick={() => openSelectedValueModal(row.id)}>
             <EditIcon />
           </IconButton>
         </div>
       ),
+      compact: true,
     },
     {
-      name: "Code Adhérent",
-      selector: "MembershipCode",
+      name: "Code STICODEVAM",
+      cell: (row) => <div>{row.Isin.substring(5, 11)}</div>,
       sortable: true,
     },
     {
-      name: "Nom Adhérent",
-      cell: (row) => <div>{row.MemberName ? row.MemberName : "-"}</div>,
+      name: "Libellé de la valeur",
+      cell: (row) => <div>{row.ValueLabel ? row.ValueLabel : "-"}</div>,
     },
     {
-      name: "Type Adhérent",
-      selector: "MemberType.memberTypeCode",
+      name: "Mnémonique",
+      cell: (row) => <div>{row.Mnemonique ? row.Mnemonique : "-"}</div>,
     },
     {
-      name: "Date de mise à jour",
+      name: "Type de la Valeur",
+      cell: (row) => <div>{row.ValueType ? row.ValueType : "-"}</div>,
+    },
+    {
+      name: "Nb titres admis en bourse",
       cell: (row) => (
-        <div>
-          {row.UpdateDate ? moment(row.UpdateDate).format("YYYY-MM-DD") : "-"}
-        </div>
+        <div>{row.NbTitresadmisBourse ? row.NbTitresadmisBourse : "-"}</div>
       ),
+    },
+    {
+      name: "Nb de titres flottants",
+      cell: (row) => <div>{row.NbCodFlott ? row.NbCodFlott : "-"}</div>,
+    },
+    {
+      name: "Groupe de cotation",
+      cell: (row) => <div>{row.GroupCotation ? row.GroupCotation : "-"}</div>,
+    },
+    {
+      name: "Super Secteur",
+      cell: (row) => <div>{row.SuperSecteur ? row.SuperSecteur : "-"}</div>,
     },
   ];
 
@@ -90,32 +100,23 @@ const MemberTable = () => {
     </div>
   ));
 
-  const style = {
-    margin: 0,
-    top: "auto",
-    right: 20,
-    bottom: 20,
-    left: "auto",
-    position: "fixed",
-  };
-
   return (
     <>
       <div className="card">
         <DataTable
-          title="Liste des adhérents"
+          title="Données Générales"
           responsive
           overflowY
           overflowYOffset="150px"
           columns={columns}
-          data={members}
-          defaultSortField="Code Adhérent"
+          data={values}
+          defaultSortField="Code STICODEVAM"
           pagination
           selectableRows
           selectableRowsComponent={BootyCheckbox}
         />
       </div>
-      <div style={style}>
+      <div className="add-button">
         <Fab
           color="primary"
           aria-label="add"
@@ -123,20 +124,15 @@ const MemberTable = () => {
           <AddIcon />
         </Fab>
       </div>
-      <AddMember
-        show={addModalShow}
-        onHide={() => setAddModalShow(false)}
-        membertypes={membertypes}
-      />
-      <EditMember
+      <AddValue show={addModalShow} onHide={() => setAddModalShow(false)} />
+      <EditValue
         show={editModalShow}
         onHide={() => setEditModalShow(false)}
-        membertypes={membertypes}
-        members={members}
+        values={values}
         id={id}
       />
     </>
   );
 };
 
-export default MemberTable;
+export default ValuesTable;

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import StockUploadTable from "../../../containers/Tables/StockUploadTable";
+import StockUploadTable from "../../../containers/Tables/SticodevamTables/StockUploadTable";
 import { getStockUploads } from "../../../_redux/actions/stocks";
 
 const RenseignementStock = () => {

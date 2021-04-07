@@ -35,7 +35,7 @@ const EditCategory = (props) => {
           <div className="container">
             <Row>
               <Col>
-                <Form onSubmit={handleSubmit(onSubmit)}>
+                <Form onSubmit={handleSubmit(onSubmit)} id="editCategoryForm">
                   <Form.Group controlId="EditCategoryCode">
                     <Form.Label>Code Catégorie d'avoir</Form.Label>
                     <Form.Control
@@ -63,23 +63,12 @@ const EditCategory = (props) => {
                     <Form.Control
                       type="text"
                       name="CategoryLabel"
-                      ref={register({ required: true })}
-                      className={`form-control ${
-                        errors.CategoryLabel ? "is-invalid" : ""
-                      }`}
+                      ref={register({ required: false })}
                       placeholder="Libellé Catégorie d'avoir"
                       defaultValue={
                         categoryData ? categoryData.CategoryLabel : ""
                       }
                     />
-                    {errors.CategoryLabel && (
-                      <small className="text-danger">Libellé incorrect</small>
-                    )}
-                  </Form.Group>
-                  <Form.Group controlId="EditButton">
-                    <Button variant="primary" type="submit">
-                      Modifier
-                    </Button>
                   </Form.Group>
                 </Form>
               </Col>
@@ -89,6 +78,9 @@ const EditCategory = (props) => {
         <Modal.Footer>
           <Button variant="danger" onClick={props.onHide}>
             Fermer
+          </Button>
+          <Button variant="success" type="submit" form="editCategoryForm">
+            Modifier
           </Button>
         </Modal.Footer>
       </Modal>

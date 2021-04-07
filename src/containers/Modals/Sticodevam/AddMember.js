@@ -45,7 +45,7 @@ const AddMember = (props) => {
           <div className="container">
             <Row>
               <Col>
-                <Form onSubmit={handleSubmit(onSubmit)}>
+                <Form onSubmit={handleSubmit(onSubmit)} id="memberForm">
                   <Form.Group controlId="AddMembershipCode">
                     <Form.Label>Code Adhérent</Form.Label>
                     <Form.Control
@@ -70,15 +70,9 @@ const AddMember = (props) => {
                     <Form.Control
                       type="text"
                       name="MemberName"
-                      ref={register({ required: true })}
-                      className={`form-control ${
-                        errors.MemberName ? "is-invalid" : ""
-                      }`}
+                      ref={register({ required: false })}
                       placeholder="Nom Adhérent"
                     />
-                    {errors.MemberName && (
-                      <small className="text-danger">Nom incorrect</small>
-                    )}
                   </Form.Group>
                   <div className="mb-3">
                     <label>Type Adhérent</label>
@@ -89,11 +83,6 @@ const AddMember = (props) => {
                       placeholder="Choisissez un type d'adhérent"
                     />
                   </div>
-                  <Form.Group controlId="AddButton">
-                    <Button variant="primary" type="submit">
-                      Insérer
-                    </Button>
-                  </Form.Group>
                 </Form>
               </Col>
             </Row>
@@ -102,6 +91,9 @@ const AddMember = (props) => {
         <Modal.Footer>
           <Button variant="danger" onClick={props.onHide}>
             Fermer
+          </Button>
+          <Button variant="primary" type="submit" form="memberForm">
+            Insérer
           </Button>
         </Modal.Footer>
       </Modal>

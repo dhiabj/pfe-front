@@ -35,7 +35,9 @@ const EditAccountType = (props) => {
           <div className="container">
             <Row>
               <Col>
-                <Form onSubmit={handleSubmit(onSubmit)}>
+                <Form
+                  onSubmit={handleSubmit(onSubmit)}
+                  id="editAccountTypeForm">
                   <Form.Group controlId="EditAccountTypeCode">
                     <Form.Label>Code Nature de Compte</Form.Label>
                     <Form.Control
@@ -63,10 +65,7 @@ const EditAccountType = (props) => {
                     <Form.Control
                       type="text"
                       name="AccountTypeLabel"
-                      ref={register({ required: true })}
-                      className={`form-control ${
-                        errors.AccountTypeLabel ? "is-invalid" : ""
-                      }`}
+                      ref={register({ required: false })}
                       placeholder="Libellé Nature de Compte"
                       defaultValue={
                         accountTypeData
@@ -74,14 +73,6 @@ const EditAccountType = (props) => {
                           : ""
                       }
                     />
-                    {errors.AccountTypeLabel && (
-                      <small className="text-danger">Libellé incorrect</small>
-                    )}
-                  </Form.Group>
-                  <Form.Group controlId="EditButton">
-                    <Button variant="primary" type="submit">
-                      Modifier
-                    </Button>
                   </Form.Group>
                 </Form>
               </Col>
@@ -91,6 +82,9 @@ const EditAccountType = (props) => {
         <Modal.Footer>
           <Button variant="danger" onClick={props.onHide}>
             Fermer
+          </Button>
+          <Button variant="success" type="submit" form="editAccountTypeForm">
+            Modifier
           </Button>
         </Modal.Footer>
       </Modal>

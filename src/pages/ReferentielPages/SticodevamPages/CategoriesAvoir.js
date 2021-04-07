@@ -1,5 +1,5 @@
 import React from "react";
-import CategoriesTable from "../../../containers/Tables/CategoriesTable";
+import CategoriesTable from "../../../containers/Tables/SticodevamTables/CategoriesTable";
 
 const CategoriesAvoir = () => {
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import OperationTable from "../../../containers/Tables/OperationTable";
+import OperationTable from "../../../containers/Tables/SticodevamTables/OperationTable";
 
 const CodesOperations = () => {
   return (

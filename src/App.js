@@ -26,6 +26,7 @@ import CodesOperations from "./pages/ReferentielPages/SticodevamPages/CodesOpera
 import CategoriesAvoir from "./pages/ReferentielPages/SticodevamPages/CategoriesAvoir";
 import Adherents from "./pages/ReferentielPages/SticodevamPages/Adherents";
 import TypesAdherents from "./pages/ReferentielPages/SticodevamPages/TypesAdherents";
+import ValuesPage from "./pages/ReferentielPages/GeneralPages/ValuesPage";
 function App() {
   const loading = useSelector((state) => state.loading.loading);
   const { logged, isVerified } = useSelector((state) => state.auth);
@@ -94,6 +95,11 @@ function App() {
                       exact
                       path="/types-adherents"
                       component={TypesAdherents}
+                    />
+                    <LoggedInRoute
+                      exact
+                      path="/données-générales"
+                      component={ValuesPage}
                     />
                     <LoggedInRoute
                       exact

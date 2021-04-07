@@ -1,6 +1,6 @@
 import React from "react";
 import DataTable from "react-data-table-component";
-import "../../../css/styles.css";
+import "../../../../css/styles.css";
 import moment from "moment";
 const MouvementTable = ({ mouvements }) => {
   const columns = [

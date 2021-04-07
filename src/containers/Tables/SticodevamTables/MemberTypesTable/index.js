@@ -5,32 +5,33 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
-import "../../../css/styles.css";
+import "../../../../css/styles.css";
+import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  deleteCategory,
-  getCategories,
-} from "../../../_redux/actions/categoriesAvoir";
-import AddCategory from "../../Modals/Sticodevam/AddCategory";
-import EditCategory from "../../Modals/Sticodevam/EditCategory";
-const CategoriesTable = () => {
+  deleteMemberType,
+  getMemberTypes,
+} from "../../../../_redux/actions/memberType";
+import AddMemberType from "../../../Modals/Sticodevam/AddMemberType";
+import EditMemberType from "../../../Modals/Sticodevam/EditMemberType";
+const MemberTypesTable = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getCategories());
+    dispatch(getMemberTypes());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const categories = useSelector((state) => state.categoriesAvoir.data);
+  const mTypes = useSelector((state) => state.memberType.data);
   const [addModalShow, setAddModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
   const [id, setId] = useState();
 
-  const openSelectedCategoryModal = (id) => {
+  const openSelectedMemberTypeModal = (id) => {
     setEditModalShow(true);
     setId(id);
   };
 
-  const deleteCc = (id) => {
-    dispatch(deleteCategory(id));
+  const deleteMtc = (id) => {
+    dispatch(deleteMemberType(id));
   };
 
   const columns = [
@@ -38,29 +39,44 @@ const CategoriesTable = () => {
       name: "Actions",
       cell: (row) => (
         <div>
-          <IconButton
-            aria-label="delete"
-            color="secondary"
-            onClick={() => deleteCc(row.id)}>
-            <DeleteIcon />
-          </IconButton>
-          <IconButton
-            aria-label="edit"
-            color="primary"
-            onClick={() => openSelectedCategoryModal(row.id)}>
-            <EditIcon />
-          </IconButton>
+          {row.MemberTypeCode !== "-" ? (
+            <div>
+              <IconButton
+                aria-label="delete"
+                color="secondary"
+                onClick={() => deleteMtc(row.id)}>
+                <DeleteIcon />
+              </IconButton>
+              <IconButton
+                aria-label="edit"
+                color="primary"
+                onClick={() => openSelectedMemberTypeModal(row.id)}>
+                <EditIcon />
+              </IconButton>
+            </div>
+          ) : (
+            <div className="ml-4">-</div>
+          )}
         </div>
       ),
     },
     {
-      name: "Code Catégorie d'avoir",
-      selector: "CategoryCode",
-      sortable: true,
+      name: "Code Type Adhérent",
+      selector: "MemberTypeCode",
     },
     {
-      name: "Libellé Catégorie d'avoir",
-      cell: (row) => <div>{row.CategoryLabel ? row.CategoryLabel : "-"}</div>,
+      name: "Libellé Type Adhérent",
+      cell: (row) => (
+        <div>{row.MemberTypeLabel ? row.MemberTypeLabel : "-"}</div>
+      ),
+    },
+    {
+      name: "Date de mise à jour",
+      cell: (row) => (
+        <div>
+          {row.UpdateDate ? moment(row.UpdateDate).format("YYYY-MM-DD") : "-"}
+        </div>
+      ),
     },
   ];
 
@@ -76,32 +92,22 @@ const CategoriesTable = () => {
     </div>
   ));
 
-  const style = {
-    margin: 0,
-    top: "auto",
-    right: 20,
-    bottom: 20,
-    left: "auto",
-    position: "fixed",
-  };
-
   return (
     <>
       <div className="card">
         <DataTable
-          title="Liste des catégories d'avoir"
+          title="Liste des types des adhérents"
           responsive
           overflowY
           overflowYOffset="150px"
           columns={columns}
-          data={categories}
-          defaultSortField="Code Catégorie d'avoir"
+          data={mTypes}
           pagination
           selectableRows
           selectableRowsComponent={BootyCheckbox}
         />
       </div>
-      <div style={style}>
+      <div className="add-button">
         <Fab
           color="primary"
           aria-label="add"
@@ -109,15 +115,18 @@ const CategoriesTable = () => {
           <AddIcon />
         </Fab>
       </div>
-      <AddCategory show={addModalShow} onHide={() => setAddModalShow(false)} />
-      <EditCategory
+      <AddMemberType
+        show={addModalShow}
+        onHide={() => setAddModalShow(false)}
+      />
+      <EditMemberType
         show={editModalShow}
         onHide={() => setEditModalShow(false)}
-        categories={categories}
+        mTypes={mTypes}
         id={id}
       />
     </>
   );
 };
 
-export default CategoriesTable;
+export default MemberTypesTable;

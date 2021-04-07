@@ -109,6 +109,16 @@ const SideBar = ({ children, logged }) => {
                       header={
                         <div>
                           <FontAwesomeIcon icon="user-cog" className="mr-2" />
+                          Référentiel général
+                        </div>
+                      }>
+                      <Link to="/données-générales">Données Générales</Link>
+                    </Collapsible>
+                    <Collapsible
+                      open={false}
+                      header={
+                        <div>
+                          <FontAwesomeIcon icon="user-cog" className="mr-2" />
                           Référentiel STICODEVAM
                         </div>
                       }>

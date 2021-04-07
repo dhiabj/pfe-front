@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import DaySearchForm from "../../../containers/DaySearchForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
-import MouvementTable from "../../../containers/Tables/MouvementTable";
+import MouvementTable from "../../../containers/Tables/SticodevamTables/MouvementTable";
 import { useDispatch, useSelector } from "react-redux";
 import { getMouvements } from "../../../_redux/actions/mouvements";
 const StocksPage = () => {

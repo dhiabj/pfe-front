@@ -27,7 +27,7 @@ const AddAccountType = (props) => {
           <div className="container">
             <Row>
               <Col>
-                <Form onSubmit={handleSubmit(onSubmit)}>
+                <Form onSubmit={handleSubmit(onSubmit)} id="accountTypeForm">
                   <Form.Group controlId="AddAccountTypeCode">
                     <Form.Label>Code Nature de Compte</Form.Label>
                     <Form.Control
@@ -52,20 +52,9 @@ const AddAccountType = (props) => {
                     <Form.Control
                       type="text"
                       name="AccountTypeLabel"
-                      ref={register({ required: true })}
-                      className={`form-control ${
-                        errors.AccountTypeLabel ? "is-invalid" : ""
-                      }`}
+                      ref={register({ required: false })}
                       placeholder="Libellé Nature de Compte"
                     />
-                    {errors.AccountTypeLabel && (
-                      <small className="text-danger">Libellé incorrect</small>
-                    )}
-                  </Form.Group>
-                  <Form.Group controlId="AddButton">
-                    <Button variant="primary" type="submit">
-                      Insérer
-                    </Button>
                   </Form.Group>
                 </Form>
               </Col>
@@ -75,6 +64,9 @@ const AddAccountType = (props) => {
         <Modal.Footer>
           <Button variant="danger" onClick={props.onHide}>
             Fermer
+          </Button>
+          <Button variant="primary" type="submit" form="accountTypeForm">
+            Insérer
           </Button>
         </Modal.Footer>
       </Modal>

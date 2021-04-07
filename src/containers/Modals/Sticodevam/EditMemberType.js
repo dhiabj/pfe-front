@@ -35,7 +35,7 @@ const EditMemberType = (props) => {
           <div className="container">
             <Row>
               <Col>
-                <Form onSubmit={handleSubmit(onSubmit)}>
+                <Form onSubmit={handleSubmit(onSubmit)} id="editMemberTypeForm">
                   <Form.Group controlId="EditMemberTypeCode">
                     <Form.Label>Code Type Adhérent</Form.Label>
                     <Form.Control
@@ -59,23 +59,12 @@ const EditMemberType = (props) => {
                     <Form.Control
                       type="text"
                       name="MemberTypeLabel"
-                      ref={register({ required: true })}
-                      className={`form-control ${
-                        errors.MemberTypeLabel ? "is-invalid" : ""
-                      }`}
+                      ref={register({ required: false })}
                       placeholder="Libellé Type Adhérent"
                       defaultValue={
                         memberTypeData ? memberTypeData.MemberTypeLabel : ""
                       }
                     />
-                    {errors.MemberTypeLabel && (
-                      <small className="text-danger">Libellé incorrect</small>
-                    )}
-                  </Form.Group>
-                  <Form.Group controlId="EditButton">
-                    <Button variant="primary" type="submit">
-                      Modifier
-                    </Button>
                   </Form.Group>
                 </Form>
               </Col>
@@ -85,6 +74,9 @@ const EditMemberType = (props) => {
         <Modal.Footer>
           <Button variant="danger" onClick={props.onHide}>
             Fermer
+          </Button>
+          <Button variant="success" type="submit" form="editMemberTypeForm">
+            Modifier
           </Button>
         </Modal.Footer>
       </Modal>

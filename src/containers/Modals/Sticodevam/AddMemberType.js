@@ -27,7 +27,7 @@ const AddMemberType = (props) => {
           <div className="container">
             <Row>
               <Col>
-                <Form onSubmit={handleSubmit(onSubmit)}>
+                <Form onSubmit={handleSubmit(onSubmit)} id="memberTypeForm">
                   <Form.Group controlId="AddMemberTypeCode">
                     <Form.Label>Code Type Adhérent</Form.Label>
                     <Form.Control
@@ -48,20 +48,9 @@ const AddMemberType = (props) => {
                     <Form.Control
                       type="text"
                       name="MemberTypeLabel"
-                      ref={register({ required: true })}
-                      className={`form-control ${
-                        errors.MemberTypeLabel ? "is-invalid" : ""
-                      }`}
+                      ref={register({ required: false })}
                       placeholder="Libellé Type Adhérent"
                     />
-                    {errors.MemberTypeLabel && (
-                      <small className="text-danger">Libellé incorrect</small>
-                    )}
-                  </Form.Group>
-                  <Form.Group controlId="AddButton">
-                    <Button variant="primary" type="submit">
-                      Insérer
-                    </Button>
                   </Form.Group>
                 </Form>
               </Col>
@@ -71,6 +60,9 @@ const AddMemberType = (props) => {
         <Modal.Footer>
           <Button variant="danger" onClick={props.onHide}>
             Fermer
+          </Button>
+          <Button variant="primary" type="submit" form="memberTypeForm">
+            Insérer
           </Button>
         </Modal.Footer>
       </Modal>

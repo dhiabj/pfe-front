@@ -9,6 +9,7 @@ import member from "./member";
 import operationCode from "./operationCode";
 import categoriesAvoir from "./categoriesAvoir";
 import accountTypes from "./accountTypes";
+import values from "./values";
 
 const rootReducer = redux.combineReducers({
   loading,
@@ -21,6 +22,7 @@ const rootReducer = redux.combineReducers({
   operationCode,
   categoriesAvoir,
   accountTypes,
+  values,
 });
 
 export default rootReducer;

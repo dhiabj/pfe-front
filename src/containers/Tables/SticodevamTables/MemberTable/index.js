@@ -5,33 +5,34 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
-import "../../../css/styles.css";
+import "../../../../css/styles.css";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteMemberType,
-  getMemberTypes,
-} from "../../../_redux/actions/memberType";
-import AddMemberType from "../../Modals/Sticodevam/AddMemberType";
-import EditMemberType from "../../Modals/Sticodevam/EditMemberType";
-const MemberTypesTable = () => {
-  const dispatch = useDispatch();
+import { deleteMember, getMembers } from "../../../../_redux/actions/member";
+import AddMember from "../../../Modals/Sticodevam/AddMember";
+import EditMember from "../../../Modals/Sticodevam/EditMember";
+import { getMemberTypes } from "../../../../_redux/actions/memberType";
+const MemberTable = () => {
   useEffect(() => {
+    dispatch(getMembers());
     dispatch(getMemberTypes());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const mTypes = useSelector((state) => state.memberType.data);
+
+  const members = useSelector((state) => state.member.data);
+  const membertypes = useSelector((state) => state.memberType.data);
   const [addModalShow, setAddModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
   const [id, setId] = useState();
 
-  const openSelectedMemberTypeModal = (id) => {
+  const openSelectedMemberModal = (id) => {
     setEditModalShow(true);
     setId(id);
   };
 
-  const deleteMtc = (id) => {
-    dispatch(deleteMemberType(id));
+  const dispatch = useDispatch();
+  const deleteMc = (id) => {
+    dispatch(deleteMember(id));
   };
 
   const columns = [
@@ -39,35 +40,36 @@ const MemberTypesTable = () => {
       name: "Actions",
       cell: (row) => (
         <div>
-          {row.MemberTypeCode !== "-" ? (
-            <div>
-              <IconButton
-                aria-label="delete"
-                color="secondary"
-                onClick={() => deleteMtc(row.id)}>
-                <DeleteIcon />
-              </IconButton>
-              <IconButton
-                aria-label="edit"
-                color="primary"
-                onClick={() => openSelectedMemberTypeModal(row.id)}>
-                <EditIcon />
-              </IconButton>
-            </div>
-          ) : (
-            <div className="ml-4">-</div>
-          )}
+          <IconButton
+            aria-label="delete"
+            color="secondary"
+            onClick={() => deleteMc(row.id)}>
+            <DeleteIcon />
+          </IconButton>
+          <IconButton
+            aria-label="edit"
+            color="primary"
+            onClick={() => openSelectedMemberModal(row.id)}>
+            <EditIcon />
+          </IconButton>
         </div>
       ),
     },
     {
-      name: "Code Type Adhérent",
-      selector: "MemberTypeCode",
+      name: "Code Adhérent",
+      selector: "MembershipCode",
+      sortable: true,
     },
     {
-      name: "Libellé Type Adhérent",
+      name: "Nom Adhérent",
+      cell: (row) => <div>{row.MemberName ? row.MemberName : "-"}</div>,
+    },
+    {
+      name: "Type Adhérent",
       cell: (row) => (
-        <div>{row.MemberTypeLabel ? row.MemberTypeLabel : "-"}</div>
+        <div>
+          {row.MemberType.memberTypeCode ? row.MemberType.memberTypeCode : "-"}
+        </div>
       ),
     },
     {
@@ -92,31 +94,23 @@ const MemberTypesTable = () => {
     </div>
   ));
 
-  const style = {
-    margin: 0,
-    top: "auto",
-    right: 20,
-    bottom: 20,
-    left: "auto",
-    position: "fixed",
-  };
-
   return (
     <>
       <div className="card">
         <DataTable
-          title="Liste des types des adhérents"
+          title="Liste des adhérents"
           responsive
           overflowY
           overflowYOffset="150px"
           columns={columns}
-          data={mTypes}
+          data={members}
+          defaultSortField="Code Adhérent"
           pagination
           selectableRows
           selectableRowsComponent={BootyCheckbox}
         />
       </div>
-      <div style={style}>
+      <div className="add-button">
         <Fab
           color="primary"
           aria-label="add"
@@ -124,18 +118,20 @@ const MemberTypesTable = () => {
           <AddIcon />
         </Fab>
       </div>
-      <AddMemberType
+      <AddMember
         show={addModalShow}
         onHide={() => setAddModalShow(false)}
+        membertypes={membertypes}
       />
-      <EditMemberType
+      <EditMember
         show={editModalShow}
         onHide={() => setEditModalShow(false)}
-        mTypes={mTypes}
+        membertypes={membertypes}
+        members={members}
         id={id}
       />
     </>
   );
 };
 
-export default MemberTypesTable;
+export default MemberTable;

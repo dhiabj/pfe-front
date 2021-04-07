@@ -5,33 +5,32 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
-import "../../../css/styles.css";
-import moment from "moment";
+import "../../../../css/styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  deleteOperation,
-  getOperations,
-} from "../../../_redux/actions/operationCode";
-import AddOperation from "../../Modals/Sticodevam/AddOperation";
-import EditOperation from "../../Modals/Sticodevam/EditOperation";
-const OperationTable = () => {
+  deleteCategory,
+  getCategories,
+} from "../../../../_redux/actions/categoriesAvoir";
+import AddCategory from "../../../Modals/Sticodevam/AddCategory";
+import EditCategory from "../../../Modals/Sticodevam/EditCategory";
+const CategoriesTable = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getOperations());
+    dispatch(getCategories());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const operations = useSelector((state) => state.operationCode.data);
+  const categories = useSelector((state) => state.categoriesAvoir.data);
   const [addModalShow, setAddModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
   const [id, setId] = useState();
 
-  const openSelectedOperationModal = (id) => {
+  const openSelectedCategoryModal = (id) => {
     setEditModalShow(true);
     setId(id);
   };
 
-  const deleteOc = (id) => {
-    dispatch(deleteOperation(id));
+  const deleteCc = (id) => {
+    dispatch(deleteCategory(id));
   };
 
   const columns = [
@@ -42,33 +41,26 @@ const OperationTable = () => {
           <IconButton
             aria-label="delete"
             color="secondary"
-            onClick={() => deleteOc(row.id)}>
+            onClick={() => deleteCc(row.id)}>
             <DeleteIcon />
           </IconButton>
           <IconButton
             aria-label="edit"
             color="primary"
-            onClick={() => openSelectedOperationModal(row.id)}>
+            onClick={() => openSelectedCategoryModal(row.id)}>
             <EditIcon />
           </IconButton>
         </div>
       ),
     },
     {
-      name: "Code Opération",
-      selector: "OperationCode",
+      name: "Code Catégorie d'avoir",
+      selector: "CategoryCode",
+      sortable: true,
     },
     {
-      name: "Libellé Opération",
-      cell: (row) => <div>{row.OperationLabel ? row.OperationLabel : "-"}</div>,
-    },
-    {
-      name: "Date de mise à jour",
-      cell: (row) => (
-        <div>
-          {row.UpdateDate ? moment(row.UpdateDate).format("YYYY-MM-DD") : "-"}
-        </div>
-      ),
+      name: "Libellé Catégorie d'avoir",
+      cell: (row) => <div>{row.CategoryLabel ? row.CategoryLabel : "-"}</div>,
     },
   ];
 
@@ -84,31 +76,23 @@ const OperationTable = () => {
     </div>
   ));
 
-  const style = {
-    margin: 0,
-    top: "auto",
-    right: 20,
-    bottom: 20,
-    left: "auto",
-    position: "fixed",
-  };
-
   return (
     <>
       <div className="card">
         <DataTable
-          title="Liste des codes opérations"
+          title="Liste des catégories d'avoir"
           responsive
           overflowY
           overflowYOffset="150px"
           columns={columns}
-          data={operations}
+          data={categories}
+          defaultSortField="Code Catégorie d'avoir"
           pagination
           selectableRows
           selectableRowsComponent={BootyCheckbox}
         />
       </div>
-      <div style={style}>
+      <div className="add-button">
         <Fab
           color="primary"
           aria-label="add"
@@ -116,15 +100,15 @@ const OperationTable = () => {
           <AddIcon />
         </Fab>
       </div>
-      <AddOperation show={addModalShow} onHide={() => setAddModalShow(false)} />
-      <EditOperation
+      <AddCategory show={addModalShow} onHide={() => setAddModalShow(false)} />
+      <EditCategory
         show={editModalShow}
         onHide={() => setEditModalShow(false)}
-        operations={operations}
+        categories={categories}
         id={id}
       />
     </>
   );
 };
 
-export default OperationTable;
+export default CategoriesTable;

@@ -27,7 +27,7 @@ const AddOperation = (props) => {
           <div className="container">
             <Row>
               <Col>
-                <Form onSubmit={handleSubmit(onSubmit)}>
+                <Form onSubmit={handleSubmit(onSubmit)} id="operationForm">
                   <Form.Group controlId="AddOperationCode">
                     <Form.Label>Code Opération</Form.Label>
                     <Form.Control
@@ -52,20 +52,9 @@ const AddOperation = (props) => {
                     <Form.Control
                       type="text"
                       name="OperationLabel"
-                      ref={register({ required: true })}
-                      className={`form-control ${
-                        errors.OperationLabel ? "is-invalid" : ""
-                      }`}
+                      ref={register({ required: false })}
                       placeholder="Libellé Opération"
                     />
-                    {errors.OperationLabel && (
-                      <small className="text-danger">Libellé incorrect</small>
-                    )}
-                  </Form.Group>
-                  <Form.Group controlId="AddButton">
-                    <Button variant="primary" type="submit">
-                      Insérer
-                    </Button>
                   </Form.Group>
                 </Form>
               </Col>
@@ -75,6 +64,9 @@ const AddOperation = (props) => {
         <Modal.Footer>
           <Button variant="danger" onClick={props.onHide}>
             Fermer
+          </Button>
+          <Button variant="primary" type="submit" form="operationForm">
+            Insérer
           </Button>
         </Modal.Footer>
       </Modal>

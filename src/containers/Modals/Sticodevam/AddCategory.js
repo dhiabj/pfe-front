@@ -28,7 +28,7 @@ const AddCategory = (props) => {
           <div className="container">
             <Row>
               <Col>
-                <Form onSubmit={handleSubmit(onSubmit)}>
+                <Form onSubmit={handleSubmit(onSubmit)} id="categoryForm">
                   <Form.Group controlId="AddCategoryCode">
                     <Form.Label>Code Catégorie d'avoir</Form.Label>
                     <Form.Control
@@ -53,20 +53,9 @@ const AddCategory = (props) => {
                     <Form.Control
                       type="text"
                       name="CategoryLabel"
-                      ref={register({ required: true })}
-                      className={`form-control ${
-                        errors.CategoryLabel ? "is-invalid" : ""
-                      }`}
+                      ref={register({ required: false })}
                       placeholder="Libellé Catégorie d'avoir"
                     />
-                    {errors.CategoryLabel && (
-                      <small className="text-danger">Libellé incorrect</small>
-                    )}
-                  </Form.Group>
-                  <Form.Group controlId="AddButton">
-                    <Button variant="primary" type="submit">
-                      Insérer
-                    </Button>
                   </Form.Group>
                 </Form>
               </Col>
@@ -76,6 +65,9 @@ const AddCategory = (props) => {
         <Modal.Footer>
           <Button variant="danger" onClick={props.onHide}>
             Fermer
+          </Button>
+          <Button variant="primary" type="submit" form="categoryForm">
+            Insérer
           </Button>
         </Modal.Footer>
       </Modal>

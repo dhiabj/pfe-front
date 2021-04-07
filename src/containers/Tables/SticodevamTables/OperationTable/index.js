@@ -5,32 +5,33 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
-import "../../../css/styles.css";
+import "../../../../css/styles.css";
+import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  deleteAccountType,
-  getAccountTypes,
-} from "../../../_redux/actions/accountTypes";
-import AddAccountType from "../../Modals/Sticodevam/AddAccountType";
-import EditAccountType from "../../Modals/Sticodevam/EditAccountType";
-const AccountTypesTable = () => {
+  deleteOperation,
+  getOperations,
+} from "../../../../_redux/actions/operationCode";
+import AddOperation from "../../../Modals/Sticodevam/AddOperation";
+import EditOperation from "../../../Modals/Sticodevam/EditOperation";
+const OperationTable = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAccountTypes());
+    dispatch(getOperations());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const aTypes = useSelector((state) => state.accountTypes.data);
+  const operations = useSelector((state) => state.operationCode.data);
   const [addModalShow, setAddModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
   const [id, setId] = useState();
 
-  const openSelectedAccountTypeModal = (id) => {
+  const openSelectedOperationModal = (id) => {
     setEditModalShow(true);
     setId(id);
   };
 
-  const deleteNc = (id) => {
-    dispatch(deleteAccountType(id));
+  const deleteOc = (id) => {
+    dispatch(deleteOperation(id));
   };
 
   const columns = [
@@ -41,27 +42,32 @@ const AccountTypesTable = () => {
           <IconButton
             aria-label="delete"
             color="secondary"
-            onClick={() => deleteNc(row.id)}>
+            onClick={() => deleteOc(row.id)}>
             <DeleteIcon />
           </IconButton>
           <IconButton
             aria-label="edit"
             color="primary"
-            onClick={() => openSelectedAccountTypeModal(row.id)}>
+            onClick={() => openSelectedOperationModal(row.id)}>
             <EditIcon />
           </IconButton>
         </div>
       ),
     },
     {
-      name: "Code Nature de Compte",
-      selector: "NatureCode",
-      sortable: true,
+      name: "Code Opération",
+      selector: "OperationCode",
     },
     {
-      name: "Libellé Nature de Compte",
+      name: "Libellé Opération",
+      cell: (row) => <div>{row.OperationLabel ? row.OperationLabel : "-"}</div>,
+    },
+    {
+      name: "Date de mise à jour",
       cell: (row) => (
-        <div>{row.NatureAccountLabel ? row.NatureAccountLabel : "-"}</div>
+        <div>
+          {row.UpdateDate ? moment(row.UpdateDate).format("YYYY-MM-DD") : "-"}
+        </div>
       ),
     },
   ];
@@ -78,32 +84,22 @@ const AccountTypesTable = () => {
     </div>
   ));
 
-  const style = {
-    margin: 0,
-    top: "auto",
-    right: 20,
-    bottom: 20,
-    left: "auto",
-    position: "fixed",
-  };
-
   return (
     <>
       <div className="card">
         <DataTable
-          title="Liste des natures de comptes"
+          title="Liste des codes opérations"
           responsive
           overflowY
           overflowYOffset="150px"
           columns={columns}
-          data={aTypes}
-          defaultSortField="Code Nature de Compte"
+          data={operations}
           pagination
           selectableRows
           selectableRowsComponent={BootyCheckbox}
         />
       </div>
-      <div style={style}>
+      <div className="add-button">
         <Fab
           color="primary"
           aria-label="add"
@@ -111,18 +107,15 @@ const AccountTypesTable = () => {
           <AddIcon />
         </Fab>
       </div>
-      <AddAccountType
-        show={addModalShow}
-        onHide={() => setAddModalShow(false)}
-      />
-      <EditAccountType
+      <AddOperation show={addModalShow} onHide={() => setAddModalShow(false)} />
+      <EditOperation
         show={editModalShow}
         onHide={() => setEditModalShow(false)}
-        aTypes={aTypes}
+        operations={operations}
         id={id}
       />
     </>
   );
 };
 
-export default AccountTypesTable;
+export default OperationTable;
