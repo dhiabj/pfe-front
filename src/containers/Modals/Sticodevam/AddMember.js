@@ -59,7 +59,6 @@ const AddMember = (props) => {
                       className={`form-control ${
                         errors.MembershipCode ? "is-invalid" : ""
                       }`}
-                      placeholder="Code Adhérent"
                     />
                     {errors.MembershipCode && (
                       <small className="text-danger">Code incorrect</small>
@@ -71,7 +70,6 @@ const AddMember = (props) => {
                       type="text"
                       name="MemberName"
                       ref={register({ required: false })}
-                      placeholder="Nom Adhérent"
                     />
                   </Form.Group>
                   <div className="mb-3">

@@ -51,7 +51,6 @@ const EditAccountType = (props) => {
                       className={`form-control ${
                         errors.AccountTypeCode ? "is-invalid" : ""
                       }`}
-                      placeholder="Code Nature de Compte"
                       defaultValue={
                         accountTypeData ? accountTypeData.NatureCode : ""
                       }
@@ -66,7 +65,6 @@ const EditAccountType = (props) => {
                       type="text"
                       name="AccountTypeLabel"
                       ref={register({ required: false })}
-                      placeholder="Libellé Nature de Compte"
                       defaultValue={
                         accountTypeData
                           ? accountTypeData.NatureAccountLabel

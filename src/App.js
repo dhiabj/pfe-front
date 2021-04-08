@@ -27,6 +27,9 @@ import CategoriesAvoir from "./pages/ReferentielPages/SticodevamPages/Categories
 import Adherents from "./pages/ReferentielPages/SticodevamPages/Adherents";
 import TypesAdherents from "./pages/ReferentielPages/SticodevamPages/TypesAdherents";
 import ValuesPage from "./pages/ReferentielPages/GeneralPages/ValuesPage";
+import CodesComptes from "./pages/ReferentielPages/IntermediairesPages/CodesComptes";
+import CodesMarche from "./pages/ReferentielPages/IntermediairesPages/CodesMarche";
+import CodesProfit from "./pages/ReferentielPages/IntermediairesPages/CodesProfit";
 function App() {
   const loading = useSelector((state) => state.loading.loading);
   const { logged, isVerified } = useSelector((state) => state.auth);
@@ -100,6 +103,21 @@ function App() {
                       exact
                       path="/données-générales"
                       component={ValuesPage}
+                    />
+                    <LoggedInRoute
+                      exact
+                      path="/codes-comptes"
+                      component={CodesComptes}
+                    />
+                    <LoggedInRoute
+                      exact
+                      path="/codes-marché"
+                      component={CodesMarche}
+                    />
+                    <LoggedInRoute
+                      exact
+                      path="/codes-profit"
+                      component={CodesProfit}
                     />
                     <LoggedInRoute
                       exact

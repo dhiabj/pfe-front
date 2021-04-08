@@ -49,7 +49,6 @@ const EditCategory = (props) => {
                       className={`form-control ${
                         errors.CategoryCode ? "is-invalid" : ""
                       }`}
-                      placeholder="Code Catégorie d'avoir"
                       defaultValue={
                         categoryData ? categoryData.CategoryCode : ""
                       }
@@ -64,7 +63,6 @@ const EditCategory = (props) => {
                       type="text"
                       name="CategoryLabel"
                       ref={register({ required: false })}
-                      placeholder="Libellé Catégorie d'avoir"
                       defaultValue={
                         categoryData ? categoryData.CategoryLabel : ""
                       }

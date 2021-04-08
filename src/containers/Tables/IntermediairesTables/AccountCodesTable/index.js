@@ -6,28 +6,32 @@ import EditIcon from "@material-ui/icons/Edit";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import "../../../../css/styles.css";
+import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteValue, getValues } from "../../../../_redux/actions/values";
-import AddValue from "../../../Modals/GeneralRef/AddValue";
-import EditValue from "../../../Modals/GeneralRef/EditValue";
-const ValuesTable = () => {
+import {
+  deleteAccountCode,
+  getAccountCodes,
+} from "../../../../_redux/actions/accountCode";
+import AddIntermAccount from "../../../Modals/Intermediaire/AddIntermAccount";
+import EditIntermAccount from "../../../Modals/Intermediaire/EditIntermAccount";
+const AccountCodesTable = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getValues());
+    dispatch(getAccountCodes());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const values = useSelector((state) => state.values.data);
+  const aCodes = useSelector((state) => state.accountCode.data);
   const [addModalShow, setAddModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
   const [id, setId] = useState();
 
-  const openSelectedValueModal = (id) => {
+  const openSelectedAccountCodeModal = (id) => {
     setEditModalShow(true);
     setId(id);
   };
 
-  const deleteCv = (id) => {
-    dispatch(deleteValue(id));
+  const deleteAc = (id) => {
+    dispatch(deleteAccountCode(id));
   };
 
   const columns = [
@@ -38,52 +42,34 @@ const ValuesTable = () => {
           <IconButton
             aria-label="delete"
             color="secondary"
-            onClick={() => deleteCv(row.id)}>
+            onClick={() => deleteAc(row.id)}>
             <DeleteIcon />
           </IconButton>
           <IconButton
             aria-label="edit"
             color="primary"
-            onClick={() => openSelectedValueModal(row.id)}>
+            onClick={() => openSelectedAccountCodeModal(row.id)}>
             <EditIcon />
           </IconButton>
         </div>
       ),
-      compact: true,
     },
     {
-      name: "Code STICODEVAM",
-      cell: (row) => <div>{row.Isin ? row.Isin : "-"}</div>,
+      name: "Code Compte",
+      selector: "AccountCode",
+      sortable: true,
     },
     {
-      name: "Libellé de la valeur",
-      cell: (row) => <div>{row.ValueLabel ? row.ValueLabel : "-"}</div>,
+      name: "Libellé Compte",
+      cell: (row) => <div>{row.AccountLabel ? row.AccountLabel : "-"}</div>,
     },
     {
-      name: "Mnémonique",
-      cell: (row) => <div>{row.Mnemonique ? row.Mnemonique : "-"}</div>,
-    },
-    {
-      name: "Type de la Valeur",
-      cell: (row) => <div>{row.ValueType ? row.ValueType : "-"}</div>,
-    },
-    {
-      name: "Nb titres admis en bourse",
+      name: "Date de mise à jour",
       cell: (row) => (
-        <div>{row.NbTitresadmisBourse ? row.NbTitresadmisBourse : "-"}</div>
+        <div>
+          {row.UpdateDate ? moment(row.UpdateDate).format("YYYY-MM-DD") : "-"}
+        </div>
       ),
-    },
-    {
-      name: "Nb de titres flottants",
-      cell: (row) => <div>{row.NbCodFlott ? row.NbCodFlott : "-"}</div>,
-    },
-    {
-      name: "Groupe de cotation",
-      cell: (row) => <div>{row.GroupCotation ? row.GroupCotation : "-"}</div>,
-    },
-    {
-      name: "Super Secteur",
-      cell: (row) => <div>{row.SuperSecteur ? row.SuperSecteur : "-"}</div>,
     },
   ];
 
@@ -103,12 +89,13 @@ const ValuesTable = () => {
     <>
       <div className="card">
         <DataTable
-          title="Données Générales"
+          title="Codes Comptes"
           responsive
           overflowY
           overflowYOffset="150px"
           columns={columns}
-          data={values}
+          data={aCodes}
+          defaultSortField="Code Compte"
           pagination
           selectableRows
           selectableRowsComponent={BootyCheckbox}
@@ -122,15 +109,18 @@ const ValuesTable = () => {
           <AddIcon />
         </Fab>
       </div>
-      <AddValue show={addModalShow} onHide={() => setAddModalShow(false)} />
-      <EditValue
+      <AddIntermAccount
+        show={addModalShow}
+        onHide={() => setAddModalShow(false)}
+      />
+      <EditIntermAccount
         show={editModalShow}
         onHide={() => setEditModalShow(false)}
-        values={values}
+        aCodes={aCodes}
         id={id}
       />
     </>
   );
 };
 
-export default ValuesTable;
+export default AccountCodesTable;

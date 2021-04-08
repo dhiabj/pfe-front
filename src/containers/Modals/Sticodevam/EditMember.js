@@ -67,7 +67,6 @@ const EditMember = (props) => {
                       className={`form-control ${
                         errors.MembershipCode ? "is-invalid" : ""
                       }`}
-                      placeholder="Code Adhérent"
                       defaultValue={memberData ? memberData.MembershipCode : ""}
                     />
                     {errors.MembershipCode && (
@@ -80,7 +79,6 @@ const EditMember = (props) => {
                       type="text"
                       name="MemberName"
                       ref={register({ required: false })}
-                      placeholder="Nom Adhérent"
                       defaultValue={memberData ? memberData.MemberName : ""}
                     />
                   </Form.Group>

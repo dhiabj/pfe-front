@@ -41,7 +41,6 @@ const AddOperation = (props) => {
                       className={`form-control ${
                         errors.OperationCode ? "is-invalid" : ""
                       }`}
-                      placeholder="Code Opération"
                     />
                     {errors.OperationCode && (
                       <small className="text-danger">Code incorrect</small>
@@ -53,7 +52,6 @@ const AddOperation = (props) => {
                       type="text"
                       name="OperationLabel"
                       ref={register({ required: false })}
-                      placeholder="Libellé Opération"
                     />
                   </Form.Group>
                 </Form>

@@ -45,7 +45,6 @@ const EditMemberType = (props) => {
                       className={`form-control ${
                         errors.MemberTypeCode ? "is-invalid" : ""
                       }`}
-                      placeholder="Code Type Adhérent"
                       defaultValue={
                         memberTypeData ? memberTypeData.MemberTypeCode : ""
                       }
@@ -60,7 +59,6 @@ const EditMemberType = (props) => {
                       type="text"
                       name="MemberTypeLabel"
                       ref={register({ required: false })}
-                      placeholder="Libellé Type Adhérent"
                       defaultValue={
                         memberTypeData ? memberTypeData.MemberTypeLabel : ""
                       }

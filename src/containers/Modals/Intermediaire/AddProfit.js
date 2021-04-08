@@ -2,15 +2,14 @@ import React from "react";
 import { Modal, Button, Row, Col, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { addCategory } from "../../../_redux/actions/categoriesAvoir";
+import { addProfit } from "../../../_redux/actions/profits";
 
-const AddCategory = (props) => {
+const AddProfit = (props) => {
   const { register, handleSubmit, errors } = useForm();
   const dispatch = useDispatch();
   const onSubmit = (values) => {
-    dispatch(addCategory(values));
+    dispatch(addProfit(values));
     props.onHide();
-    //console.log(values);
   };
   return (
     <div>
@@ -21,37 +20,37 @@ const AddCategory = (props) => {
         centered>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Insérer un catégorie d'avoir
+            Insérer un code de profit
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="container">
             <Row>
               <Col>
-                <Form onSubmit={handleSubmit(onSubmit)} id="categoryForm">
-                  <Form.Group controlId="AddCategoryCode">
-                    <Form.Label>Code Catégorie d'avoir</Form.Label>
+                <Form onSubmit={handleSubmit(onSubmit)} id="profitCodeForm">
+                  <Form.Group controlId="AddProfitCode">
+                    <Form.Label>Code de profit</Form.Label>
                     <Form.Control
                       type="text"
-                      name="CategoryCode"
+                      name="ProfitCode"
                       ref={register({
                         required: true,
-                        pattern: /[0-9]{3}/,
-                        maxLength: 3,
+                        pattern: /[0-9]{2}/,
+                        maxLength: 2,
                       })}
                       className={`form-control ${
-                        errors.CategoryCode ? "is-invalid" : ""
+                        errors.ProfitCode ? "is-invalid" : ""
                       }`}
                     />
-                    {errors.CategoryCode && (
+                    {errors.ProfitCode && (
                       <small className="text-danger">Code incorrect</small>
                     )}
                   </Form.Group>
-                  <Form.Group controlId="AddCategoryLabel">
-                    <Form.Label>Libellé Catégorie d'avoir</Form.Label>
+                  <Form.Group controlId="AddProfitLabel">
+                    <Form.Label>Libellé de profit</Form.Label>
                     <Form.Control
                       type="text"
-                      name="CategoryLabel"
+                      name="ProfitLabel"
                       ref={register({ required: false })}
                     />
                   </Form.Group>
@@ -64,7 +63,7 @@ const AddCategory = (props) => {
           <Button variant="danger" onClick={props.onHide}>
             Fermer
           </Button>
-          <Button variant="primary" type="submit" form="categoryForm">
+          <Button variant="primary" type="submit" form="profitCodeForm">
             Insérer
           </Button>
         </Modal.Footer>
@@ -73,4 +72,4 @@ const AddCategory = (props) => {
   );
 };
 
-export default AddCategory;
+export default AddProfit;

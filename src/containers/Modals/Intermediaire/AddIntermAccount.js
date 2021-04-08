@@ -2,15 +2,14 @@ import React from "react";
 import { Modal, Button, Row, Col, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { addCategory } from "../../../_redux/actions/categoriesAvoir";
+import { addAccountCode } from "../../../_redux/actions/accountCode";
 
-const AddCategory = (props) => {
+const AddIntermAccount = (props) => {
   const { register, handleSubmit, errors } = useForm();
   const dispatch = useDispatch();
   const onSubmit = (values) => {
-    dispatch(addCategory(values));
+    dispatch(addAccountCode(values));
     props.onHide();
-    //console.log(values);
   };
   return (
     <div>
@@ -21,37 +20,37 @@ const AddCategory = (props) => {
         centered>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Insérer un catégorie d'avoir
+            Insérer un code de compte
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="container">
             <Row>
               <Col>
-                <Form onSubmit={handleSubmit(onSubmit)} id="categoryForm">
-                  <Form.Group controlId="AddCategoryCode">
-                    <Form.Label>Code Catégorie d'avoir</Form.Label>
+                <Form onSubmit={handleSubmit(onSubmit)} id="accountCodeForm">
+                  <Form.Group controlId="AddIntermAccountCode">
+                    <Form.Label>Code de Compte</Form.Label>
                     <Form.Control
                       type="text"
-                      name="CategoryCode"
+                      name="IntermAccountCode"
                       ref={register({
                         required: true,
-                        pattern: /[0-9]{3}/,
-                        maxLength: 3,
+                        pattern: /[0-9]{2}/,
+                        maxLength: 2,
                       })}
                       className={`form-control ${
-                        errors.CategoryCode ? "is-invalid" : ""
+                        errors.IntermAccountCode ? "is-invalid" : ""
                       }`}
                     />
-                    {errors.CategoryCode && (
+                    {errors.IntermAccountCode && (
                       <small className="text-danger">Code incorrect</small>
                     )}
                   </Form.Group>
-                  <Form.Group controlId="AddCategoryLabel">
-                    <Form.Label>Libellé Catégorie d'avoir</Form.Label>
+                  <Form.Group controlId="AddIntermAccountLabel">
+                    <Form.Label>Libellé de Compte</Form.Label>
                     <Form.Control
                       type="text"
-                      name="CategoryLabel"
+                      name="IntermAccountLabel"
                       ref={register({ required: false })}
                     />
                   </Form.Group>
@@ -64,7 +63,7 @@ const AddCategory = (props) => {
           <Button variant="danger" onClick={props.onHide}>
             Fermer
           </Button>
-          <Button variant="primary" type="submit" form="categoryForm">
+          <Button variant="primary" type="submit" form="accountCodeForm">
             Insérer
           </Button>
         </Modal.Footer>
@@ -73,4 +72,4 @@ const AddCategory = (props) => {
   );
 };
 
-export default AddCategory;
+export default AddIntermAccount;

@@ -128,6 +128,20 @@ const SideBar = ({ children, logged }) => {
                       <Link to="/adherents">Adhérents</Link>
                       <Link to="/types-adherents">Types des adhérents</Link>
                     </Collapsible>
+                    <Collapsible
+                      open={false}
+                      header={
+                        <div>
+                          <FontAwesomeIcon icon="user-cog" className="mr-2" />
+                          Référentiel INTERMEDIAIRES
+                        </div>
+                      }>
+                      <Link to="/codes-comptes">Codes de comptes</Link>
+                      <Link to="/codes-marché">Codes Marché</Link>
+                      <Link to="/code-titre">Codes Titre</Link>
+                      <Link to="/codes-profit">Codes Profit</Link>
+                      <Link to="/codes-reglement">Codes Réglement</Link>
+                    </Collapsible>
                   </Collapsible>
                 </li>
                 <li>

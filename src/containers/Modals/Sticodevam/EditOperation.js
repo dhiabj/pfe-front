@@ -49,7 +49,6 @@ const EditOperation = (props) => {
                       className={`form-control ${
                         errors.OperationCode ? "is-invalid" : ""
                       }`}
-                      placeholder="Code Type Adhérent"
                       defaultValue={
                         operationData ? operationData.OperationCode : ""
                       }
@@ -64,7 +63,6 @@ const EditOperation = (props) => {
                       type="text"
                       name="OperationLabel"
                       ref={register({ required: false })}
-                      placeholder="Libellé Type Adhérent"
                       defaultValue={
                         operationData ? operationData.OperationLabel : ""
                       }

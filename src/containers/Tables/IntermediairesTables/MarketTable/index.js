@@ -7,27 +7,28 @@ import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import "../../../../css/styles.css";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteValue, getValues } from "../../../../_redux/actions/values";
-import AddValue from "../../../Modals/GeneralRef/AddValue";
-import EditValue from "../../../Modals/GeneralRef/EditValue";
-const ValuesTable = () => {
+import { deleteMarket, getMarkets } from "../../../../_redux/actions/market";
+import moment from "moment";
+import AddMarket from "../../../Modals/Intermediaire/AddMarket";
+import EditMarket from "../../../Modals/Intermediaire/EditMarket";
+const MarketTable = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getValues());
+    dispatch(getMarkets());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const values = useSelector((state) => state.values.data);
+  const markets = useSelector((state) => state.market.data);
   const [addModalShow, setAddModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
   const [id, setId] = useState();
 
-  const openSelectedValueModal = (id) => {
+  const openSelectedMarketModal = (id) => {
     setEditModalShow(true);
     setId(id);
   };
 
-  const deleteCv = (id) => {
-    dispatch(deleteValue(id));
+  const deleteMkc = (id) => {
+    dispatch(deleteMarket(id));
   };
 
   const columns = [
@@ -38,52 +39,34 @@ const ValuesTable = () => {
           <IconButton
             aria-label="delete"
             color="secondary"
-            onClick={() => deleteCv(row.id)}>
+            onClick={() => deleteMkc(row.id)}>
             <DeleteIcon />
           </IconButton>
           <IconButton
             aria-label="edit"
             color="primary"
-            onClick={() => openSelectedValueModal(row.id)}>
+            onClick={() => openSelectedMarketModal(row.id)}>
             <EditIcon />
           </IconButton>
         </div>
       ),
-      compact: true,
     },
     {
-      name: "Code STICODEVAM",
-      cell: (row) => <div>{row.Isin ? row.Isin : "-"}</div>,
+      name: "Code Marché",
+      selector: "MarketCode",
+      sortable: true,
     },
     {
-      name: "Libellé de la valeur",
-      cell: (row) => <div>{row.ValueLabel ? row.ValueLabel : "-"}</div>,
+      name: "Libellé marché",
+      cell: (row) => <div>{row.MarketLabel ? row.MarketLabel : "-"}</div>,
     },
     {
-      name: "Mnémonique",
-      cell: (row) => <div>{row.Mnemonique ? row.Mnemonique : "-"}</div>,
-    },
-    {
-      name: "Type de la Valeur",
-      cell: (row) => <div>{row.ValueType ? row.ValueType : "-"}</div>,
-    },
-    {
-      name: "Nb titres admis en bourse",
+      name: "Date de mise à jour",
       cell: (row) => (
-        <div>{row.NbTitresadmisBourse ? row.NbTitresadmisBourse : "-"}</div>
+        <div>
+          {row.UpdateDate ? moment(row.UpdateDate).format("YYYY-MM-DD") : "-"}
+        </div>
       ),
-    },
-    {
-      name: "Nb de titres flottants",
-      cell: (row) => <div>{row.NbCodFlott ? row.NbCodFlott : "-"}</div>,
-    },
-    {
-      name: "Groupe de cotation",
-      cell: (row) => <div>{row.GroupCotation ? row.GroupCotation : "-"}</div>,
-    },
-    {
-      name: "Super Secteur",
-      cell: (row) => <div>{row.SuperSecteur ? row.SuperSecteur : "-"}</div>,
     },
   ];
 
@@ -103,12 +86,13 @@ const ValuesTable = () => {
     <>
       <div className="card">
         <DataTable
-          title="Données Générales"
+          title="Codes Marché"
           responsive
           overflowY
           overflowYOffset="150px"
           columns={columns}
-          data={values}
+          data={markets}
+          defaultSortField="Code Marché"
           pagination
           selectableRows
           selectableRowsComponent={BootyCheckbox}
@@ -122,15 +106,15 @@ const ValuesTable = () => {
           <AddIcon />
         </Fab>
       </div>
-      <AddValue show={addModalShow} onHide={() => setAddModalShow(false)} />
-      <EditValue
+      <AddMarket show={addModalShow} onHide={() => setAddModalShow(false)} />
+      <EditMarket
         show={editModalShow}
         onHide={() => setEditModalShow(false)}
-        values={values}
+        markets={markets}
         id={id}
       />
     </>
   );
 };
 
-export default ValuesTable;
+export default MarketTable;

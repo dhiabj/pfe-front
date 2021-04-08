@@ -43,9 +43,7 @@ const EditValue = (props) => {
                     className={`form-control ${
                       errors.ValueCode ? "is-invalid" : ""
                     }`}
-                    defaultValue={
-                      valueData ? valueData.Isin.substring(5, 11) : ""
-                    }
+                    defaultValue={valueData ? valueData.Isin : ""}
                   />
                   {errors.ValueCode && (
                     <small className="text-danger">
