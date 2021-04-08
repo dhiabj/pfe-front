@@ -138,7 +138,7 @@ const SideBar = ({ children, logged }) => {
                       }>
                       <Link to="/codes-comptes">Codes de comptes</Link>
                       <Link to="/codes-marché">Codes Marché</Link>
-                      <Link to="/code-titre">Codes Titre</Link>
+                      <Link to="/codes-titre">Codes Titre</Link>
                       <Link to="/codes-profit">Codes Profit</Link>
                       <Link to="/codes-reglement">Codes Réglement</Link>
                     </Collapsible>

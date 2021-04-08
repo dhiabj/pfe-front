@@ -30,6 +30,8 @@ import ValuesPage from "./pages/ReferentielPages/GeneralPages/ValuesPage";
 import CodesComptes from "./pages/ReferentielPages/IntermediairesPages/CodesComptes";
 import CodesMarche from "./pages/ReferentielPages/IntermediairesPages/CodesMarche";
 import CodesProfit from "./pages/ReferentielPages/IntermediairesPages/CodesProfit";
+import CodesReglements from "./pages/ReferentielPages/IntermediairesPages/CodesReglements";
+import CodesTitre from "./pages/ReferentielPages/IntermediairesPages/CodesTitre";
 function App() {
   const loading = useSelector((state) => state.loading.loading);
   const { logged, isVerified } = useSelector((state) => state.auth);
@@ -118,6 +120,16 @@ function App() {
                       exact
                       path="/codes-profit"
                       component={CodesProfit}
+                    />
+                    <LoggedInRoute
+                      exact
+                      path="/codes-reglement"
+                      component={CodesReglements}
+                    />
+                    <LoggedInRoute
+                      exact
+                      path="/codes-titre"
+                      component={CodesTitre}
                     />
                     <LoggedInRoute
                       exact

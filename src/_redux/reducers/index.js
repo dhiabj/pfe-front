@@ -13,6 +13,8 @@ import values from "./values";
 import accountCode from "./accountCode";
 import market from "./market";
 import profits from "./profits";
+import reglement from "./reglement";
+import titles from "./titles";
 
 const rootReducer = redux.combineReducers({
   loading,
@@ -29,6 +31,8 @@ const rootReducer = redux.combineReducers({
   accountCode,
   market,
   profits,
+  reglement,
+  titles,
 });
 
 export default rootReducer;

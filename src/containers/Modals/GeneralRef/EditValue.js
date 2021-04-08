@@ -15,7 +15,7 @@ const EditValue = (props) => {
   //console.log(props.id);
 
   const valueData = props.values?.find((value) => value.id === props.id);
-  console.log(valueData);
+  //console.log(valueData);
   return (
     <div>
       <Modal

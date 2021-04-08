@@ -10,7 +10,7 @@ const AddValue = (props) => {
   const onSubmit = (values) => {
     dispatch(addValue(values));
     props.onHide();
-    console.log(values);
+    //console.log(values);
   };
   return (
     <div>

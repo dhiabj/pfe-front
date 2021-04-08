@@ -8,27 +8,27 @@ import AddIcon from "@material-ui/icons/Add";
 import "../../../../css/styles.css";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProfit, getProfits } from "../../../../_redux/actions/profits";
-import AddProfit from "../../../Modals/Intermediaire/AddProfit";
-import EditProfit from "../../../Modals/Intermediaire/EditProfit";
-const ProfitsTable = () => {
+import { deleteTitle, getTitles } from "../../../../_redux/actions/titles";
+import AddTitle from "../../../Modals/Intermediaire/AddTitle";
+import EditTitle from "../../../Modals/Intermediaire/EditTitle";
+const TitlesTable = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getProfits());
+    dispatch(getTitles());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const profits = useSelector((state) => state.profits.data);
+  const titles = useSelector((state) => state.titles.data);
   const [addModalShow, setAddModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
   const [id, setId] = useState();
 
-  const openSelectedProfitModal = (id) => {
+  const openSelectedTitleModal = (id) => {
     setEditModalShow(true);
     setId(id);
   };
 
-  const deletePc = (id) => {
-    dispatch(deleteProfit(id));
+  const deleteTc = (id) => {
+    dispatch(deleteTitle(id));
   };
 
   const columns = [
@@ -39,26 +39,26 @@ const ProfitsTable = () => {
           <IconButton
             aria-label="delete"
             color="secondary"
-            onClick={() => deletePc(row.id)}>
+            onClick={() => deleteTc(row.id)}>
             <DeleteIcon />
           </IconButton>
           <IconButton
             aria-label="edit"
             color="primary"
-            onClick={() => openSelectedProfitModal(row.id)}>
+            onClick={() => openSelectedTitleModal(row.id)}>
             <EditIcon />
           </IconButton>
         </div>
       ),
     },
     {
-      name: "Code Profit",
-      selector: "ProfitCode",
+      name: "Code Titre",
+      selector: "TitleCode",
       sortable: true,
     },
     {
-      name: "Libellé Profit",
-      cell: (row) => <div>{row.ProfitLabel ? row.ProfitLabel : "-"}</div>,
+      name: "Libellé Titre",
+      cell: (row) => <div>{row.TitleLabel ? row.TitleLabel : "-"}</div>,
     },
     {
       name: "Date de mise à jour",
@@ -86,13 +86,13 @@ const ProfitsTable = () => {
     <>
       <div className="card">
         <DataTable
-          title="Codes Profit"
+          title="Codes Titre"
           responsive
           overflowY
           overflowYOffset="150px"
           columns={columns}
-          data={profits}
-          defaultSortField="Code Profit"
+          data={titles}
+          defaultSortField="Code Titre"
           pagination
           selectableRows
           selectableRowsComponent={BootyCheckbox}
@@ -106,15 +106,15 @@ const ProfitsTable = () => {
           <AddIcon />
         </Fab>
       </div>
-      <AddProfit show={addModalShow} onHide={() => setAddModalShow(false)} />
-      <EditProfit
+      <AddTitle show={addModalShow} onHide={() => setAddModalShow(false)} />
+      <EditTitle
         show={editModalShow}
         onHide={() => setEditModalShow(false)}
-        profits={profits}
+        titles={titles}
         id={id}
       />
     </>
   );
 };
 
-export default ProfitsTable;
+export default TitlesTable;
