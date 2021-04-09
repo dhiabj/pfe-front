@@ -14,7 +14,7 @@ const EditIntermAccount = (props) => {
   };
   //console.log(props.id);
 
-  const accountCodeData = props.aCodes?.find(
+  const accountCodeData = props.accodes?.find(
     (accountType) => accountType.id === props.id
   );
   //console.log(accountCodeData);

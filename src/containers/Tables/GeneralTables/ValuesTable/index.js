@@ -54,6 +54,7 @@ const ValuesTable = () => {
     {
       name: "Code STICODEVAM",
       selector: "Isin",
+      sortable: true,
     },
     {
       name: "Libellé de la valeur",
@@ -109,6 +110,7 @@ const ValuesTable = () => {
           overflowYOffset="150px"
           columns={columns}
           data={values}
+          defaultSortField="Code STICODEVAM"
           pagination
           selectableRows
           selectableRowsComponent={BootyCheckbox}

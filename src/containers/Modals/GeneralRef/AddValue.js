@@ -73,7 +73,7 @@ const AddValue = (props) => {
               </Form.Group>
               <Form.Group as={Row} controlId="AddValueType">
                 <Form.Label column sm="4">
-                  Libellé de la valeur
+                  Type de la valeur
                 </Form.Label>
                 <Col sm="6">
                   <Form.Control

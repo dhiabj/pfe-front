@@ -20,7 +20,7 @@ const MemberTypesTable = () => {
     dispatch(getMemberTypes());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const mTypes = useSelector((state) => state.memberType.data);
+  const mtypes = useSelector((state) => state.memberType.data);
   const [addModalShow, setAddModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
   const [id, setId] = useState();
@@ -95,7 +95,7 @@ const MemberTypesTable = () => {
           overflowY
           overflowYOffset="150px"
           columns={columns}
-          data={mTypes}
+          data={mtypes}
           pagination
           selectableRows
           selectableRowsComponent={BootyCheckbox}
@@ -116,7 +116,7 @@ const MemberTypesTable = () => {
       <EditMemberType
         show={editModalShow}
         onHide={() => setEditModalShow(false)}
-        mTypes={mTypes}
+        mtypes={mtypes}
         id={id}
       />
     </>

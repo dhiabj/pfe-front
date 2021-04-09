@@ -20,7 +20,7 @@ const AccountCodesTable = () => {
     dispatch(getAccountCodes());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const aCodes = useSelector((state) => state.accountCode.data);
+  const accodes = useSelector((state) => state.accountCode.data);
   const [addModalShow, setAddModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
   const [id, setId] = useState();
@@ -94,7 +94,7 @@ const AccountCodesTable = () => {
           overflowY
           overflowYOffset="150px"
           columns={columns}
-          data={aCodes}
+          data={accodes}
           defaultSortField="Code Compte"
           pagination
           selectableRows
@@ -116,7 +116,7 @@ const AccountCodesTable = () => {
       <EditIntermAccount
         show={editModalShow}
         onHide={() => setEditModalShow(false)}
-        aCodes={aCodes}
+        accodes={accodes}
         id={id}
       />
     </>

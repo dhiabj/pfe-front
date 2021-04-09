@@ -14,7 +14,7 @@ const EditMemberType = (props) => {
   };
   //console.log(props.id);
 
-  const memberTypeData = props.mTypes?.find(
+  const memberTypeData = props.mtypes?.find(
     (memberType) => memberType.id === props.id
   );
   //console.log(memberTypeData);

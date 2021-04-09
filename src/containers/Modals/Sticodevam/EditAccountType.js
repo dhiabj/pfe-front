@@ -14,7 +14,7 @@ const EditAccountType = (props) => {
   };
   //console.log(props.id);
 
-  const accountTypeData = props.aTypes?.find(
+  const accountTypeData = props.atypes?.find(
     (accountType) => accountType.id === props.id
   );
   //console.log(accountTypeData);

@@ -19,7 +19,7 @@ const AccountTypesTable = () => {
     dispatch(getAccountTypes());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const aTypes = useSelector((state) => state.accountTypes.data);
+  const atypes = useSelector((state) => state.accountTypes.data);
   const [addModalShow, setAddModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
   const [id, setId] = useState();
@@ -87,7 +87,7 @@ const AccountTypesTable = () => {
           overflowY
           overflowYOffset="150px"
           columns={columns}
-          data={aTypes}
+          data={atypes}
           defaultSortField="Code Nature de Compte"
           pagination
           selectableRows
@@ -109,7 +109,7 @@ const AccountTypesTable = () => {
       <EditAccountType
         show={editModalShow}
         onHide={() => setEditModalShow(false)}
-        aTypes={aTypes}
+        atypes={atypes}
         id={id}
       />
     </>
