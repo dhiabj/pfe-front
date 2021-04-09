@@ -41,6 +41,7 @@ const AddAccountType = (props) => {
                       className={`form-control ${
                         errors.AccountTypeCode ? "is-invalid" : ""
                       }`}
+                      placeholder="Code Nature de Compte"
                     />
                     {errors.AccountTypeCode && (
                       <small className="text-danger">Code incorrect</small>
@@ -52,6 +53,7 @@ const AddAccountType = (props) => {
                       type="text"
                       name="AccountTypeLabel"
                       ref={register({ required: false })}
+                      placeholder="Libellé Nature de Compte"
                     />
                   </Form.Group>
                 </Form>

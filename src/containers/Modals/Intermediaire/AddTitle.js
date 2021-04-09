@@ -41,6 +41,7 @@ const AddTitle = (props) => {
                       className={`form-control ${
                         errors.TitleCode ? "is-invalid" : ""
                       }`}
+                      placeholder="Code de titre"
                     />
                     {errors.TitleCode && (
                       <small className="text-danger">Code incorrect</small>
@@ -52,6 +53,7 @@ const AddTitle = (props) => {
                       type="text"
                       name="TitleLabel"
                       ref={register({ required: false })}
+                      placeholder="Libellé de titre"
                     />
                   </Form.Group>
                 </Form>

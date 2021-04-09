@@ -48,6 +48,7 @@ const EditMemberType = (props) => {
                       defaultValue={
                         memberTypeData ? memberTypeData.MemberTypeCode : ""
                       }
+                      placeholder="Code Type Adhérent"
                     />
                     {errors.MemberTypeCode && (
                       <small className="text-danger">Code incorrect</small>
@@ -62,6 +63,7 @@ const EditMemberType = (props) => {
                       defaultValue={
                         memberTypeData ? memberTypeData.MemberTypeLabel : ""
                       }
+                      placeholder="Libellé Type Adhérent"
                     />
                   </Form.Group>
                 </Form>

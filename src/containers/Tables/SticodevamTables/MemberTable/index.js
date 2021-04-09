@@ -67,9 +67,7 @@ const MemberTable = () => {
     {
       name: "Type Adhérent",
       cell: (row) => (
-        <div>
-          {row.MemberType.memberTypeCode ? row.MemberType.memberTypeCode : "-"}
-        </div>
+        <div>{row.MemberType ? row.MemberType.memberTypeCode : "-"}</div>
       ),
     },
     {

@@ -39,24 +39,18 @@ const MemberTypesTable = () => {
       name: "Actions",
       cell: (row) => (
         <div>
-          {row.MemberTypeCode !== "-" ? (
-            <div>
-              <IconButton
-                aria-label="delete"
-                color="secondary"
-                onClick={() => deleteMtc(row.id)}>
-                <DeleteIcon />
-              </IconButton>
-              <IconButton
-                aria-label="edit"
-                color="primary"
-                onClick={() => openSelectedMemberTypeModal(row.id)}>
-                <EditIcon />
-              </IconButton>
-            </div>
-          ) : (
-            <div className="ml-4">-</div>
-          )}
+          <IconButton
+            aria-label="delete"
+            color="secondary"
+            onClick={() => deleteMtc(row.id)}>
+            <DeleteIcon />
+          </IconButton>
+          <IconButton
+            aria-label="edit"
+            color="primary"
+            onClick={() => openSelectedMemberTypeModal(row.id)}>
+            <EditIcon />
+          </IconButton>
         </div>
       ),
     },

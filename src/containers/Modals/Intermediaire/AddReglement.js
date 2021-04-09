@@ -41,6 +41,7 @@ const AddReglement = (props) => {
                       className={`form-control ${
                         errors.ReglementCode ? "is-invalid" : ""
                       }`}
+                      placeholder="Code de règlement"
                     />
                     {errors.ReglementCode && (
                       <small className="text-danger">Code incorrect</small>
@@ -52,6 +53,7 @@ const AddReglement = (props) => {
                       type="text"
                       name="ReglementLabel"
                       ref={register({ required: false })}
+                      placeholder="Libellé de règlement"
                     />
                   </Form.Group>
                 </Form>

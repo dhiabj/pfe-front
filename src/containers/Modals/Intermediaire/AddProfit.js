@@ -41,6 +41,7 @@ const AddProfit = (props) => {
                       className={`form-control ${
                         errors.ProfitCode ? "is-invalid" : ""
                       }`}
+                      placeholder="Code de profit"
                     />
                     {errors.ProfitCode && (
                       <small className="text-danger">Code incorrect</small>
@@ -52,6 +53,7 @@ const AddProfit = (props) => {
                       type="text"
                       name="ProfitLabel"
                       ref={register({ required: false })}
+                      placeholder="Libellé de profit"
                     />
                   </Form.Group>
                 </Form>

@@ -42,6 +42,7 @@ const AddMarket = (props) => {
                       className={`form-control ${
                         errors.MarketCode ? "is-invalid" : ""
                       }`}
+                      placeholder="Code de marché"
                     />
                     {errors.MarketCode && (
                       <small className="text-danger">Code incorrect</small>
@@ -53,6 +54,7 @@ const AddMarket = (props) => {
                       type="text"
                       name="MarketLabel"
                       ref={register({ required: false })}
+                      placeholder="Libellé de marché"
                     />
                   </Form.Group>
                 </Form>

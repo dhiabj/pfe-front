@@ -54,6 +54,7 @@ const EditIntermAccount = (props) => {
                       defaultValue={
                         accountCodeData ? accountCodeData.AccountCode : ""
                       }
+                      placeholder="Code de Compte"
                     />
                     {errors.IntermAccountCode && (
                       <small className="text-danger">Code incorrect</small>
@@ -68,6 +69,7 @@ const EditIntermAccount = (props) => {
                       defaultValue={
                         accountCodeData ? accountCodeData.AccountLabel : ""
                       }
+                      placeholder="Libellé de Compte"
                     />
                   </Form.Group>
                 </Form>

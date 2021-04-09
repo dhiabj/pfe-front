@@ -53,7 +53,7 @@ const ValuesTable = () => {
     },
     {
       name: "Code STICODEVAM",
-      cell: (row) => <div>{row.Isin ? row.Isin : "-"}</div>,
+      selector: "Isin",
     },
     {
       name: "Libellé de la valeur",

@@ -54,6 +54,7 @@ const EditReglement = (props) => {
                       defaultValue={
                         reglementData ? reglementData.ReglementCode : ""
                       }
+                      placeholder="Code de règlement"
                     />
                     {errors.ReglementCode && (
                       <small className="text-danger">Code incorrect</small>
@@ -68,6 +69,7 @@ const EditReglement = (props) => {
                       defaultValue={
                         reglementData ? reglementData.ReglementLabel : ""
                       }
+                      placeholder="Libellé de règlement"
                     />
                   </Form.Group>
                 </Form>

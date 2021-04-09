@@ -48,6 +48,7 @@ const EditTitle = (props) => {
                         errors.TitleCode ? "is-invalid" : ""
                       }`}
                       defaultValue={titleData ? titleData.TitleCode : ""}
+                      placeholder="Code de titre"
                     />
                     {errors.TitleCode && (
                       <small className="text-danger">Code incorrect</small>
@@ -60,6 +61,7 @@ const EditTitle = (props) => {
                       name="TitleLabel"
                       ref={register({ required: false })}
                       defaultValue={titleData ? titleData.TitleLabel : ""}
+                      placeholder="Libellé de titre"
                     />
                   </Form.Group>
                 </Form>

@@ -22,8 +22,8 @@ const EditMember = (props) => {
   //console.log(memberData);
 
   const defaultSelect = {
-    value: memberData?.MemberType.id,
-    label: memberData?.MemberType.memberTypeCode,
+    value: memberData?.MemberType && memberData.MemberType.id,
+    label: memberData?.MemberType && memberData.MemberType.memberTypeCode,
   };
   //console.log(defaultSelect);
 
@@ -68,6 +68,7 @@ const EditMember = (props) => {
                         errors.MembershipCode ? "is-invalid" : ""
                       }`}
                       defaultValue={memberData ? memberData.MembershipCode : ""}
+                      placeholder="Code Adhérent"
                     />
                     {errors.MembershipCode && (
                       <small className="text-danger">Code incorrect</small>
@@ -80,6 +81,7 @@ const EditMember = (props) => {
                       name="MemberName"
                       ref={register({ required: false })}
                       defaultValue={memberData ? memberData.MemberName : ""}
+                      placeholder="Nom Adhérent"
                     />
                   </Form.Group>
                   <div className="mb-3">

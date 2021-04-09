@@ -48,6 +48,7 @@ const EditProfit = (props) => {
                         errors.ProfitCode ? "is-invalid" : ""
                       }`}
                       defaultValue={profitData ? profitData.ProfitCode : ""}
+                      placeholder="Code de profit"
                     />
                     {errors.ProfitCode && (
                       <small className="text-danger">Code incorrect</small>
@@ -60,6 +61,7 @@ const EditProfit = (props) => {
                       name="ProfitLabel"
                       ref={register({ required: false })}
                       defaultValue={profitData ? profitData.ProfitLabel : ""}
+                      placeholder="Libellé de profit"
                     />
                   </Form.Group>
                 </Form>

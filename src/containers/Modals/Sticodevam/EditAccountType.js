@@ -54,6 +54,7 @@ const EditAccountType = (props) => {
                       defaultValue={
                         accountTypeData ? accountTypeData.NatureCode : ""
                       }
+                      placeholder="Code Nature de Compte"
                     />
                     {errors.AccountTypeCode && (
                       <small className="text-danger">Code incorrect</small>
@@ -70,6 +71,7 @@ const EditAccountType = (props) => {
                           ? accountTypeData.NatureAccountLabel
                           : ""
                       }
+                      placeholder="Libellé Nature de Compte"
                     />
                   </Form.Group>
                 </Form>

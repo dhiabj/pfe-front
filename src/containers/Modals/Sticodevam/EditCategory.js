@@ -52,6 +52,7 @@ const EditCategory = (props) => {
                       defaultValue={
                         categoryData ? categoryData.CategoryCode : ""
                       }
+                      placeholder="Code Catégorie d'avoir"
                     />
                     {errors.CategoryCode && (
                       <small className="text-danger">Code incorrect</small>
@@ -66,6 +67,7 @@ const EditCategory = (props) => {
                       defaultValue={
                         categoryData ? categoryData.CategoryLabel : ""
                       }
+                      placeholder="Libellé Catégorie d'avoir"
                     />
                   </Form.Group>
                 </Form>

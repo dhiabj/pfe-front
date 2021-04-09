@@ -52,6 +52,7 @@ const EditOperation = (props) => {
                       defaultValue={
                         operationData ? operationData.OperationCode : ""
                       }
+                      placeholder="Code Opération"
                     />
                     {errors.OperationCode && (
                       <small className="text-danger">Code incorrect</small>
@@ -66,6 +67,7 @@ const EditOperation = (props) => {
                       defaultValue={
                         operationData ? operationData.OperationLabel : ""
                       }
+                      placeholder="Libellé Opération"
                     />
                   </Form.Group>
                 </Form>

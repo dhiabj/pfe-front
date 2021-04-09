@@ -48,6 +48,7 @@ const EditMarket = (props) => {
                         errors.MarketCode ? "is-invalid" : ""
                       }`}
                       defaultValue={marketData ? marketData.MarketCode : ""}
+                      placeholder="Code de marché"
                     />
                     {errors.MarketCode && (
                       <small className="text-danger">Code incorrect</small>
@@ -60,6 +61,7 @@ const EditMarket = (props) => {
                       name="MarketLabel"
                       ref={register({ required: false })}
                       defaultValue={marketData ? marketData.MarketLabel : ""}
+                      placeholder="Libellé de marché"
                     />
                   </Form.Group>
                 </Form>

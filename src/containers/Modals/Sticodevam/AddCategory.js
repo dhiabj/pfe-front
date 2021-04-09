@@ -42,6 +42,7 @@ const AddCategory = (props) => {
                       className={`form-control ${
                         errors.CategoryCode ? "is-invalid" : ""
                       }`}
+                      placeholder="Code Catégorie d'avoir"
                     />
                     {errors.CategoryCode && (
                       <small className="text-danger">Code incorrect</small>
@@ -53,6 +54,7 @@ const AddCategory = (props) => {
                       type="text"
                       name="CategoryLabel"
                       ref={register({ required: false })}
+                      placeholder="Libellé Catégorie d'avoir"
                     />
                   </Form.Group>
                 </Form>

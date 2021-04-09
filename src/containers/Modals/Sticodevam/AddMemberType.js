@@ -37,6 +37,7 @@ const AddMemberType = (props) => {
                       className={`form-control ${
                         errors.MemberTypeCode ? "is-invalid" : ""
                       }`}
+                      placeholder="Code Type Adhérent"
                     />
                     {errors.MemberTypeCode && (
                       <small className="text-danger">Code incorrect</small>
@@ -48,6 +49,7 @@ const AddMemberType = (props) => {
                       type="text"
                       name="MemberTypeLabel"
                       ref={register({ required: false })}
+                      placeholder="Libellé Type Adhérent"
                     />
                   </Form.Group>
                 </Form>

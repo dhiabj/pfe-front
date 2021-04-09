@@ -41,6 +41,7 @@ const AddIntermAccount = (props) => {
                       className={`form-control ${
                         errors.IntermAccountCode ? "is-invalid" : ""
                       }`}
+                      placeholder="Code de Compte"
                     />
                     {errors.IntermAccountCode && (
                       <small className="text-danger">Code incorrect</small>
@@ -52,6 +53,7 @@ const AddIntermAccount = (props) => {
                       type="text"
                       name="IntermAccountLabel"
                       ref={register({ required: false })}
+                      placeholder="Libellé de Compte"
                     />
                   </Form.Group>
                 </Form>
