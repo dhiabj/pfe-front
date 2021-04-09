@@ -19,3 +19,7 @@
   left: auto;
   position: fixed;
 }
+
+.data-table-extensions > .data-table-extensions-action > button {
+  margin-bottom: 20px;
+}

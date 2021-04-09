@@ -69,7 +69,6 @@ const StockUploadTable = ({ stockUploads }) => {
           title="Renseignements sur les chargements de données STOCK"
           responsive
           overflowY
-          overflowYOffset="150px"
           columns={columns}
           data={stockUploads}
           pagination

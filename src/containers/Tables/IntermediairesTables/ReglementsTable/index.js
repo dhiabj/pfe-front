@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
+import DataTableExtensions from "react-data-table-component-extensions";
+import "react-data-table-component-extensions/dist/index.css";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
@@ -20,7 +22,7 @@ const ReglementsTable = () => {
     dispatch(getReglements());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const reglements = useSelector((state) => state.reglement.data);
+  const data = useSelector((state) => state.reglement.data);
   const [addModalShow, setAddModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
   const [id, setId] = useState();
@@ -85,21 +87,28 @@ const ReglementsTable = () => {
     </div>
   ));
 
+  const tableData = {
+    columns,
+    data,
+  };
+
   return (
     <>
       <div className="card">
-        <DataTable
-          title="Codes Réglement"
-          responsive
-          overflowY
-          overflowYOffset="150px"
-          columns={columns}
-          data={reglements}
-          defaultSortField="Code Réglement"
-          pagination
-          selectableRows
-          selectableRowsComponent={BootyCheckbox}
-        />
+        <DataTableExtensions {...tableData} print={false}>
+          <DataTable
+            noHeader
+            responsive
+            overflowY
+            columns={columns}
+            data={data}
+            defaultSortField="id"
+            pagination
+            highlightOnHover
+            selectableRows
+            selectableRowsComponent={BootyCheckbox}
+          />
+        </DataTableExtensions>
       </div>
       <div className="add-button">
         <Fab
@@ -113,7 +122,7 @@ const ReglementsTable = () => {
       <EditReglement
         show={editModalShow}
         onHide={() => setEditModalShow(false)}
-        reglements={reglements}
+        reglements={data}
         id={id}
       />
     </>

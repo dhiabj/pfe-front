@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
+import DataTableExtensions from "react-data-table-component-extensions";
+import "react-data-table-component-extensions/dist/index.css";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
@@ -20,7 +22,7 @@ const MemberTypesTable = () => {
     dispatch(getMemberTypes());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const mtypes = useSelector((state) => state.memberType.data);
+  const data = useSelector((state) => state.memberType.data);
   const [addModalShow, setAddModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
   const [id, setId] = useState();
@@ -86,20 +88,28 @@ const MemberTypesTable = () => {
     </div>
   ));
 
+  const tableData = {
+    columns,
+    data,
+  };
+
   return (
     <>
       <div className="card">
-        <DataTable
-          title="Liste des types des adhérents"
-          responsive
-          overflowY
-          overflowYOffset="150px"
-          columns={columns}
-          data={mtypes}
-          pagination
-          selectableRows
-          selectableRowsComponent={BootyCheckbox}
-        />
+        <DataTableExtensions {...tableData} print={false}>
+          <DataTable
+            noHeader
+            responsive
+            overflowY
+            columns={columns}
+            data={data}
+            defaultSortField="id"
+            pagination
+            highlightOnHover
+            selectableRows
+            selectableRowsComponent={BootyCheckbox}
+          />
+        </DataTableExtensions>
       </div>
       <div className="add-button">
         <Fab
@@ -116,7 +126,7 @@ const MemberTypesTable = () => {
       <EditMemberType
         show={editModalShow}
         onHide={() => setEditModalShow(false)}
-        mtypes={mtypes}
+        mtypes={data}
         id={id}
       />
     </>

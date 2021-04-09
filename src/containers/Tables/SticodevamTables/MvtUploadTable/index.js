@@ -69,7 +69,6 @@ const MvtUploadTable = ({ mvtUploads }) => {
           title="Renseignements sur les chargements de données MOUVEMENT"
           responsive
           overflowY
-          overflowYOffset="150px"
           columns={columns}
           data={mvtUploads}
           pagination
