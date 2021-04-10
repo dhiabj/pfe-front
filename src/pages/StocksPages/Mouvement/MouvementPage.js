@@ -5,6 +5,7 @@ import moment from "moment";
 import MouvementTable from "../../../containers/Tables/SticodevamTables/MouvementTable";
 import { useDispatch, useSelector } from "react-redux";
 import { getMouvements } from "../../../_redux/actions/mouvements";
+import PeriodSearchForm from "../../../containers/PeriodSearchForm";
 const StocksPage = () => {
   const dispatch = useDispatch();
   const token = localStorage.token;
@@ -44,6 +45,7 @@ const StocksPage = () => {
         </h5>
         <div className="card-body">
           <DaySearchForm onSubmit={onSubmit} />
+          {/* <PeriodSearchForm /> */}
         </div>
       </div>
 

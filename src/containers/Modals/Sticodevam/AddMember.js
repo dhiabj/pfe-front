@@ -74,15 +74,15 @@ const AddMember = (props) => {
                       placeholder="Nom Adhérent"
                     />
                   </Form.Group>
-                  <div className="mb-3">
-                    <label>Type Adhérent</label>
+                  <Form.Group controlId="AddMemberType">
+                    <Form.Label>Type Adhérent</Form.Label>
                     <Select
                       value={selectedOption}
                       onChange={onChangeSelect}
                       options={newLabelValuesFromMemberTypesArray}
                       placeholder="Choisissez un type d'adhérent"
                     />
-                  </div>
+                  </Form.Group>
                 </Form>
               </Col>
             </Row>

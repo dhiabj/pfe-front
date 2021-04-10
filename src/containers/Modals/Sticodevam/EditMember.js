@@ -54,7 +54,7 @@ const EditMember = (props) => {
             <Row>
               <Col>
                 <Form onSubmit={handleSubmit(onSubmit)} id="editMemberForm">
-                  <Form.Group controlId="AddMembershipCode">
+                  <Form.Group controlId="EditMembershipCode">
                     <Form.Label>Code Adhérent</Form.Label>
                     <Form.Control
                       type="text"
@@ -74,7 +74,7 @@ const EditMember = (props) => {
                       <small className="text-danger">Code incorrect</small>
                     )}
                   </Form.Group>
-                  <Form.Group controlId="AddMemberName">
+                  <Form.Group controlId="EditMemberName">
                     <Form.Label>Nom Adhérent</Form.Label>
                     <Form.Control
                       type="text"
@@ -84,8 +84,8 @@ const EditMember = (props) => {
                       placeholder="Nom Adhérent"
                     />
                   </Form.Group>
-                  <div className="mb-3">
-                    <label>Type Adhérent</label>
+                  <Form.Group controlId="EditMemberType">
+                    <Form.Label>Type Adhérent</Form.Label>
                     <Select
                       value={selectedOption}
                       onChange={onChangeSelect}
@@ -93,7 +93,7 @@ const EditMember = (props) => {
                       placeholder="Choisissez un type d'adhérent"
                       defaultValue={defaultSelect}
                     />
-                  </div>
+                  </Form.Group>
                 </Form>
               </Col>
             </Row>

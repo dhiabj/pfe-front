@@ -95,7 +95,10 @@ const AccountCodesTable = () => {
   return (
     <>
       <div className="card">
-        <DataTableExtensions {...tableData} print={false}>
+        <DataTableExtensions
+          {...tableData}
+          print={false}
+          filterPlaceholder="Rechercher">
           <DataTable
             noHeader
             responsive
