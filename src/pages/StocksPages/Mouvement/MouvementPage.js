@@ -15,6 +15,8 @@ const MouvementPage = () => {
     OperationCode: "",
     StockExchangeDate: "",
     AccountingDate: "",
+    DeliveryMemberCode: "",
+    DeliveredMemberCode: "",
   };
   const dispatch = useDispatch();
   useEffect(() => {
@@ -34,7 +36,7 @@ const MouvementPage = () => {
   //let combinedData = [mouvements, mouvementSum];
   //console.log(combinedData);
   return (
-    <div>
+    <>
       <div className="card mb-3">
         <h5 className="card-header">
           <FontAwesomeIcon icon="search" className="mr-2" />
@@ -50,7 +52,7 @@ const MouvementPage = () => {
           <MouvementSumTable mouvementSum={mouvementSum} />
         </>
       )}
-    </div>
+    </>
   );
 };
 export default MouvementPage;

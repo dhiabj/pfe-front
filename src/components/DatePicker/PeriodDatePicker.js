@@ -1,34 +1,38 @@
 import React, { useState } from "react";
 import { DateRangePicker } from "react-dates";
+import "react-dates/initialize";
+import "react-dates/lib/css/_datepicker.css";
+import "../../css/styles.css";
 
-const PeriodDatePicker = ({ value, onChange }) => {
-  //   const [date, setDate] = useState(value);
-  //   const [focused, setFocused] = useState();
-  //   const onChangeDate = (date) => {
-  //     onChange(date);
-  //     setDate(date);
-  //   };
+function PeriodDatepicker({ value, onChange }) {
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
+  const [focusedInput, setFocusedInput] = useState(null);
+
+  const rangeDatesChangeHandler = ({ startDate, endDate }) => {
+    setStartDate(startDate);
+    setEndDate(endDate);
+  };
+
+  const onFocusChangeRangeHandler = (focusedInput) => {
+    setFocusedInput(focusedInput);
+  };
+
   return (
-    // <SingleDatePicker
-    //   date={date} // momentPropTypes.momentObj or null
-    //   onDateChange={onChangeDate} // PropTypes.func.isRequired
-    //   isOutsideRange={() => false}
-    //   focused={focused} // PropTypes.bool
-    //   onFocusChange={({ focused }) => setFocused(focused)} // PropTypes.func.isRequired
-    //   id={Math.floor(Math.random() * 10).toString()} // PropTypes.string.isRequired,
-    // />
-    <DateRangePicker
-      startDate={this.state.startDate} // momentPropTypes.momentObj or null,
-      startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
-      endDate={this.state.endDate} // momentPropTypes.momentObj or null,
-      endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
-      onDatesChange={({ startDate, endDate }) =>
-        this.setState({ startDate, endDate })
-      } // PropTypes.func.isRequired,
-      focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-      onFocusChange={(focusedInput) => this.setState({ focusedInput })} // PropTypes.func.isRequired,
-    />
+    <div>
+      <DateRangePicker
+        startDate={startDate}
+        startDateId={Math.floor(Math.random() * 10).toString()}
+        endDate={endDate}
+        endDateId={Math.floor(Math.random() * 10).toString()}
+        onDatesChange={rangeDatesChangeHandler}
+        focusedInput={focusedInput}
+        onFocusChange={onFocusChangeRangeHandler}
+        displayFormat={() => "DD/MM/YYYY"}
+        isOutsideRange={() => false}
+      />
+    </div>
   );
-};
+}
 
-export default PeriodDatePicker;
+export default PeriodDatepicker;
