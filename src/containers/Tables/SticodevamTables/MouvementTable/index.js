@@ -1,88 +1,61 @@
 import React from "react";
 import DataTable from "react-data-table-component";
+import DataTableExtensions from "react-data-table-component-extensions";
+import "react-data-table-component-extensions/dist/index.css";
 import "../../../../css/styles.css";
-import moment from "moment";
-const MouvementTable = ({ mouvements }) => {
+const MouvementTable = ({ data }) => {
   const columns = [
     {
-      name: "Code opération",
-      selector: "OperationCode",
-    },
-    {
-      name: "ISIN valeur ",
-      selector: "Isin",
-    },
-    {
-      name: "Date Bourse de la situation",
-      cell: (row) => (
-        <div>{moment(row.StockExchangeDate).format("YYYY-MM-DD")}</div>
-      ),
-    },
-    {
-      name: "Date Comptable situation",
-      cell: (row) => (
-        <div>{moment(row.AccountingDate).format("YYYY-MM-DD")}</div>
-      ),
-    },
-    {
-      name: "Code adhérent livreur",
-      selector: "DeliveryMemberCode",
-    },
-    {
-      name: "Nature de compte livreur",
-      selector: "DeliveryAccountType",
-    },
-    {
-      name: "Catégorie d'avoir livreur",
-      selector: "DeliveryCategoryCredit",
-    },
-    {
-      name: "Code adhérent livré",
-      selector: "DeliveredMemberCode",
-    },
-    {
-      name: "Nature de compte livré",
-      selector: "DeliveredAccountType",
-    },
-    {
-      name: "Catégorie d'avoir livré",
-      selector: "DeliveredCategoryCredit",
+      name: "Libellé opération",
+      cell: (row) => <div>{row.OperationCode.OperationLabel}</div>,
     },
     {
       name: "Nombre de titres",
-      selector: "TitlesNumber",
+      cell: (row) => (
+        <div>
+          {Number(row.TitlesNumber).toLocaleString(undefined, {
+            maximumFractionDigits: 2,
+          })}
+        </div>
+      ),
     },
     {
       name: "Montant",
-      selector: "Amount",
+      cell: (row) => (
+        <div>
+          {Number(row.Amount).toLocaleString(undefined, {
+            maximumFractionDigits: 2,
+          })}
+        </div>
+      ),
     },
   ];
 
-  const BootyCheckbox = React.forwardRef(({ onClick, ...rest }, ref) => (
-    <div className="custom-control custom-checkbox">
-      <input
-        type="checkbox"
-        className="custom-control-input"
-        ref={ref}
-        {...rest}
-      />
-      <label className="custom-control-label" onClick={onClick} />
-    </div>
-  ));
+  const tableData = {
+    columns,
+    data,
+  };
+
   return (
-    <div>
-      <div className="card">
-        <DataTable
-          title="Mouvements"
-          overflowY
-          columns={columns}
-          data={mouvements}
-          pagination
-          selectableRows
-          selectableRowsComponent={BootyCheckbox}
-        />
+    <>
+      <div className="card mb-3 pl-3">
+        <DataTableExtensions
+          {...tableData}
+          print={false}
+          filterPlaceholder="Rechercher">
+          <DataTable
+            noHeader
+            responsive
+            overflowY
+            columns={columns}
+            data={data}
+            defaultSortField="id"
+            pagination
+            highlightOnHover
+          />
+        </DataTableExtensions>
       </div>
-    </div>
+    </>
   );
 };
 export default MouvementTable;

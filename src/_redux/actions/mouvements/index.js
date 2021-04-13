@@ -15,6 +15,20 @@ export const getMouvements = (search) => async (dispatch) => {
   }
 };
 
+export const getMouvementSum = (search) => async (dispatch) => {
+  const token = localStorage.token;
+  if (token) {
+    const response = await axios.get(`${api}/mouvement-sum`, {
+      headers: { Authorization: `Bearer ${token}` },
+      params: {
+        search: search,
+      },
+    });
+    dispatch({ type: "MOUVEMENT_SUM", payload: response.data });
+    //console.log(response.data);
+  }
+};
+
 export const getMvtUploads = () => async (dispatch) => {
   const token = localStorage.token;
   if (token) {
@@ -36,4 +50,12 @@ export const deleteMvtUploads = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({ type: "MOUVEMENT_DELETE_FAILED", payload: error.response });
   }
+};
+
+export const MouvementTable = () => (dispatch) => {
+  dispatch({ type: "SHOW_TABLE" });
+};
+
+export const resetMouvementTable = () => (dispatch) => {
+  dispatch({ type: "HIDE_TABLE" });
 };

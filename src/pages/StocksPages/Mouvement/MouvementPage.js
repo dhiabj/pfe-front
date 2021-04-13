@@ -1,56 +1,56 @@
 import React, { useEffect } from "react";
-import DaySearchForm from "../../../containers/DaySearchForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import moment from "moment";
 import MouvementTable from "../../../containers/Tables/SticodevamTables/MouvementTable";
 import { useDispatch, useSelector } from "react-redux";
-import { getMouvements } from "../../../_redux/actions/mouvements";
+import {
+  getMouvements,
+  getMouvementSum,
+  resetMouvementTable,
+} from "../../../_redux/actions/mouvements";
 import PeriodSearchForm from "../../../containers/PeriodSearchForm";
-const StocksPage = () => {
-  const dispatch = useDispatch();
-  const token = localStorage.token;
-  const mouvements = useSelector((state) => state.mouvements.data);
+import MouvementSumTable from "../../../containers/Tables/SticodevamTables/MouvementSumTable";
+const MouvementPage = () => {
   const search = {
-    code_valeur: "",
-    code_adherent: "",
-    nature_compte: "",
-    stock_exchange_date: "",
-    accounting_date: "",
+    ValueCode: "",
+    OperationCode: "",
+    StockExchangeDate: "",
+    AccountingDate: "",
   };
+  const dispatch = useDispatch();
   useEffect(() => {
-    if (!token) return;
-    dispatch(getMouvements(search));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token]);
-
-  const onSubmit = (values) => {
-    const search = {
-      ...values,
-      stock_exchange_date: values.stock_exchange_date
-        ? moment(values.stock_exchange_date).format("YYYY-MM-DD")
-        : "",
-      accounting_date: values.accounting_date
-        ? moment(values.accounting_date).format("YYYY-MM-DD")
-        : "",
+    return () => {
+      dispatch(resetMouvementTable());
     };
-    console.log(search);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
     dispatch(getMouvements(search));
-  };
+    dispatch(getMouvementSum(search));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const mouvements = useSelector((state) => state.mouvements.data);
+  const mouvementSum = useSelector((state) => state.mouvements.sum);
+  const { show } = useSelector((state) => state.mouvements);
+  //let combinedData = [mouvements, mouvementSum];
+  //console.log(combinedData);
   return (
     <div>
       <div className="card mb-3">
         <h5 className="card-header">
           <FontAwesomeIcon icon="search" className="mr-2" />
-          Consulter l'historique Mouvement par jour
+          Consulter l'historique Mouvement
         </h5>
         <div className="card-body">
-          <DaySearchForm onSubmit={onSubmit} />
-          {/* <PeriodSearchForm /> */}
+          <PeriodSearchForm />
         </div>
       </div>
-
-      <MouvementTable mouvements={mouvements} />
+      {show && (
+        <>
+          <MouvementTable data={mouvements} />
+          <MouvementSumTable mouvementSum={mouvementSum} />
+        </>
+      )}
     </div>
   );
 };
-export default StocksPage;
+export default MouvementPage;

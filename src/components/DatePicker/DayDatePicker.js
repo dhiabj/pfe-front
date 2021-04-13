@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { SingleDatePicker } from "react-dates";
 
-const DatePicker = ({ value, onChange }) => {
+const DayDatePicker = ({ value, onChange }) => {
   const [date, setDate] = useState(value);
   const [focused, setFocused] = useState();
   const onChangeDate = (date) => {
@@ -20,4 +20,4 @@ const DatePicker = ({ value, onChange }) => {
   );
 };
 
-export default DatePicker;
+export default DayDatePicker;

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Controller, useForm } from "react-hook-form";
 import "react-dates/lib/css/_datepicker.css";
 import "react-dates/initialize";
-import DatePicker from "../../components/DatePicker";
+import DayDatePicker from "../../components/DatePicker/DayDatePicker";
 import "../../css/StockSearchForm.css";
 const DaySearchForm = ({ onSubmit }) => {
   const { register, handleSubmit, control } = useForm();
@@ -19,7 +19,7 @@ const DaySearchForm = ({ onSubmit }) => {
                 defaultValue={null}
                 control={control}
                 render={({ onChange, value }) => (
-                  <DatePicker value={value} onChange={onChange} />
+                  <DayDatePicker value={value} onChange={onChange} />
                 )}
               />
             </div>
@@ -33,7 +33,7 @@ const DaySearchForm = ({ onSubmit }) => {
                 defaultValue={null}
                 control={control}
                 render={({ onChange, value }) => (
-                  <DatePicker value={value} onChange={onChange} />
+                  <DayDatePicker value={value} onChange={onChange} />
                 )}
               />
             </div>
