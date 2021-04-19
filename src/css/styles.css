@@ -23,3 +23,7 @@
 .data-table-extensions > .data-table-extensions-action > button {
   margin-bottom: 20px;
 }
+
+.fixed-height {
+  height: 100vh;
+}

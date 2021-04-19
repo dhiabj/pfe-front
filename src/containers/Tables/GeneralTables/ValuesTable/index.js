@@ -5,6 +5,7 @@ import "react-data-table-component-extensions/dist/index.css";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import SortIcon from "@material-ui/icons/ArrowDownward";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import "../../../../css/styles.css";
@@ -125,6 +126,7 @@ const ValuesTable = () => {
             highlightOnHover
             selectableRows
             selectableRowsComponent={BootyCheckbox}
+            sortIcon={<SortIcon />}
           />
         </DataTableExtensions>
       </div>

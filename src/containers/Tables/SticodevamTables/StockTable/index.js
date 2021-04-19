@@ -2,6 +2,7 @@ import React from "react";
 import DataTable from "react-data-table-component";
 import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
+import SortIcon from "@material-ui/icons/ArrowDownward";
 import "../../../../css/styles.css";
 const StockTable = ({ stocks }) => {
   const formattedArray = [];
@@ -136,6 +137,7 @@ const StockTable = ({ stocks }) => {
       name: "Valeur",
       selector: "Isin",
       sortable: true,
+      right: true,
     },
     {
       name: "Av clts gérés étr",
@@ -148,6 +150,7 @@ const StockTable = ({ stocks }) => {
             : "0"}
         </div>
       ),
+      right: true,
     },
     {
       name: "Av clts libres Tun",
@@ -160,6 +163,7 @@ const StockTable = ({ stocks }) => {
             : "0"}
         </div>
       ),
+      right: true,
     },
     {
       name: "Av clts libres étr",
@@ -172,6 +176,7 @@ const StockTable = ({ stocks }) => {
             : "0"}
         </div>
       ),
+      right: true,
     },
     {
       name: "Av cont liq/rachat",
@@ -184,6 +189,7 @@ const StockTable = ({ stocks }) => {
             : "0"}
         </div>
       ),
+      right: true,
     },
     {
       name: "Av. clts gérés Tun",
@@ -196,6 +202,7 @@ const StockTable = ({ stocks }) => {
             : "0"}
         </div>
       ),
+      right: true,
     },
     {
       name: "Avoirs étrangers",
@@ -208,6 +215,7 @@ const StockTable = ({ stocks }) => {
             : "0"}
         </div>
       ),
+      right: true,
     },
     {
       name: "Avoirs domestiques",
@@ -220,6 +228,7 @@ const StockTable = ({ stocks }) => {
             : "0"}
         </div>
       ),
+      right: true,
     },
     {
       name: "Avoirs indiff.",
@@ -232,6 +241,7 @@ const StockTable = ({ stocks }) => {
             : "0"}
         </div>
       ),
+      right: true,
     },
     {
       name: "Avoirs ordin-depo",
@@ -244,6 +254,7 @@ const StockTable = ({ stocks }) => {
             : "0"}
         </div>
       ),
+      right: true,
     },
     {
       name: "Avoirs propres",
@@ -256,6 +267,7 @@ const StockTable = ({ stocks }) => {
             : "0"}
         </div>
       ),
+      right: true,
     },
     {
       name: "O.P.C.V.M",
@@ -268,14 +280,17 @@ const StockTable = ({ stocks }) => {
             : "0"}
         </div>
       ),
+      right: true,
     },
     {
       name: "Total",
       cell: (row) => <div>0</div>,
+      right: true,
     },
     {
       name: "Part (%)",
       cell: (row) => <div>0%</div>,
+      right: true,
     },
   ];
 
@@ -285,8 +300,8 @@ const StockTable = ({ stocks }) => {
   };
 
   return (
-    <>
-      <div className="card pl-3">
+    <div className="fixed-height">
+      <div className="card">
         <DataTableExtensions
           {...tableData}
           print={false}
@@ -294,16 +309,17 @@ const StockTable = ({ stocks }) => {
           <DataTable
             noHeader
             responsive
-            overflowY
             columns={columns}
             data={data}
             defaultSortField="id"
             pagination
+            paginationPerPage={8}
             highlightOnHover
+            sortIcon={<SortIcon />}
           />
         </DataTableExtensions>
       </div>
-    </>
+    </div>
   );
 };
 export default StockTable;

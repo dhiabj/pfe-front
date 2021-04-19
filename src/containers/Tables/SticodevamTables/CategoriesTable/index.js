@@ -7,6 +7,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
+import SortIcon from "@material-ui/icons/ArrowDownward";
 import "../../../../css/styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -101,6 +102,7 @@ const CategoriesTable = () => {
             highlightOnHover
             selectableRows
             selectableRowsComponent={BootyCheckbox}
+            sortIcon={<SortIcon />}
           />
         </DataTableExtensions>
       </div>
