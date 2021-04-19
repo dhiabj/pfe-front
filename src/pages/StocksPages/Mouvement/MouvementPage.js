@@ -2,22 +2,10 @@ import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MouvementTable from "../../../containers/Tables/SticodevamTables/MouvementTable";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getMouvements,
-  getMouvementSum,
-  resetMouvementTable,
-} from "../../../_redux/actions/mouvements";
+import { resetMouvementTable } from "../../../_redux/actions/mouvements";
 import PeriodSearchForm from "../../../containers/PeriodSearchForm";
 import MouvementSumTable from "../../../containers/Tables/SticodevamTables/MouvementSumTable";
 const MouvementPage = () => {
-  const search = {
-    ValueCode: "",
-    OperationCode: "",
-    StockExchangeDate: "",
-    AccountingDate: "",
-    DeliveryMemberCode: "",
-    DeliveredMemberCode: "",
-  };
   const dispatch = useDispatch();
   useEffect(() => {
     return () => {
@@ -25,14 +13,9 @@ const MouvementPage = () => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  useEffect(() => {
-    dispatch(getMouvements(search));
-    dispatch(getMouvementSum(search));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   const mouvements = useSelector((state) => state.mouvements.data);
   const mouvementSum = useSelector((state) => state.mouvements.sum);
-  const { show } = useSelector((state) => state.mouvements);
+  const { showMouvements } = useSelector((state) => state.mouvements);
   //let combinedData = [mouvements, mouvementSum];
   //console.log(combinedData);
   return (
@@ -46,7 +29,7 @@ const MouvementPage = () => {
           <PeriodSearchForm />
         </div>
       </div>
-      {show && (
+      {showMouvements && (
         <>
           <MouvementTable data={mouvements} />
           <MouvementSumTable mouvementSum={mouvementSum} />

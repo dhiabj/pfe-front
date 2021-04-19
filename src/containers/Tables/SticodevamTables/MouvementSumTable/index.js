@@ -35,7 +35,6 @@ const MouvementSumTable = ({ mouvementSum }) => {
           columns={columns}
           data={mouvementSum}
           defaultSortField="id"
-          highlightOnHover
         />
       </div>
     </>

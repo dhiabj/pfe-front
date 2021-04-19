@@ -5,25 +5,22 @@ import "react-dates/lib/css/_datepicker.css";
 import "../../css/styles.css";
 
 function PeriodDatepicker({ value, onChange }) {
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
+  const [date, setDate] = useState(value);
   const [focusedInput, setFocusedInput] = useState(null);
-
   const rangeDatesChangeHandler = ({ startDate, endDate }) => {
-    setStartDate(startDate);
-    setEndDate(endDate);
+    onChange({ startDate, endDate });
+    setDate({ startDate, endDate });
   };
 
   const onFocusChangeRangeHandler = (focusedInput) => {
     setFocusedInput(focusedInput);
   };
-
   return (
     <div>
       <DateRangePicker
-        startDate={startDate}
+        startDate={date?.startDate}
         startDateId={Math.floor(Math.random() * 10).toString()}
-        endDate={endDate}
+        endDate={date?.endDate}
         endDateId={Math.floor(Math.random() * 10).toString()}
         onDatesChange={rangeDatesChangeHandler}
         focusedInput={focusedInput}

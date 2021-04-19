@@ -1,90 +1,176 @@
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect } from "react";
+import { Button, Row, Col, Form } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { getValues } from "../../_redux/actions/values";
 import { Controller, useForm } from "react-hook-form";
-import "react-dates/lib/css/_datepicker.css";
-import "react-dates/initialize";
+import moment from "moment";
+import { getMembers } from "../../_redux/actions/member";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import CustomSelect from "../../components/Select";
 import DayDatePicker from "../../components/DatePicker/DayDatePicker";
-import "../../css/StockSearchForm.css";
-const DaySearchForm = ({ onSubmit }) => {
-  const { register, handleSubmit, control } = useForm();
-  return (
-    <div className="col-sm-12">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="row">
-          <div className="col-sm-2">
-            <div className="form-group">
-              <label>Date comptable</label>
-              <Controller
-                name="accounting_date"
-                defaultValue={null}
-                control={control}
-                render={({ onChange, value }) => (
-                  <DayDatePicker value={value} onChange={onChange} />
-                )}
-              />
-            </div>
-          </div>
+import { getStocks, StockTable } from "../../_redux/actions/stocks";
+import { getAccountTypes } from "../../_redux/actions/accountTypes";
 
-          <div className="col-sm-2">
-            <div className="form-group">
-              <label>Date bourse</label>
+const DaySearchForm = () => {
+  const { handleSubmit, register, control, watch } = useForm();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAccountTypes());
+    dispatch(getValues());
+    dispatch(getMembers());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const natureCodes = useSelector((state) => state.accountTypes.data);
+  const values = useSelector((state) => state.values.data);
+  const members = useSelector((state) => state.member.data);
+  const NatureSelectOptions = natureCodes?.map((nature) => ({
+    value: nature.NatureCode,
+    label: nature.NatureAccountLabel,
+  }));
+  const ValueSelectOptions = values?.map((value) => ({
+    value: value.Isin,
+    label: value.Isin,
+  }));
+  const MemberSelectOptions = members?.map((member) => ({
+    value: member.MembershipCode,
+    label: member.MembershipCode,
+  }));
+  const onSubmit = (values) => {
+    const search = {
+      ...values,
+      AccountingDate: values.AccountingDate
+        ? moment(values.AccountingDate).format("YYYY-MM-DD")
+        : "",
+      StockExchangeDate: values.StockExchangeDate
+        ? moment(values.StockExchangeDate).format("YYYY-MM-DD")
+        : "",
+      ValueCode: values.ValueCode ? values.ValueCode.value : "",
+      MembershipCode: values.MembershipCode ? values.MembershipCode.value : "",
+      NatureCode: values.NatureCode ? values.NatureCode.value : "",
+    };
+    console.log(search);
+    dispatch(getStocks(search));
+    dispatch(StockTable());
+    //dispatch(MouvementTable());
+  };
+  const validate = () => {
+    const AccountingDate = watch("AccountingDate");
+    const StockExchangeDate = watch("StockExchangeDate");
+    const ValueCode = watch("ValueCode");
+    const MembershipCode = watch("MembershipCode");
+    const NatureCode = watch("NatureCode");
+    return !!(
+      AccountingDate ||
+      StockExchangeDate ||
+      ValueCode ||
+      MembershipCode ||
+      NatureCode
+    );
+  };
+  const valuePlaceHolder = "Choisissez un code de valeur";
+  const memberPlaceHolder = "Choisissez un code d'adhérent";
+  const accountTypePlaceHolder = "Choisissez un nature de compte";
+  return (
+    <Col sm={12}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Row>
+          <Col sm={4}>
+            <Form.Group controlId="AccountingDate">
+              <Form.Label>Date comptable</Form.Label>
               <Controller
-                name="stock_exchange_date"
+                name="AccountingDate"
                 defaultValue={null}
                 control={control}
+                ref={register("AccountingDate", { validate })}
                 render={({ onChange, value }) => (
                   <DayDatePicker value={value} onChange={onChange} />
                 )}
               />
-            </div>
-          </div>
-          <div className="col-sm-2">
-            <div className="form-group">
-              <label>Code valeur</label>
-              <input
-                className="form-control"
-                name="code_valeur"
-                type="text"
-                placeholder="Code Valeur"
-                ref={register({ required: false })}
+            </Form.Group>
+            <Form.Group controlId="StockExchangeDate">
+              <Form.Label>Date bourse</Form.Label>
+              <Controller
+                name="StockExchangeDate"
+                defaultValue={null}
+                control={control}
+                ref={register("StockExchangeDate", { validate })}
+                render={({ onChange, value }) => (
+                  <DayDatePicker value={value} onChange={onChange} />
+                )}
               />
-            </div>
-          </div>
-          <div className="col-sm-2">
-            <div className="form-group">
-              <label>Code adhérent</label>
-              <input
-                className="form-control"
-                name="code_adherent"
-                type="text"
-                placeholder="Code Adherent"
-                ref={register({ required: false })}
+            </Form.Group>
+          </Col>
+          <Col sm={4}>
+            <Form.Group controlId="ValueSelect">
+              <Form.Label>Code valeur</Form.Label>
+              <Controller
+                name="ValueCode"
+                defaultValue={null}
+                control={control}
+                ref={register("ValueCode", { validate })}
+                render={({ onChange, value }) => (
+                  <CustomSelect
+                    options={ValueSelectOptions}
+                    value={value}
+                    onChange={onChange}
+                    placeholder={valuePlaceHolder}
+                  />
+                )}
               />
-            </div>
-          </div>
-          <div className="col-sm-2">
-            <div className="form-group">
-              <label>Nature de compte</label>
-              <input
-                className="form-control"
-                name="nature_compte"
-                type="text"
-                placeholder="Nature Compte"
-                ref={register({ required: false })}
+            </Form.Group>
+            <Form.Group controlId="MemberSelect">
+              <Form.Label>Code adhérent</Form.Label>
+              <Controller
+                name="MembershipCode"
+                defaultValue={null}
+                control={control}
+                ref={register("MembershipCode", { validate })}
+                render={({ onChange, value }) => (
+                  <CustomSelect
+                    options={MemberSelectOptions}
+                    value={value}
+                    onChange={onChange}
+                    placeholder={memberPlaceHolder}
+                  />
+                )}
               />
-            </div>
-          </div>
-          <div className="col-sm-2 m-auto">
-            <div className="form-group">
-              <button type="submit" className="btn btn-primary">
-                <FontAwesomeIcon icon="search" className="mr-2" />
-                Rechercher
-              </button>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
+            </Form.Group>
+          </Col>
+          <Col sm={4}>
+            <Form.Group controlId="AccountTypeSelect">
+              <Form.Label>Nature de compte</Form.Label>
+              <Controller
+                name="NatureCode"
+                defaultValue={null}
+                control={control}
+                ref={register("NatureCode", { validate })}
+                render={({ onChange, value }) => (
+                  <CustomSelect
+                    options={NatureSelectOptions}
+                    value={value}
+                    onChange={onChange}
+                    placeholder={accountTypePlaceHolder}
+                  />
+                )}
+              />
+            </Form.Group>
+          </Col>
+          <Button
+            type="submit"
+            disabled={validate() ? false : true}
+            className={
+              validate()
+                ? "btn btn-primary btn-block mt-4"
+                : "btn btn-primary btn-block mt-4 disabled"
+            }>
+            <FontAwesomeIcon icon="search" className="mr-2" />
+            Soumettre
+          </Button>
+        </Row>
+      </Form>
+    </Col>
   );
 };
 

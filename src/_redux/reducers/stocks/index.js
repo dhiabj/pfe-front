@@ -1,4 +1,4 @@
-const initialState = {};
+const initialState = { showStocks: false };
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state = initialState, action) => {
   const { type, payload } = action;
@@ -22,6 +22,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         error: payload,
+      };
+    case "SHOW_STOCK_TABLES":
+      return {
+        ...state,
+        showStocks: true,
+      };
+    case "HIDE_STOCK_TABLES":
+      return {
+        ...state,
+        showStocks: false,
       };
     default:
       return state;

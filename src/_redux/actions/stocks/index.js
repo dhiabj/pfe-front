@@ -37,3 +37,11 @@ export const deleteStockUploads = (id) => async (dispatch) => {
     dispatch({ type: "STOCK_DELETE_FAILED", payload: error.response });
   }
 };
+
+export const StockTable = () => (dispatch) => {
+  dispatch({ type: "SHOW_STOCK_TABLES" });
+};
+
+export const resetStockTable = () => (dispatch) => {
+  dispatch({ type: "HIDE_STOCK_TABLES" });
+};

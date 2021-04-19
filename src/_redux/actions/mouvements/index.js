@@ -53,9 +53,9 @@ export const deleteMvtUploads = (id) => async (dispatch) => {
 };
 
 export const MouvementTable = () => (dispatch) => {
-  dispatch({ type: "SHOW_TABLE" });
+  dispatch({ type: "SHOW_MOUVEMENT_TABLE" });
 };
 
 export const resetMouvementTable = () => (dispatch) => {
-  dispatch({ type: "HIDE_TABLE" });
+  dispatch({ type: "HIDE_MOUVEMENT_TABLE" });
 };
