@@ -4,7 +4,7 @@ import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
 import SortIcon from "@material-ui/icons/ArrowDownward";
 import "../../../../css/styles.css";
-const StockTable = ({ stocks }) => {
+const MemberStockTable = ({ stocks }) => {
   const formattedArray = [];
 
   stocks?.forEach((element) => {
@@ -14,7 +14,7 @@ const StockTable = ({ stocks }) => {
           CategoryLabel: "Avoirs propres",
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
-          Isin: element.Isin.Isin,
+          MemberName: element.MembershipCode.MemberName,
         });
         break;
       case "004":
@@ -22,7 +22,7 @@ const StockTable = ({ stocks }) => {
           CategoryLabel: "O.P.C.V.M",
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
-          Isin: element.Isin.Isin,
+          MemberName: element.MembershipCode.MemberName,
         });
         break;
       case "002":
@@ -30,7 +30,7 @@ const StockTable = ({ stocks }) => {
           CategoryLabel: "Avoirs domestiques",
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
-          Isin: element.Isin.Isin,
+          MemberName: element.MembershipCode.MemberName,
         });
         break;
       case "006":
@@ -38,7 +38,7 @@ const StockTable = ({ stocks }) => {
           CategoryLabel: "Av cont liq/rachat",
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
-          Isin: element.Isin.Isin,
+          MemberName: element.MembershipCode.MemberName,
         });
         break;
       case "003":
@@ -46,7 +46,7 @@ const StockTable = ({ stocks }) => {
           CategoryLabel: "Avoirs étrangers",
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
-          Isin: element.Isin.Isin,
+          MemberName: element.MembershipCode.MemberName,
         });
         break;
       case "000":
@@ -54,7 +54,7 @@ const StockTable = ({ stocks }) => {
           CategoryLabel: "Avoirs indiff.",
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
-          Isin: element.Isin.Isin,
+          MemberName: element.MembershipCode.MemberName,
         });
         break;
       case "032":
@@ -62,7 +62,7 @@ const StockTable = ({ stocks }) => {
           CategoryLabel: "Av clts gérés étr",
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
-          Isin: element.Isin.Isin,
+          MemberName: element.MembershipCode.MemberName,
         });
         break;
       case "021":
@@ -70,7 +70,7 @@ const StockTable = ({ stocks }) => {
           CategoryLabel: "Av clts libres Tun",
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
-          Isin: element.Isin.Isin,
+          MemberName: element.MembershipCode.MemberName,
         });
         break;
       case "031":
@@ -78,7 +78,7 @@ const StockTable = ({ stocks }) => {
           CategoryLabel: "Av clts libres étr",
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
-          Isin: element.Isin.Isin,
+          MemberName: element.MembershipCode.MemberName,
         });
         break;
       case "022":
@@ -86,7 +86,7 @@ const StockTable = ({ stocks }) => {
           CategoryLabel: "Av. clts gérés Tun",
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
-          Isin: element.Isin.Isin,
+          MemberName: element.MembershipCode.MemberName,
         });
         break;
       case "999":
@@ -94,7 +94,7 @@ const StockTable = ({ stocks }) => {
           CategoryLabel: "Avoirs ordin-depo",
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
-          Isin: element.Isin.Isin,
+          MemberName: element.MembershipCode.MemberName,
         });
         break;
 
@@ -102,21 +102,6 @@ const StockTable = ({ stocks }) => {
         break;
     }
   });
-  // console.log(stocks);
-  // let holder = {};
-  // formattedArray.forEach((el) => {
-  //   if (holder.hasOwnProperty(el.Isin)) {
-  //     holder[el.Isin] = holder[el.Isin] + el.Quantity;
-  //   } else {
-  //     holder[el.Isin] = el.Quantity;
-  //   }
-  // });
-  // const obj2 = [];
-  // console.log(holder);
-  // for (let prop in holder) {
-  //   obj2.push({ Isin: prop, sum: holder[prop] });
-  // }
-  // console.log(obj2);
 
   const data = Array.from(
     formattedArray
@@ -134,10 +119,10 @@ const StockTable = ({ stocks }) => {
 
   const columns = [
     {
-      name: "Valeur",
-      selector: "Isin",
+      name: "Nom Adhérent",
+      selector: "MemberName",
       sortable: true,
-      right: true,
+      grow: 3,
     },
     {
       name: "Av clts gérés étr",
@@ -322,4 +307,4 @@ const StockTable = ({ stocks }) => {
     </div>
   );
 };
-export default StockTable;
+export default MemberStockTable;

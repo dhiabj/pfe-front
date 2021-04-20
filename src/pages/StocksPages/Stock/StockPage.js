@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import DaySearchForm from "../../../containers/DaySearchForm";
+import StocksDaySearchForm from "../../../containers/StocksDaySearchForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
 import { getStocks, resetStockTable } from "../../../_redux/actions/stocks";
-import FullWidthTabs from "../../../components/Nav";
+import FullWidthTabs from "../../../components/StockTabs";
 const StockPage = () => {
   useEffect(() => {
     return () => {
@@ -34,7 +34,7 @@ const StockPage = () => {
           Consulter l'historique STOCK par jour
         </h5>
         <div className="card-body">
-          <DaySearchForm />
+          <StocksDaySearchForm />
         </div>
       </div>
       {showStocks && <FullWidthTabs stocks={stocks} />}

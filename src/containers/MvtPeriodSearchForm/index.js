@@ -15,7 +15,7 @@ import { getMembers } from "../../_redux/actions/member";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CustomSelect from "../../components/Select";
 
-const PeriodSearchForm = () => {
+const MvtPeriodSearchForm = () => {
   const { handleSubmit, register, control, watch } = useForm();
   const dispatch = useDispatch();
 
@@ -215,4 +215,4 @@ const PeriodSearchForm = () => {
   );
 };
 
-export default PeriodSearchForm;
+export default MvtPeriodSearchForm;

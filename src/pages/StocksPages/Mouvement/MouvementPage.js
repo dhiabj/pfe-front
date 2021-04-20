@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MouvementTable from "../../../containers/Tables/SticodevamTables/MouvementTable";
 import { useDispatch, useSelector } from "react-redux";
 import { resetMouvementTable } from "../../../_redux/actions/mouvements";
-import PeriodSearchForm from "../../../containers/PeriodSearchForm";
+import MvtPeriodSearchForm from "../../../containers/MvtPeriodSearchForm";
 import MouvementSumTable from "../../../containers/Tables/SticodevamTables/MouvementSumTable";
 const MouvementPage = () => {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const MouvementPage = () => {
           Consulter l'historique Mouvement
         </h5>
         <div className="card-body">
-          <PeriodSearchForm />
+          <MvtPeriodSearchForm />
         </div>
       </div>
       {showMouvements && (

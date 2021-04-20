@@ -11,7 +11,7 @@ import DayDatePicker from "../../components/DatePicker/DayDatePicker";
 import { getStocks, StockTable } from "../../_redux/actions/stocks";
 import { getAccountTypes } from "../../_redux/actions/accountTypes";
 
-const DaySearchForm = () => {
+const StocksDaySearchForm = () => {
   const { handleSubmit, register, control, watch } = useForm();
   const dispatch = useDispatch();
 
@@ -174,4 +174,4 @@ const DaySearchForm = () => {
   );
 };
 
-export default DaySearchForm;
+export default StocksDaySearchForm;

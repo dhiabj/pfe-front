@@ -5,7 +5,8 @@ import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Box from "@material-ui/core/Box";
-import StockTable from "../containers/Tables/SticodevamTables/StockTable";
+import ValueStockTable from "../containers/Tables/SticodevamTables/ValueStockTable";
+import MemberStockTable from "../containers/Tables/SticodevamTables/MemberStockTable";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -65,10 +66,10 @@ export default function FullWidthTabs({ stocks }) {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <StockTable stocks={stocks} />
+        <ValueStockTable stocks={stocks} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <MemberStockTable stocks={stocks} />
       </TabPanel>
     </div>
   );
