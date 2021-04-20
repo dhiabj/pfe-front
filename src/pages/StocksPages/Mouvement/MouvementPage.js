@@ -31,7 +31,7 @@ const MouvementPage = () => {
       </div>
       {showMouvements && (
         <>
-          <MouvementTable data={mouvements} />
+          <MouvementTable mouvements={mouvements} />
           <MouvementSumTable mouvementSum={mouvementSum} />
         </>
       )}

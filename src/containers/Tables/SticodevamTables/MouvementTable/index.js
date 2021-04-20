@@ -3,17 +3,40 @@ import DataTable from "react-data-table-component";
 import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
 import "../../../../css/styles.css";
-const MouvementTable = ({ data }) => {
+const MouvementTable = ({ mouvements }) => {
+  const formattedArray = [];
+  mouvements?.forEach((element) => {
+    formattedArray.push({
+      OperationLabel: element.OperationCode.OperationLabel,
+      TitlesNumber: +element.TitlesNumber,
+      Amount: +element.Amount,
+    });
+  });
+
+  const data = Array.from(
+    formattedArray
+      .reduce((acc, { TitlesNumber, Amount, ...r }) => {
+        const key = JSON.stringify(r);
+        const current = acc.get(key) || { ...r, TitlesNumber: 0, Amount: 0 };
+        return acc.set(key, {
+          ...current,
+          TitlesNumber: current.TitlesNumber + TitlesNumber,
+          Amount: current.Amount + Amount,
+        });
+      }, new Map())
+      .values()
+  );
+
   const columns = [
     {
       name: "Libellé opération",
-      cell: (row) => <div>{row.OperationCode.OperationLabel}</div>,
+      cell: (row) => <div>{row.OperationLabel}</div>,
     },
     {
       name: "Nombre de titres",
       cell: (row) => (
         <div>
-          {Number(row.TitlesNumber).toLocaleString(undefined, {
+          {row.TitlesNumber.toLocaleString(undefined, {
             maximumFractionDigits: 2,
           })}
         </div>
@@ -23,7 +46,7 @@ const MouvementTable = ({ data }) => {
       name: "Montant",
       cell: (row) => (
         <div>
-          {Number(row.Amount).toLocaleString(undefined, {
+          {row.Amount.toLocaleString(undefined, {
             maximumFractionDigits: 2,
           })}
         </div>
