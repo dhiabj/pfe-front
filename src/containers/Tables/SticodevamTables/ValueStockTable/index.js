@@ -4,6 +4,7 @@ import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
 import SortIcon from "@material-ui/icons/ArrowDownward";
 import "../../../../css/styles.css";
+import NoData from "../../../../components/NoData";
 const ValueStockTable = ({ stocks }) => {
   const formattedArray = [];
 
@@ -347,6 +348,7 @@ const ValueStockTable = ({ stocks }) => {
             paginationPerPage={8}
             highlightOnHover
             sortIcon={<SortIcon />}
+            noDataComponent={<NoData />}
           />
         </DataTableExtensions>
       </div>

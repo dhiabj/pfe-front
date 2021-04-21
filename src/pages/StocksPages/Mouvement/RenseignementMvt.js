@@ -12,7 +12,7 @@ const RenseignementMvt = () => {
   const mvtUploads = useSelector((state) => state.mouvements.uploads);
   return (
     <div>
-      <MvtUploadTable mvtUploads={mvtUploads} />
+      <MvtUploadTable data={mvtUploads} />
     </div>
   );
 };

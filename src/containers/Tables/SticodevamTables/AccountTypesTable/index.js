@@ -16,6 +16,7 @@ import {
 } from "../../../../_redux/actions/accountTypes";
 import AddAccountType from "../../../Modals/Sticodevam/AddAccountType";
 import EditAccountType from "../../../Modals/Sticodevam/EditAccountType";
+import NoData from "../../../../components/NoData";
 const AccountTypesTable = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -105,6 +106,7 @@ const AccountTypesTable = () => {
             selectableRows
             selectableRowsComponent={BootyCheckbox}
             sortIcon={<SortIcon />}
+            noDataComponent={<NoData />}
           />
         </DataTableExtensions>
       </div>

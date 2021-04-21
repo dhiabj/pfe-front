@@ -26,18 +26,17 @@ const MouvementSumTable = ({ mouvementSum }) => {
   ];
 
   return (
-    <>
-      <div className="card pl-3">
-        <DataTable
-          title="Total"
-          responsive
-          overflowY
-          columns={columns}
-          data={mouvementSum}
-          defaultSortField="id"
-        />
-      </div>
-    </>
+    <div className="card pl-3">
+      <DataTable
+        title="Total"
+        responsive
+        overflowY
+        columns={columns}
+        data={mouvementSum}
+        defaultSortField="id"
+        noDataComponent=""
+      />
+    </div>
   );
 };
 export default MouvementSumTable;

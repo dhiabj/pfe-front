@@ -17,6 +17,7 @@ import {
 } from "../../../../_redux/actions/accountCode";
 import AddIntermAccount from "../../../Modals/Intermediaire/AddIntermAccount";
 import EditIntermAccount from "../../../Modals/Intermediaire/EditIntermAccount";
+import NoData from "../../../../components/NoData";
 const AccountCodesTable = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -112,6 +113,7 @@ const AccountCodesTable = () => {
             selectableRows
             selectableRowsComponent={BootyCheckbox}
             sortIcon={<SortIcon />}
+            noDataComponent={<NoData />}
           />
         </DataTableExtensions>
       </div>

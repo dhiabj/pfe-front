@@ -2,6 +2,7 @@ import React from "react";
 import DataTable from "react-data-table-component";
 import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
+import NoData from "../../../../components/NoData";
 import "../../../../css/styles.css";
 const MouvementTable = ({ mouvements }) => {
   const formattedArray = [];
@@ -60,25 +61,24 @@ const MouvementTable = ({ mouvements }) => {
   };
 
   return (
-    <>
-      <div className="card mb-3 pl-3">
-        <DataTableExtensions
-          {...tableData}
-          print={false}
-          filterPlaceholder="Rechercher">
-          <DataTable
-            noHeader
-            responsive
-            overflowY
-            columns={columns}
-            data={data}
-            defaultSortField="id"
-            pagination
-            highlightOnHover
-          />
-        </DataTableExtensions>
-      </div>
-    </>
+    <div className="card mb-3 pl-3">
+      <DataTableExtensions
+        {...tableData}
+        print={false}
+        filterPlaceholder="Rechercher">
+        <DataTable
+          noHeader
+          responsive
+          overflowY
+          columns={columns}
+          data={data}
+          defaultSortField="id"
+          pagination
+          highlightOnHover
+          noDataComponent={<NoData />}
+        />
+      </DataTableExtensions>
+    </div>
   );
 };
 export default MouvementTable;

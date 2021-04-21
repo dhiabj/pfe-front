@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteProfit, getProfits } from "../../../../_redux/actions/profits";
 import AddProfit from "../../../Modals/Intermediaire/AddProfit";
 import EditProfit from "../../../Modals/Intermediaire/EditProfit";
+import NoData from "../../../../components/NoData";
 const ProfitsTable = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -109,6 +110,7 @@ const ProfitsTable = () => {
             selectableRows
             selectableRowsComponent={BootyCheckbox}
             sortIcon={<SortIcon />}
+            noDataComponent={<NoData />}
           />
         </DataTableExtensions>
       </div>

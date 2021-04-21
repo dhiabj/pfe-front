@@ -17,6 +17,7 @@ import {
 } from "../../../../_redux/actions/operationCode";
 import AddOperation from "../../../Modals/Sticodevam/AddOperation";
 import EditOperation from "../../../Modals/Sticodevam/EditOperation";
+import NoData from "../../../../components/NoData";
 const OperationTable = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -112,6 +113,7 @@ const OperationTable = () => {
             selectableRows
             selectableRowsComponent={BootyCheckbox}
             sortIcon={<SortIcon />}
+            noDataComponent={<NoData />}
           />
         </DataTableExtensions>
       </div>

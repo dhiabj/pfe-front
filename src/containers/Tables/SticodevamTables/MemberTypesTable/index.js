@@ -17,6 +17,7 @@ import {
 } from "../../../../_redux/actions/memberType";
 import AddMemberType from "../../../Modals/Sticodevam/AddMemberType";
 import EditMemberType from "../../../Modals/Sticodevam/EditMemberType";
+import NoData from "../../../../components/NoData";
 const MemberTypesTable = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -114,6 +115,7 @@ const MemberTypesTable = () => {
             selectableRows
             selectableRowsComponent={BootyCheckbox}
             sortIcon={<SortIcon />}
+            noDataComponent={<NoData />}
           />
         </DataTableExtensions>
       </div>

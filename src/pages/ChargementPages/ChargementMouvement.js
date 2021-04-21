@@ -51,7 +51,7 @@ const ChargementMouvement = () => {
         Chargement des données MOUVEMENT
       </h5>
       <div className="card-body">
-        <img src={logo} alt="cmf-logo" className="img-fluid charg-img" />
+        <img src={logo} alt="cmf-logo" className="img-fluid img-center" />
         {message ? <Message msg={message} /> : null}
         <form onSubmit={handleSubmit(onFileUpload)}>
           <div className="custom-file mb-4">

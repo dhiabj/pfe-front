@@ -17,6 +17,7 @@ import {
 } from "../../../../_redux/actions/reglement";
 import AddReglement from "../../../Modals/Intermediaire/AddReglement";
 import EditReglement from "../../../Modals/Intermediaire/EditReglement";
+import NoData from "../../../../components/NoData";
 const ReglementsTable = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -112,6 +113,7 @@ const ReglementsTable = () => {
             selectableRows
             selectableRowsComponent={BootyCheckbox}
             sortIcon={<SortIcon />}
+            noDataComponent={<NoData />}
           />
         </DataTableExtensions>
       </div>

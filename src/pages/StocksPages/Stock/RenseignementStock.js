@@ -12,7 +12,7 @@ const RenseignementStock = () => {
   const stockUploads = useSelector((state) => state.stocks.uploads);
   return (
     <div>
-      <StockUploadTable stockUploads={stockUploads} />
+      <StockUploadTable data={stockUploads} />
     </div>
   );
 };

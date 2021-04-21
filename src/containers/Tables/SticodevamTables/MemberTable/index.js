@@ -15,6 +15,7 @@ import { deleteMember, getMembers } from "../../../../_redux/actions/member";
 import AddMember from "../../../Modals/Sticodevam/AddMember";
 import EditMember from "../../../Modals/Sticodevam/EditMember";
 import { getMemberTypes } from "../../../../_redux/actions/memberType";
+import NoData from "../../../../components/NoData";
 const MemberTable = () => {
   useEffect(() => {
     dispatch(getMembers());
@@ -119,6 +120,7 @@ const MemberTable = () => {
             selectableRows
             selectableRowsComponent={BootyCheckbox}
             sortIcon={<SortIcon />}
+            noDataComponent={<NoData />}
           />
         </DataTableExtensions>
       </div>

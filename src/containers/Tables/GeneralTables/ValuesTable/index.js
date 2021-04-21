@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteValue, getValues } from "../../../../_redux/actions/values";
 import AddValue from "../../../Modals/GeneralRef/AddValue";
 import EditValue from "../../../Modals/GeneralRef/EditValue";
+import NoData from "../../../../components/NoData";
 const ValuesTable = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -127,6 +128,7 @@ const ValuesTable = () => {
             selectableRows
             selectableRowsComponent={BootyCheckbox}
             sortIcon={<SortIcon />}
+            noDataComponent={<NoData />}
           />
         </DataTableExtensions>
       </div>

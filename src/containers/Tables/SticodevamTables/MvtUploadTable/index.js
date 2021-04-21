@@ -1,12 +1,15 @@
 import React from "react";
 import DataTable from "react-data-table-component";
+import DataTableExtensions from "react-data-table-component-extensions";
+import "react-data-table-component-extensions/dist/index.css";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import "../../../../css/styles.css";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 import { deleteMvtUploads } from "../../../../_redux/actions/mouvements";
-const MvtUploadTable = ({ mvtUploads }) => {
+import NoData from "../../../../components/NoData";
+const MvtUploadTable = ({ data }) => {
   const dispatch = useDispatch();
   const deleteMvt = (id) => {
     dispatch(deleteMvtUploads(id));
@@ -68,20 +71,31 @@ const MvtUploadTable = ({ mvtUploads }) => {
     </div>
   ));
 
+  const tableData = {
+    columns,
+    data,
+  };
+
   return (
     <div className="card">
-      <DataTable
-        title="Renseignements sur les chargements de données MOUVEMENT"
-        responsive
-        overflowY
-        columns={columns}
-        data={mvtUploads}
-        defaultSortField="id"
-        highlightOnHover
-        pagination
-        selectableRows
-        selectableRowsComponent={BootyCheckbox}
-      />
+      <DataTableExtensions
+        {...tableData}
+        print={false}
+        filterPlaceholder="Rechercher">
+        <DataTable
+          noHeader
+          responsive
+          overflowY
+          columns={columns}
+          data={data}
+          defaultSortField="id"
+          pagination
+          highlightOnHover
+          selectableRows
+          selectableRowsComponent={BootyCheckbox}
+          noDataComponent={<NoData />}
+        />
+      </DataTableExtensions>
     </div>
   );
 };

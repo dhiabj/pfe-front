@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteTitle, getTitles } from "../../../../_redux/actions/titles";
 import AddTitle from "../../../Modals/Intermediaire/AddTitle";
 import EditTitle from "../../../Modals/Intermediaire/EditTitle";
+import NoData from "../../../../components/NoData";
 const TitlesTable = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -109,6 +110,7 @@ const TitlesTable = () => {
             selectableRows
             selectableRowsComponent={BootyCheckbox}
             sortIcon={<SortIcon />}
+            noDataComponent={<NoData />}
           />
         </DataTableExtensions>
       </div>

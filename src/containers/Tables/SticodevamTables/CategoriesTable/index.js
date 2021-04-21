@@ -16,6 +16,7 @@ import {
 } from "../../../../_redux/actions/categoriesAvoir";
 import AddCategory from "../../../Modals/Sticodevam/AddCategory";
 import EditCategory from "../../../Modals/Sticodevam/EditCategory";
+import NoData from "../../../../components/NoData";
 const CategoriesTable = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -103,6 +104,7 @@ const CategoriesTable = () => {
             selectableRows
             selectableRowsComponent={BootyCheckbox}
             sortIcon={<SortIcon />}
+            noDataComponent={<NoData />}
           />
         </DataTableExtensions>
       </div>

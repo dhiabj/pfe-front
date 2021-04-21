@@ -14,6 +14,7 @@ import { deleteMarket, getMarkets } from "../../../../_redux/actions/market";
 import moment from "moment";
 import AddMarket from "../../../Modals/Intermediaire/AddMarket";
 import EditMarket from "../../../Modals/Intermediaire/EditMarket";
+import NoData from "../../../../components/NoData";
 const MarketTable = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -109,6 +110,7 @@ const MarketTable = () => {
             selectableRows
             selectableRowsComponent={BootyCheckbox}
             sortIcon={<SortIcon />}
+            noDataComponent={<NoData />}
           />
         </DataTableExtensions>
       </div>
