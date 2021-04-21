@@ -15,6 +15,7 @@ const ValueStockTable = ({ stocks }) => {
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
           Isin: element.Isin.Isin,
+          ValueLabel: element.Isin.ValueLabel,
         });
         break;
       case "004":
@@ -23,6 +24,7 @@ const ValueStockTable = ({ stocks }) => {
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
           Isin: element.Isin.Isin,
+          ValueLabel: element.Isin.ValueLabel,
         });
         break;
       case "002":
@@ -31,6 +33,7 @@ const ValueStockTable = ({ stocks }) => {
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
           Isin: element.Isin.Isin,
+          ValueLabel: element.Isin.ValueLabel,
         });
         break;
       case "006":
@@ -39,6 +42,7 @@ const ValueStockTable = ({ stocks }) => {
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
           Isin: element.Isin.Isin,
+          ValueLabel: element.Isin.ValueLabel,
         });
         break;
       case "003":
@@ -47,6 +51,7 @@ const ValueStockTable = ({ stocks }) => {
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
           Isin: element.Isin.Isin,
+          ValueLabel: element.Isin.ValueLabel,
         });
         break;
       case "000":
@@ -55,6 +60,7 @@ const ValueStockTable = ({ stocks }) => {
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
           Isin: element.Isin.Isin,
+          ValueLabel: element.Isin.ValueLabel,
         });
         break;
       case "032":
@@ -63,6 +69,7 @@ const ValueStockTable = ({ stocks }) => {
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
           Isin: element.Isin.Isin,
+          ValueLabel: element.Isin.ValueLabel,
         });
         break;
       case "021":
@@ -71,6 +78,7 @@ const ValueStockTable = ({ stocks }) => {
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
           Isin: element.Isin.Isin,
+          ValueLabel: element.Isin.ValueLabel,
         });
         break;
       case "031":
@@ -79,6 +87,7 @@ const ValueStockTable = ({ stocks }) => {
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
           Isin: element.Isin.Isin,
+          ValueLabel: element.Isin.ValueLabel,
         });
         break;
       case "022":
@@ -87,6 +96,7 @@ const ValueStockTable = ({ stocks }) => {
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
           Isin: element.Isin.Isin,
+          ValueLabel: element.Isin.ValueLabel,
         });
         break;
       case "999":
@@ -95,6 +105,7 @@ const ValueStockTable = ({ stocks }) => {
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
           Isin: element.Isin.Isin,
+          ValueLabel: element.Isin.ValueLabel,
         });
         break;
 
@@ -132,12 +143,32 @@ const ValueStockTable = ({ stocks }) => {
   );
   //console.log(data);
 
+  let orderedData = data.reduce((acc, next) => {
+    let nextQuantity = {
+      CategoryCode: next.CategoryCode,
+      CategoryLabel: next.CategoryLabel,
+      Quantity: next.Quantity,
+    };
+    let exist = acc.find((v) => v.Isin === next.Isin);
+    if (exist) {
+      exist.Quantities.push(nextQuantity);
+    } else {
+      acc.push({
+        Isin: next.Isin,
+        ValueLabel: next.ValueLabel,
+        Quantities: [nextQuantity],
+      });
+    }
+    return acc;
+  }, []);
+  console.log(orderedData);
+
   const columns = [
     {
-      name: "Valeur",
-      selector: "Isin",
+      name: "Libellé Valeur",
+      selector: "ValueLabel",
       sortable: true,
-      right: true,
+      grow: 3,
     },
     {
       name: "Av clts gérés étr",

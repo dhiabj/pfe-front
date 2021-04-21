@@ -2,27 +2,27 @@ import React, { useEffect } from "react";
 import StocksDaySearchForm from "../../../containers/StocksDaySearchForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
-import { getStocks, resetStockTable } from "../../../_redux/actions/stocks";
+import { resetStockTable } from "../../../_redux/actions/stocks";
 import FullWidthTabs from "../../../components/StockTabs";
 const StockPage = () => {
+  const dispatch = useDispatch();
   useEffect(() => {
     return () => {
       dispatch(resetStockTable());
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const search = {
-    AccountingDate: "",
-    StockExchangeDate: "",
-    ValueCode: "",
-    MembershipCode: "",
-    NatureCode: "",
-  };
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getStocks(search));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // const search = {
+  //   AccountingDate: "",
+  //   StockExchangeDate: "",
+  //   ValueCode: "",
+  //   MembershipCode: "",
+  //   NatureCode: "",
+  // };
+  // useEffect(() => {
+  //   dispatch(getStocks(search));
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
   const stocks = useSelector((state) => state.stocks.data);
   const { showStocks } = useSelector((state) => state.stocks);
 

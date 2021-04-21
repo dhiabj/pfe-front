@@ -26,6 +26,7 @@ const StockUploadTable = ({ stockUploads }) => {
     {
       name: "Fichier Stock",
       selector: "FileName",
+      minWidth: "150px",
     },
     {
       name: "Date de chargement ",
@@ -46,6 +47,10 @@ const StockUploadTable = ({ stockUploads }) => {
       selector: "StateFile",
     },
     {
+      name: "Remarque / Motif de rejet",
+      selector: "",
+    },
+    {
       name: "Nombre de lignes",
       selector: "NbLines",
     },
@@ -62,20 +67,21 @@ const StockUploadTable = ({ stockUploads }) => {
       <label className="custom-control-label" onClick={onClick} />
     </div>
   ));
+
   return (
-    <div>
-      <div className="card">
-        <DataTable
-          title="Renseignements sur les chargements de données STOCK"
-          responsive
-          overflowY
-          columns={columns}
-          data={stockUploads}
-          pagination
-          selectableRows
-          selectableRowsComponent={BootyCheckbox}
-        />
-      </div>
+    <div className="card">
+      <DataTable
+        title="Renseignements sur les chargements de données STOCK"
+        responsive
+        overflowY
+        columns={columns}
+        data={stockUploads}
+        defaultSortField="id"
+        highlightOnHover
+        pagination
+        selectableRows
+        selectableRowsComponent={BootyCheckbox}
+      />
     </div>
   );
 };

@@ -90,17 +90,17 @@ a[aria-expanded="true"] {
   background: #a3a3a3;
 }
 
-.content{
+.content {
   margin-top: 5%;
   overflow: auto;
   height: 100vh;
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   width: 5px;
 }
 
-::-webkit-scrollbar-track{
+::-webkit-scrollbar-track {
   background: transparent !important;
 }
 

@@ -5,16 +5,14 @@ import { Link } from "react-router-dom";
 
 const Header = ({ toggleSideBar }) => {
   return (
-    <div>
-      <nav className="navbar navbar-expand-md navbar-light nav-bg fixed-top">
-        <Link to="/" className="navbar-brand">
-          Conseil du Marché Financier
-        </Link>
-        <button className="btn toggle-btn" onClick={toggleSideBar}>
-          <FontAwesomeIcon icon="bars" />
-        </button>
-      </nav>
-    </div>
+    <nav className="navbar navbar-expand-md navbar-light nav-bg fixed-top">
+      <Link to="/" className="navbar-brand">
+        Conseil du Marché Financier
+      </Link>
+      <button className="btn toggle-btn" onClick={toggleSideBar}>
+        <FontAwesomeIcon icon="bars" />
+      </button>
+    </nav>
   );
 };
 

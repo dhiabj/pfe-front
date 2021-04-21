@@ -14,6 +14,7 @@ const MemberStockTable = ({ stocks }) => {
           CategoryLabel: "Avoirs propres",
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
+          MembershipCode: element.MembershipCode.MembershipCode,
           MemberName: element.MembershipCode.MemberName,
         });
         break;
@@ -22,6 +23,7 @@ const MemberStockTable = ({ stocks }) => {
           CategoryLabel: "O.P.C.V.M",
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
+          MembershipCode: element.MembershipCode.MembershipCode,
           MemberName: element.MembershipCode.MemberName,
         });
         break;
@@ -30,6 +32,7 @@ const MemberStockTable = ({ stocks }) => {
           CategoryLabel: "Avoirs domestiques",
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
+          MembershipCode: element.MembershipCode.MembershipCode,
           MemberName: element.MembershipCode.MemberName,
         });
         break;
@@ -38,6 +41,7 @@ const MemberStockTable = ({ stocks }) => {
           CategoryLabel: "Av cont liq/rachat",
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
+          MembershipCode: element.MembershipCode.MembershipCode,
           MemberName: element.MembershipCode.MemberName,
         });
         break;
@@ -46,6 +50,7 @@ const MemberStockTable = ({ stocks }) => {
           CategoryLabel: "Avoirs étrangers",
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
+          MembershipCode: element.MembershipCode.MembershipCode,
           MemberName: element.MembershipCode.MemberName,
         });
         break;
@@ -54,6 +59,7 @@ const MemberStockTable = ({ stocks }) => {
           CategoryLabel: "Avoirs indiff.",
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
+          MembershipCode: element.MembershipCode.MembershipCode,
           MemberName: element.MembershipCode.MemberName,
         });
         break;
@@ -62,6 +68,7 @@ const MemberStockTable = ({ stocks }) => {
           CategoryLabel: "Av clts gérés étr",
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
+          MembershipCode: element.MembershipCode.MembershipCode,
           MemberName: element.MembershipCode.MemberName,
         });
         break;
@@ -70,6 +77,7 @@ const MemberStockTable = ({ stocks }) => {
           CategoryLabel: "Av clts libres Tun",
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
+          MembershipCode: element.MembershipCode.MembershipCode,
           MemberName: element.MembershipCode.MemberName,
         });
         break;
@@ -78,6 +86,7 @@ const MemberStockTable = ({ stocks }) => {
           CategoryLabel: "Av clts libres étr",
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
+          MembershipCode: element.MembershipCode.MembershipCode,
           MemberName: element.MembershipCode.MemberName,
         });
         break;
@@ -86,6 +95,7 @@ const MemberStockTable = ({ stocks }) => {
           CategoryLabel: "Av. clts gérés Tun",
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
+          MembershipCode: element.MembershipCode.MembershipCode,
           MemberName: element.MembershipCode.MemberName,
         });
         break;
@@ -94,6 +104,7 @@ const MemberStockTable = ({ stocks }) => {
           CategoryLabel: "Avoirs ordin-depo",
           CategoryCode: element.CategoryCode.CategoryCode,
           Quantity: +element.Quantity,
+          MembershipCode: element.MembershipCode.MembershipCode,
           MemberName: element.MembershipCode.MemberName,
         });
         break;

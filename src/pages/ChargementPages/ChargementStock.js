@@ -40,37 +40,36 @@ const ChargementStock = () => {
       setMessage("Selectionner un fichier");
     }
   };
+
   return (
-    <div>
-      <div className="card">
-        <h5 className="card-header">
-          <FontAwesomeIcon icon="file-upload" className="mr-2" />
-          Chargement des données STOCK
-        </h5>
-        <div className="card-body">
-          <img src={logo} alt="cmf-logo" className="img-fluid charg-img" />
-          {message ? <Message msg={message} /> : null}
-          <form onSubmit={handleSubmit(onFileUpload)}>
-            <div className="custom-file mb-4">
-              <input
-                type="file"
-                className="custom-file-input"
-                id="customFile"
-                onChange={onFileChange}
-              />
-              <label
-                className="custom-file-label"
-                htmlFor="customFile"
-                data-browse="Parcourir">
-                {filename}
-              </label>
-            </div>
-            <ProgressBar />
-            <button type="submit" className="btn btn-primary btn-block mt-4">
-              Soumettre
-            </button>
-          </form>
-        </div>
+    <div className="card">
+      <h5 className="card-header">
+        <FontAwesomeIcon icon="file-upload" className="mr-2" />
+        Chargement des données STOCK
+      </h5>
+      <div className="card-body">
+        <img src={logo} alt="cmf-logo" className="img-fluid charg-img" />
+        {message ? <Message msg={message} /> : null}
+        <form onSubmit={handleSubmit(onFileUpload)}>
+          <div className="custom-file mb-4">
+            <input
+              type="file"
+              className="custom-file-input"
+              id="customFile"
+              onChange={onFileChange}
+            />
+            <label
+              className="custom-file-label"
+              htmlFor="customFile"
+              data-browse="Parcourir">
+              {filename}
+            </label>
+          </div>
+          <ProgressBar />
+          <button type="submit" className="btn btn-primary btn-block mt-4">
+            Soumettre
+          </button>
+        </form>
       </div>
     </div>
   );
