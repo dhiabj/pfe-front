@@ -162,7 +162,22 @@ const ValueStockTable = ({ stocks }) => {
     }
     return acc;
   }, []);
-  console.log(orderedData);
+  //console.log(orderedData);
+
+  const finalDataArray = [];
+  orderedData.forEach((element) => {
+    let sum = element.Quantities.reduce(
+      (accumulator, currentValue) => accumulator + currentValue.Quantity,
+      0
+    );
+    finalDataArray.push({
+      Isin: element.Isin,
+      ValueLabel: element.ValueLabel,
+      Quantities: element.Quantities,
+      sum: sum,
+    });
+  });
+  console.log(finalDataArray);
 
   const columns = [
     {
