@@ -27,15 +27,15 @@ const StocksDaySearchForm = () => {
   const members = useSelector((state) => state.member.data);
   const NatureSelectOptions = natureCodes?.map((nature) => ({
     value: nature.NatureCode,
-    label: nature.NatureAccountLabel,
+    label: nature.NatureAccountLabel + " - " + nature.NatureCode,
   }));
   const ValueSelectOptions = values?.map((value) => ({
     value: value.Isin,
-    label: value.Isin,
+    label: value.ValueLabel + " - " + value.Isin,
   }));
   const MemberSelectOptions = members?.map((member) => ({
     value: member.MembershipCode,
-    label: member.MembershipCode,
+    label: member.MemberName + " - " + member.MembershipCode,
   }));
   const onSubmit = (values) => {
     const search = {

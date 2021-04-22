@@ -31,19 +31,19 @@ const MvtPeriodSearchForm = () => {
   const members = useSelector((state) => state.member.data);
   const OperationSelectOptions = operations?.map((operation) => ({
     value: operation.OperationCode,
-    label: operation.OperationCode,
+    label: operation.OperationLabel + " - " + operation.OperationCode,
   }));
   const ValueSelectOptions = values?.map((value) => ({
     value: value.Isin,
-    label: value.Isin,
+    label: value.ValueLabel + " - " + value.Isin,
   }));
   const DeliveryMemberSelectOptions = members?.map((member) => ({
     value: member.MembershipCode,
-    label: member.MemberName,
+    label: member.MemberName + " - " + member.MembershipCode,
   }));
   const DeliveredMemberSelectOptions = members?.map((member) => ({
     value: member.MembershipCode,
-    label: member.MemberName,
+    label: member.MemberName + " - " + member.MembershipCode,
   }));
   const onSubmit = (values) => {
     const search = {
