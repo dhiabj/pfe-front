@@ -13,100 +13,100 @@ const ValueStockTable = ({ stocks }) => {
       case "001":
         formattedArray.push({
           CategoryLabel: "Avoirs propres",
-          CategoryCode: element.CategoryCode.CategoryCode,
+          CategoryCode: element.CategoryCode?.CategoryCode,
           Quantity: +element.Quantity,
-          Isin: element.Isin.Isin,
-          ValueLabel: element.Isin.ValueLabel,
+          Isin: element.Isin?.Isin,
+          ValueLabel: element.Isin?.ValueLabel,
         });
         break;
       case "004":
         formattedArray.push({
           CategoryLabel: "O.P.C.V.M",
-          CategoryCode: element.CategoryCode.CategoryCode,
+          CategoryCode: element.CategoryCode?.CategoryCode,
           Quantity: +element.Quantity,
-          Isin: element.Isin.Isin,
-          ValueLabel: element.Isin.ValueLabel,
+          Isin: element.Isin?.Isin,
+          ValueLabel: element.Isin?.ValueLabel,
         });
         break;
       case "002":
         formattedArray.push({
           CategoryLabel: "Avoirs domestiques",
-          CategoryCode: element.CategoryCode.CategoryCode,
+          CategoryCode: element.CategoryCode?.CategoryCode,
           Quantity: +element.Quantity,
-          Isin: element.Isin.Isin,
-          ValueLabel: element.Isin.ValueLabel,
+          Isin: element.Isin?.Isin,
+          ValueLabel: element.Isin?.ValueLabel,
         });
         break;
       case "006":
         formattedArray.push({
           CategoryLabel: "Av cont liq/rachat",
-          CategoryCode: element.CategoryCode.CategoryCode,
+          CategoryCode: element.CategoryCode?.CategoryCode,
           Quantity: +element.Quantity,
-          Isin: element.Isin.Isin,
-          ValueLabel: element.Isin.ValueLabel,
+          Isin: element.Isin?.Isin,
+          ValueLabel: element.Isin?.ValueLabel,
         });
         break;
       case "003":
         formattedArray.push({
           CategoryLabel: "Avoirs étrangers",
-          CategoryCode: element.CategoryCode.CategoryCode,
+          CategoryCode: element.CategoryCode?.CategoryCode,
           Quantity: +element.Quantity,
-          Isin: element.Isin.Isin,
-          ValueLabel: element.Isin.ValueLabel,
+          Isin: element.Isin?.Isin,
+          ValueLabel: element.Isin?.ValueLabel,
         });
         break;
       case "000":
         formattedArray.push({
           CategoryLabel: "Avoirs indiff.",
-          CategoryCode: element.CategoryCode.CategoryCode,
+          CategoryCode: element.CategoryCode?.CategoryCode,
           Quantity: +element.Quantity,
-          Isin: element.Isin.Isin,
-          ValueLabel: element.Isin.ValueLabel,
+          Isin: element.Isin?.Isin,
+          ValueLabel: element.Isin?.ValueLabel,
         });
         break;
       case "032":
         formattedArray.push({
           CategoryLabel: "Av clts gérés étr",
-          CategoryCode: element.CategoryCode.CategoryCode,
+          CategoryCode: element.CategoryCode?.CategoryCode,
           Quantity: +element.Quantity,
-          Isin: element.Isin.Isin,
-          ValueLabel: element.Isin.ValueLabel,
+          Isin: element.Isin?.Isin,
+          ValueLabel: element.Isin?.ValueLabel,
         });
         break;
       case "021":
         formattedArray.push({
           CategoryLabel: "Av clts libres Tun",
-          CategoryCode: element.CategoryCode.CategoryCode,
+          CategoryCode: element.CategoryCode?.CategoryCode,
           Quantity: +element.Quantity,
-          Isin: element.Isin.Isin,
-          ValueLabel: element.Isin.ValueLabel,
+          Isin: element.Isin?.Isin,
+          ValueLabel: element.Isin?.ValueLabel,
         });
         break;
       case "031":
         formattedArray.push({
           CategoryLabel: "Av clts libres étr",
-          CategoryCode: element.CategoryCode.CategoryCode,
+          CategoryCode: element.CategoryCode?.CategoryCode,
           Quantity: +element.Quantity,
-          Isin: element.Isin.Isin,
-          ValueLabel: element.Isin.ValueLabel,
+          Isin: element.Isin?.Isin,
+          ValueLabel: element.Isin?.ValueLabel,
         });
         break;
       case "022":
         formattedArray.push({
           CategoryLabel: "Av. clts gérés Tun",
-          CategoryCode: element.CategoryCode.CategoryCode,
+          CategoryCode: element.CategoryCode?.CategoryCode,
           Quantity: +element.Quantity,
-          Isin: element.Isin.Isin,
-          ValueLabel: element.Isin.ValueLabel,
+          Isin: element.Isin?.Isin,
+          ValueLabel: element.Isin?.ValueLabel,
         });
         break;
       case "999":
         formattedArray.push({
           CategoryLabel: "Avoirs ordin-depo",
-          CategoryCode: element.CategoryCode.CategoryCode,
+          CategoryCode: element.CategoryCode?.CategoryCode,
           Quantity: +element.Quantity,
-          Isin: element.Isin.Isin,
-          ValueLabel: element.Isin.ValueLabel,
+          Isin: element.Isin?.Isin,
+          ValueLabel: element.Isin?.ValueLabel,
         });
         break;
 
