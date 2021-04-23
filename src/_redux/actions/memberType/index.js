@@ -20,8 +20,10 @@ export const deleteMemberType = (id) => async (dispatch) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     dispatch({ type: "MEMBER_TYPE_DELETE_SUCCESS", payload: id });
+    toast.success("Type adhérent supprimé avec succès");
   } catch (error) {
     dispatch({ type: "MEMBER_TYPE_DELETE_FAILED", payload: error.response });
+    toast.error("La suppression du type adhérent a échoué");
   }
 };
 

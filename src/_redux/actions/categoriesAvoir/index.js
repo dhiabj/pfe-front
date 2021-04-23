@@ -59,7 +59,9 @@ export const deleteCategory = (id) => async (dispatch) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     dispatch({ type: "CATEGORY_DELETE_SUCCESS", payload: id });
+    toast.success("Code catégorie d'avoir supprimé avec succès");
   } catch (error) {
     dispatch({ type: "CATEGORY_DELETE_FAILED", payload: error.response });
+    toast.error("La suppression du code catégorie d'avoir a échoué");
   }
 };

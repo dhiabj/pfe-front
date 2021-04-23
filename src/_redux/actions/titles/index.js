@@ -59,7 +59,9 @@ export const deleteTitle = (id) => async (dispatch) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     dispatch({ type: "TITLE_DELETE_SUCCESS", payload: id });
+    toast.success("Code titre supprimé avec succès");
   } catch (error) {
     dispatch({ type: "TITLE_DELETE_FAILED", payload: error.response });
+    toast.error("La suppression du code titre a échoué");
   }
 };

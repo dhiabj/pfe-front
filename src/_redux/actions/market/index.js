@@ -59,7 +59,9 @@ export const deleteMarket = (id) => async (dispatch) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     dispatch({ type: "MARKET_DELETE_SUCCESS", payload: id });
+    toast.success("Code marché supprimé avec succès");
   } catch (error) {
     dispatch({ type: "MARKET_DELETE_FAILED", payload: error.response });
+    toast.error("La suppression du code marché a échoué");
   }
 };

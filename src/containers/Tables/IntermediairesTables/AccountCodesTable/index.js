@@ -11,13 +11,12 @@ import SortIcon from "@material-ui/icons/ArrowDownward";
 import "../../../../css/styles.css";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteAccountCode,
-  getAccountCodes,
-} from "../../../../_redux/actions/accountCode";
+import { getAccountCodes } from "../../../../_redux/actions/accountCode";
 import AddIntermAccount from "../../../Modals/Intermediaire/AddIntermAccount";
 import EditIntermAccount from "../../../Modals/Intermediaire/EditIntermAccount";
+import DeleteIntermAcc from "../../../Modals/Intermediaire/DeleteIntermAcc";
 import NoData from "../../../../components/NoData";
+
 const AccountCodesTable = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -27,6 +26,8 @@ const AccountCodesTable = () => {
   const data = useSelector((state) => state.accountCode.data);
   const [addModalShow, setAddModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
+  const [deleteModalShow, setDeleteModalShow] = useState(false);
+
   const [id, setId] = useState();
 
   const openSelectedAccountCodeModal = (id) => {
@@ -34,8 +35,9 @@ const AccountCodesTable = () => {
     setId(id);
   };
 
-  const deleteAc = (id) => {
-    dispatch(deleteAccountCode(id));
+  const openSelectedDeleteIntermModal = (id) => {
+    setDeleteModalShow(true);
+    setId(id);
   };
 
   const columns = [
@@ -46,7 +48,7 @@ const AccountCodesTable = () => {
           <IconButton
             aria-label="delete"
             color="secondary"
-            onClick={() => deleteAc(row.id)}>
+            onClick={() => openSelectedDeleteIntermModal(row.id)}>
             <DeleteIcon />
           </IconButton>
           <IconButton
@@ -133,6 +135,11 @@ const AccountCodesTable = () => {
         show={editModalShow}
         onHide={() => setEditModalShow(false)}
         accodes={data}
+        id={id}
+      />
+      <DeleteIntermAcc
+        show={deleteModalShow}
+        handleClose={() => setDeleteModalShow(false)}
         id={id}
       />
     </>

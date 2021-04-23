@@ -11,10 +11,12 @@ import SortIcon from "@material-ui/icons/ArrowDownward";
 import "../../../../css/styles.css";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProfit, getProfits } from "../../../../_redux/actions/profits";
+import { getProfits } from "../../../../_redux/actions/profits";
 import AddProfit from "../../../Modals/Intermediaire/AddProfit";
 import EditProfit from "../../../Modals/Intermediaire/EditProfit";
+import DeleteProfit from "../../../Modals/Intermediaire/DeleteProfit";
 import NoData from "../../../../components/NoData";
+
 const ProfitsTable = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -24,6 +26,8 @@ const ProfitsTable = () => {
   const data = useSelector((state) => state.profits.data);
   const [addModalShow, setAddModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
+  const [deleteModalShow, setDeleteModalShow] = useState(false);
+
   const [id, setId] = useState();
 
   const openSelectedProfitModal = (id) => {
@@ -31,8 +35,9 @@ const ProfitsTable = () => {
     setId(id);
   };
 
-  const deletePc = (id) => {
-    dispatch(deleteProfit(id));
+  const openSelectedDeleteProfitModal = (id) => {
+    setDeleteModalShow(true);
+    setId(id);
   };
 
   const columns = [
@@ -43,7 +48,7 @@ const ProfitsTable = () => {
           <IconButton
             aria-label="delete"
             color="secondary"
-            onClick={() => deletePc(row.id)}>
+            onClick={() => openSelectedDeleteProfitModal(row.id)}>
             <DeleteIcon />
           </IconButton>
           <IconButton
@@ -127,6 +132,11 @@ const ProfitsTable = () => {
         show={editModalShow}
         onHide={() => setEditModalShow(false)}
         profits={data}
+        id={id}
+      />
+      <DeleteProfit
+        show={deleteModalShow}
+        handleClose={() => setDeleteModalShow(false)}
         id={id}
       />
     </>

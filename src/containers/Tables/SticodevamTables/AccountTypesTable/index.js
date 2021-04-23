@@ -10,13 +10,12 @@ import AddIcon from "@material-ui/icons/Add";
 import SortIcon from "@material-ui/icons/ArrowDownward";
 import "../../../../css/styles.css";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteAccountType,
-  getAccountTypes,
-} from "../../../../_redux/actions/accountTypes";
+import { getAccountTypes } from "../../../../_redux/actions/accountTypes";
 import AddAccountType from "../../../Modals/Sticodevam/AddAccountType";
 import EditAccountType from "../../../Modals/Sticodevam/EditAccountType";
+import DeleteAccType from "../../../Modals/Sticodevam/DeleteAccType";
 import NoData from "../../../../components/NoData";
+
 const AccountTypesTable = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -26,6 +25,8 @@ const AccountTypesTable = () => {
   const data = useSelector((state) => state.accountTypes.data);
   const [addModalShow, setAddModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
+  const [deleteModalShow, setDeleteModalShow] = useState(false);
+
   const [id, setId] = useState();
 
   const openSelectedAccountTypeModal = (id) => {
@@ -33,8 +34,9 @@ const AccountTypesTable = () => {
     setId(id);
   };
 
-  const deleteNc = (id) => {
-    dispatch(deleteAccountType(id));
+  const openSelectedDeleteAccTypeModal = (id) => {
+    setDeleteModalShow(true);
+    setId(id);
   };
 
   const columns = [
@@ -45,7 +47,7 @@ const AccountTypesTable = () => {
           <IconButton
             aria-label="delete"
             color="secondary"
-            onClick={() => deleteNc(row.id)}>
+            onClick={() => openSelectedDeleteAccTypeModal(row.id)}>
             <DeleteIcon />
           </IconButton>
           <IconButton
@@ -126,6 +128,11 @@ const AccountTypesTable = () => {
         show={editModalShow}
         onHide={() => setEditModalShow(false)}
         atypes={data}
+        id={id}
+      />
+      <DeleteAccType
+        show={deleteModalShow}
+        handleClose={() => setDeleteModalShow(false)}
         id={id}
       />
     </>

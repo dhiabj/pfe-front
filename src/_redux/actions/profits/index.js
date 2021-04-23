@@ -59,7 +59,9 @@ export const deleteProfit = (id) => async (dispatch) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     dispatch({ type: "PROFIT_DELETE_SUCCESS", payload: id });
+    toast.success("Code profit supprimé avec succès");
   } catch (error) {
     dispatch({ type: "PROFIT_DELETE_FAILED", payload: error.response });
+    toast.error("La suppression du code profit a échoué");
   }
 };

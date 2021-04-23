@@ -59,7 +59,9 @@ export const deleteReglement = (id) => async (dispatch) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     dispatch({ type: "REGLEMENT_DELETE_SUCCESS", payload: id });
+    toast.success("Code règlement supprimé avec succès");
   } catch (error) {
     dispatch({ type: "REGLEMENT_DELETE_FAILED", payload: error.response });
+    toast.error("La suppression du code règlement a échoué");
   }
 };

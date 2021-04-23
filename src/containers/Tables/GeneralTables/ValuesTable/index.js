@@ -10,10 +10,12 @@ import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import "../../../../css/styles.css";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteValue, getValues } from "../../../../_redux/actions/values";
+import { getValues } from "../../../../_redux/actions/values";
 import AddValue from "../../../Modals/GeneralRef/AddValue";
 import EditValue from "../../../Modals/GeneralRef/EditValue";
+import DeleteValue from "../../../Modals/GeneralRef/DeleteValue";
 import NoData from "../../../../components/NoData";
+
 const ValuesTable = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -23,6 +25,8 @@ const ValuesTable = () => {
   const data = useSelector((state) => state.values.data);
   const [addModalShow, setAddModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
+  const [deleteModalShow, setDeleteModalShow] = useState(false);
+
   const [id, setId] = useState();
 
   const openSelectedValueModal = (id) => {
@@ -30,8 +34,9 @@ const ValuesTable = () => {
     setId(id);
   };
 
-  const deleteCv = (id) => {
-    dispatch(deleteValue(id));
+  const openSelectedDeleteValueModal = (id) => {
+    setDeleteModalShow(true);
+    setId(id);
   };
 
   const columns = [
@@ -42,7 +47,7 @@ const ValuesTable = () => {
           <IconButton
             aria-label="delete"
             color="secondary"
-            onClick={() => deleteCv(row.id)}>
+            onClick={() => openSelectedDeleteValueModal(row.id)}>
             <DeleteIcon />
           </IconButton>
           <IconButton
@@ -145,6 +150,11 @@ const ValuesTable = () => {
         show={editModalShow}
         onHide={() => setEditModalShow(false)}
         values={data}
+        id={id}
+      />
+      <DeleteValue
+        show={deleteModalShow}
+        handleClose={() => setDeleteModalShow(false)}
         id={id}
       />
     </>

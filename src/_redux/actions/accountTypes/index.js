@@ -59,7 +59,9 @@ export const deleteAccountType = (id) => async (dispatch) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     dispatch({ type: "ACCOUNT_TYPE_DELETE_SUCCESS", payload: id });
+    toast.success("Code nature supprimé avec succès");
   } catch (error) {
     dispatch({ type: "ACCOUNT_TYPE_DELETE_FAILED", payload: error.response });
+    toast.error("La suppression du code nature a échoué");
   }
 };

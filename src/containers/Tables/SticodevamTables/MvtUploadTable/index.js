@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import DataTable from "react-data-table-component";
 import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
@@ -6,14 +6,18 @@ import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import "../../../../css/styles.css";
 import moment from "moment";
-import { useDispatch } from "react-redux";
-import { deleteMvtUploads } from "../../../../_redux/actions/mouvements";
+import DeleteMvtFile from "../../../Modals/Sticodevam/DeleteMvtFile";
 import NoData from "../../../../components/NoData";
+
 const MvtUploadTable = ({ data }) => {
-  const dispatch = useDispatch();
-  const deleteMvt = (id) => {
-    dispatch(deleteMvtUploads(id));
+  const [deleteModalShow, setDeleteModalShow] = useState(false);
+  const [id, setId] = useState();
+
+  const openSelectedDeleteModal = (id) => {
+    setDeleteModalShow(true);
+    setId(id);
   };
+
   const columns = [
     {
       name: "Supprimer",
@@ -21,7 +25,7 @@ const MvtUploadTable = ({ data }) => {
         <IconButton
           aria-label="delete"
           color="secondary"
-          onClick={() => deleteMvt(row.id)}>
+          onClick={() => openSelectedDeleteModal(row.id)}>
           <DeleteIcon />
         </IconButton>
       ),
@@ -77,26 +81,33 @@ const MvtUploadTable = ({ data }) => {
   };
 
   return (
-    <div className="card">
-      <DataTableExtensions
-        {...tableData}
-        print={false}
-        filterPlaceholder="Rechercher">
-        <DataTable
-          noHeader
-          responsive
-          overflowY
-          columns={columns}
-          data={data}
-          defaultSortField="id"
-          pagination
-          highlightOnHover
-          selectableRows
-          selectableRowsComponent={BootyCheckbox}
-          noDataComponent={<NoData />}
-        />
-      </DataTableExtensions>
-    </div>
+    <>
+      <div className="card">
+        <DataTableExtensions
+          {...tableData}
+          print={false}
+          filterPlaceholder="Rechercher">
+          <DataTable
+            noHeader
+            responsive
+            overflowY
+            columns={columns}
+            data={data}
+            defaultSortField="id"
+            pagination
+            highlightOnHover
+            selectableRows
+            selectableRowsComponent={BootyCheckbox}
+            noDataComponent={<NoData />}
+          />
+        </DataTableExtensions>
+      </div>
+      <DeleteMvtFile
+        show={deleteModalShow}
+        handleClose={() => setDeleteModalShow(false)}
+        id={id}
+      />
+    </>
   );
 };
 

@@ -59,7 +59,9 @@ export const deleteMember = (id) => async (dispatch) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     dispatch({ type: "MEMBER_DELETE_SUCCESS", payload: id });
+    toast.success("Code adhérent supprimé avec succès");
   } catch (error) {
     dispatch({ type: "MEMBER_DELETE_FAILED", payload: error.response });
+    toast.error("La suppression du code adhérent a échoué");
   }
 };

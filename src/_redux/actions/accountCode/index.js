@@ -59,7 +59,9 @@ export const deleteAccountCode = (id) => async (dispatch) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     dispatch({ type: "ACCOUNT_CODE_DELETE_SUCCESS", payload: id });
+    toast.success("Code de compte supprimé avec succès");
   } catch (error) {
     dispatch({ type: "ACCOUNT_CODE_DELETE_FAILED", payload: error.response });
+    toast.error("La suppression du code de compte a échoué");
   }
 };

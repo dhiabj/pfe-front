@@ -20,8 +20,10 @@ export const deleteOperation = (id) => async (dispatch) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     dispatch({ type: "OPERATION_DELETE_SUCCESS", payload: id });
+    toast.success("Code opération supprimé avec succès");
   } catch (error) {
     dispatch({ type: "OPERATION_DELETE_FAILED", payload: error.response });
+    toast.error("La suppression du code opération a échoué");
   }
 };
 

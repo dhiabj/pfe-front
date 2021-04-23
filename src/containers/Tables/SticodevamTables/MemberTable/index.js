@@ -11,12 +11,15 @@ import SortIcon from "@material-ui/icons/ArrowDownward";
 import "../../../../css/styles.css";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteMember, getMembers } from "../../../../_redux/actions/member";
+import { getMembers } from "../../../../_redux/actions/member";
 import AddMember from "../../../Modals/Sticodevam/AddMember";
 import EditMember from "../../../Modals/Sticodevam/EditMember";
+import DeleteMember from "../../../Modals/Sticodevam/DeleteMember";
 import { getMemberTypes } from "../../../../_redux/actions/memberType";
 import NoData from "../../../../components/NoData";
+
 const MemberTable = () => {
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getMembers());
     dispatch(getMemberTypes());
@@ -27,6 +30,8 @@ const MemberTable = () => {
   const membertypes = useSelector((state) => state.memberType.data);
   const [addModalShow, setAddModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
+  const [deleteModalShow, setDeleteModalShow] = useState(false);
+
   const [id, setId] = useState();
 
   const openSelectedMemberModal = (id) => {
@@ -34,9 +39,9 @@ const MemberTable = () => {
     setId(id);
   };
 
-  const dispatch = useDispatch();
-  const deleteMc = (id) => {
-    dispatch(deleteMember(id));
+  const openSelectedDeleteMemberModal = (id) => {
+    setDeleteModalShow(true);
+    setId(id);
   };
 
   const columns = [
@@ -47,7 +52,7 @@ const MemberTable = () => {
           <IconButton
             aria-label="delete"
             color="secondary"
-            onClick={() => deleteMc(row.id)}>
+            onClick={() => openSelectedDeleteMemberModal(row.id)}>
             <DeleteIcon />
           </IconButton>
           <IconButton
@@ -142,6 +147,11 @@ const MemberTable = () => {
         onHide={() => setEditModalShow(false)}
         membertypes={membertypes}
         members={data}
+        id={id}
+      />
+      <DeleteMember
+        show={deleteModalShow}
+        handleClose={() => setDeleteModalShow(false)}
         id={id}
       />
     </>

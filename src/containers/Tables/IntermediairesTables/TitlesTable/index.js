@@ -11,10 +11,12 @@ import SortIcon from "@material-ui/icons/ArrowDownward";
 import "../../../../css/styles.css";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTitle, getTitles } from "../../../../_redux/actions/titles";
+import { getTitles } from "../../../../_redux/actions/titles";
 import AddTitle from "../../../Modals/Intermediaire/AddTitle";
 import EditTitle from "../../../Modals/Intermediaire/EditTitle";
+import DeleteTitle from "../../../Modals/Intermediaire/DeleteTitle";
 import NoData from "../../../../components/NoData";
+
 const TitlesTable = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -24,6 +26,8 @@ const TitlesTable = () => {
   const data = useSelector((state) => state.titles.data);
   const [addModalShow, setAddModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
+  const [deleteModalShow, setDeleteModalShow] = useState(false);
+
   const [id, setId] = useState();
 
   const openSelectedTitleModal = (id) => {
@@ -31,8 +35,9 @@ const TitlesTable = () => {
     setId(id);
   };
 
-  const deleteTc = (id) => {
-    dispatch(deleteTitle(id));
+  const openSelectedDeleteTitleModal = (id) => {
+    setDeleteModalShow(true);
+    setId(id);
   };
 
   const columns = [
@@ -43,7 +48,7 @@ const TitlesTable = () => {
           <IconButton
             aria-label="delete"
             color="secondary"
-            onClick={() => deleteTc(row.id)}>
+            onClick={() => openSelectedDeleteTitleModal(row.id)}>
             <DeleteIcon />
           </IconButton>
           <IconButton
@@ -127,6 +132,11 @@ const TitlesTable = () => {
         show={editModalShow}
         onHide={() => setEditModalShow(false)}
         titles={data}
+        id={id}
+      />
+      <DeleteTitle
+        show={deleteModalShow}
+        handleClose={() => setDeleteModalShow(false)}
         id={id}
       />
     </>

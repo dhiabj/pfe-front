@@ -11,13 +11,12 @@ import SortIcon from "@material-ui/icons/ArrowDownward";
 import "../../../../css/styles.css";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteOperation,
-  getOperations,
-} from "../../../../_redux/actions/operationCode";
+import { getOperations } from "../../../../_redux/actions/operationCode";
 import AddOperation from "../../../Modals/Sticodevam/AddOperation";
 import EditOperation from "../../../Modals/Sticodevam/EditOperation";
+import DeleteOperation from "../../../Modals/Sticodevam/DeleteOperation";
 import NoData from "../../../../components/NoData";
+
 const OperationTable = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -27,6 +26,8 @@ const OperationTable = () => {
   const data = useSelector((state) => state.operationCode.data);
   const [addModalShow, setAddModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
+  const [deleteModalShow, setDeleteModalShow] = useState(false);
+
   const [id, setId] = useState();
 
   const openSelectedOperationModal = (id) => {
@@ -34,8 +35,9 @@ const OperationTable = () => {
     setId(id);
   };
 
-  const deleteOc = (id) => {
-    dispatch(deleteOperation(id));
+  const openSelectedDeleteOperationModal = (id) => {
+    setDeleteModalShow(true);
+    setId(id);
   };
 
   const columns = [
@@ -46,7 +48,7 @@ const OperationTable = () => {
           <IconButton
             aria-label="delete"
             color="secondary"
-            onClick={() => deleteOc(row.id)}>
+            onClick={() => openSelectedDeleteOperationModal(row.id)}>
             <DeleteIcon />
           </IconButton>
           <IconButton
@@ -130,6 +132,11 @@ const OperationTable = () => {
         show={editModalShow}
         onHide={() => setEditModalShow(false)}
         operations={data}
+        id={id}
+      />
+      <DeleteOperation
+        show={deleteModalShow}
+        handleClose={() => setDeleteModalShow(false)}
         id={id}
       />
     </>

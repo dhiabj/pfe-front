@@ -11,13 +11,12 @@ import SortIcon from "@material-ui/icons/ArrowDownward";
 import "../../../../css/styles.css";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteMemberType,
-  getMemberTypes,
-} from "../../../../_redux/actions/memberType";
+import { getMemberTypes } from "../../../../_redux/actions/memberType";
 import AddMemberType from "../../../Modals/Sticodevam/AddMemberType";
 import EditMemberType from "../../../Modals/Sticodevam/EditMemberType";
+import DeleteMemberType from "../../../Modals/Sticodevam/DeleteMemberType";
 import NoData from "../../../../components/NoData";
+
 const MemberTypesTable = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -27,6 +26,8 @@ const MemberTypesTable = () => {
   const data = useSelector((state) => state.memberType.data);
   const [addModalShow, setAddModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
+  const [deleteModalShow, setDeleteModalShow] = useState(false);
+
   const [id, setId] = useState();
 
   const openSelectedMemberTypeModal = (id) => {
@@ -34,8 +35,9 @@ const MemberTypesTable = () => {
     setId(id);
   };
 
-  const deleteMtc = (id) => {
-    dispatch(deleteMemberType(id));
+  const openSelectedDeleteMemberTypeModal = (id) => {
+    setDeleteModalShow(true);
+    setId(id);
   };
 
   const columns = [
@@ -46,7 +48,7 @@ const MemberTypesTable = () => {
           <IconButton
             aria-label="delete"
             color="secondary"
-            onClick={() => deleteMtc(row.id)}>
+            onClick={() => openSelectedDeleteMemberTypeModal(row.id)}>
             <DeleteIcon />
           </IconButton>
           <IconButton
@@ -135,6 +137,11 @@ const MemberTypesTable = () => {
         show={editModalShow}
         onHide={() => setEditModalShow(false)}
         mtypes={data}
+        id={id}
+      />
+      <DeleteMemberType
+        show={deleteModalShow}
+        handleClose={() => setDeleteModalShow(false)}
         id={id}
       />
     </>

@@ -10,11 +10,13 @@ import AddIcon from "@material-ui/icons/Add";
 import SortIcon from "@material-ui/icons/ArrowDownward";
 import "../../../../css/styles.css";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteMarket, getMarkets } from "../../../../_redux/actions/market";
+import { getMarkets } from "../../../../_redux/actions/market";
 import moment from "moment";
 import AddMarket from "../../../Modals/Intermediaire/AddMarket";
 import EditMarket from "../../../Modals/Intermediaire/EditMarket";
+import DeleteMarket from "../../../Modals/Intermediaire/DeleteMarket";
 import NoData from "../../../../components/NoData";
+
 const MarketTable = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -24,6 +26,8 @@ const MarketTable = () => {
   const data = useSelector((state) => state.market.data);
   const [addModalShow, setAddModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
+  const [deleteModalShow, setDeleteModalShow] = useState(false);
+
   const [id, setId] = useState();
 
   const openSelectedMarketModal = (id) => {
@@ -31,8 +35,9 @@ const MarketTable = () => {
     setId(id);
   };
 
-  const deleteMkc = (id) => {
-    dispatch(deleteMarket(id));
+  const openSelectedDeleteMarketModal = (id) => {
+    setDeleteModalShow(true);
+    setId(id);
   };
 
   const columns = [
@@ -43,7 +48,7 @@ const MarketTable = () => {
           <IconButton
             aria-label="delete"
             color="secondary"
-            onClick={() => deleteMkc(row.id)}>
+            onClick={() => openSelectedDeleteMarketModal(row.id)}>
             <DeleteIcon />
           </IconButton>
           <IconButton
@@ -127,6 +132,11 @@ const MarketTable = () => {
         show={editModalShow}
         onHide={() => setEditModalShow(false)}
         markets={data}
+        id={id}
+      />
+      <DeleteMarket
+        show={deleteModalShow}
+        handleClose={() => setDeleteModalShow(false)}
         id={id}
       />
     </>

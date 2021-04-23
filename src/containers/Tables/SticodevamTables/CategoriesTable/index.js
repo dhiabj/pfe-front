@@ -10,13 +10,12 @@ import AddIcon from "@material-ui/icons/Add";
 import SortIcon from "@material-ui/icons/ArrowDownward";
 import "../../../../css/styles.css";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteCategory,
-  getCategories,
-} from "../../../../_redux/actions/categoriesAvoir";
+import { getCategories } from "../../../../_redux/actions/categoriesAvoir";
 import AddCategory from "../../../Modals/Sticodevam/AddCategory";
 import EditCategory from "../../../Modals/Sticodevam/EditCategory";
+import DeleteCategory from "../../../Modals/Sticodevam/DeleteCategory";
 import NoData from "../../../../components/NoData";
+
 const CategoriesTable = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -26,6 +25,8 @@ const CategoriesTable = () => {
   const data = useSelector((state) => state.categoriesAvoir.data);
   const [addModalShow, setAddModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
+  const [deleteModalShow, setDeleteModalShow] = useState(false);
+
   const [id, setId] = useState();
 
   const openSelectedCategoryModal = (id) => {
@@ -33,8 +34,9 @@ const CategoriesTable = () => {
     setId(id);
   };
 
-  const deleteCc = (id) => {
-    dispatch(deleteCategory(id));
+  const openSelectedDeleteCategoryModal = (id) => {
+    setDeleteModalShow(true);
+    setId(id);
   };
 
   const columns = [
@@ -45,7 +47,7 @@ const CategoriesTable = () => {
           <IconButton
             aria-label="delete"
             color="secondary"
-            onClick={() => deleteCc(row.id)}>
+            onClick={() => openSelectedDeleteCategoryModal(row.id)}>
             <DeleteIcon />
           </IconButton>
           <IconButton
@@ -121,6 +123,11 @@ const CategoriesTable = () => {
         show={editModalShow}
         onHide={() => setEditModalShow(false)}
         categories={data}
+        id={id}
+      />
+      <DeleteCategory
+        show={deleteModalShow}
+        handleClose={() => setDeleteModalShow(false)}
         id={id}
       />
     </>

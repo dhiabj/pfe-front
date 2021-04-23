@@ -59,7 +59,9 @@ export const deleteValue = (id) => async (dispatch) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     dispatch({ type: "VALUE_DELETE_SUCCESS", payload: id });
+    toast.success("Code de valeur supprimé avec succès");
   } catch (error) {
     dispatch({ type: "VALUE_DELETE_FAILED", payload: error.response });
+    toast.error("La suppression du code de valeur a échoué");
   }
 };
