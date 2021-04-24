@@ -6,6 +6,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Box from "@material-ui/core/Box";
 import ValueStockTable from "../containers/Tables/SticodevamTables/ValueStockTable";
+import ValueStockTableTotal from "../containers/Tables/SticodevamTables/ValueStockTableTotal";
 import MemberStockTable from "../containers/Tables/SticodevamTables/MemberStockTable";
 
 function TabPanel(props) {
@@ -43,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FullWidthTabs({ stocks }) {
+export default function FullWidthTabs({ stocks, valueStockTotal }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -67,6 +68,7 @@ export default function FullWidthTabs({ stocks }) {
       </AppBar>
       <TabPanel value={value} index={0}>
         <ValueStockTable stocks={stocks} />
+        <ValueStockTableTotal valueStockTotal={valueStockTotal} />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <MemberStockTable stocks={stocks} />

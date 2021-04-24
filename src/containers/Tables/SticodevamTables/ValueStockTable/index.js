@@ -1,200 +1,143 @@
-import React from "react";
+import React, { useEffect } from "react";
 import DataTable from "react-data-table-component";
 import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
 import SortIcon from "@material-ui/icons/ArrowDownward";
 import "../../../../css/styles.css";
 import NoData from "../../../../components/NoData";
+import { reduceTotals } from "../../../../helpers/reduceTotals";
+import { useDispatch } from "react-redux";
+import { selectTotalStocks } from "../../../../_redux/actions/stocks";
+import { groupBy } from "../../../../helpers/groupBy";
+import { reduceItems } from "../../../../helpers/reduceItems";
 const ValueStockTable = ({ stocks }) => {
-  const formattedArray = [];
+  const dispatch = useDispatch();
+  const reducedStocks = stocks?.map((el) => ({
+    Isin: el.Isin.Isin,
+    ValueLabel: el.Isin.ValueLabel,
+    CategoryCode: el.CategoryCode.CategoryCode,
+    CategoryLabel: el.CategoryCode.CategoryLabel,
+    Quantity: +el.Quantity,
+  }));
 
-  stocks?.forEach((element) => {
-    switch (element.CategoryCode.CategoryCode) {
-      case "001":
-        formattedArray.push({
-          CategoryLabel: "Avoirs propres",
-          CategoryCode: element.CategoryCode?.CategoryCode,
-          Quantity: +element.Quantity,
-          Isin: element.Isin?.Isin,
-          ValueLabel: element.Isin?.ValueLabel,
-        });
-        break;
-      case "004":
-        formattedArray.push({
-          CategoryLabel: "O.P.C.V.M",
-          CategoryCode: element.CategoryCode?.CategoryCode,
-          Quantity: +element.Quantity,
-          Isin: element.Isin?.Isin,
-          ValueLabel: element.Isin?.ValueLabel,
-        });
-        break;
-      case "002":
-        formattedArray.push({
-          CategoryLabel: "Avoirs domestiques",
-          CategoryCode: element.CategoryCode?.CategoryCode,
-          Quantity: +element.Quantity,
-          Isin: element.Isin?.Isin,
-          ValueLabel: element.Isin?.ValueLabel,
-        });
-        break;
-      case "006":
-        formattedArray.push({
-          CategoryLabel: "Av cont liq/rachat",
-          CategoryCode: element.CategoryCode?.CategoryCode,
-          Quantity: +element.Quantity,
-          Isin: element.Isin?.Isin,
-          ValueLabel: element.Isin?.ValueLabel,
-        });
-        break;
-      case "003":
-        formattedArray.push({
-          CategoryLabel: "Avoirs étrangers",
-          CategoryCode: element.CategoryCode?.CategoryCode,
-          Quantity: +element.Quantity,
-          Isin: element.Isin?.Isin,
-          ValueLabel: element.Isin?.ValueLabel,
-        });
-        break;
-      case "000":
-        formattedArray.push({
-          CategoryLabel: "Avoirs indiff.",
-          CategoryCode: element.CategoryCode?.CategoryCode,
-          Quantity: +element.Quantity,
-          Isin: element.Isin?.Isin,
-          ValueLabel: element.Isin?.ValueLabel,
-        });
-        break;
-      case "032":
-        formattedArray.push({
-          CategoryLabel: "Av clts gérés étr",
-          CategoryCode: element.CategoryCode?.CategoryCode,
-          Quantity: +element.Quantity,
-          Isin: element.Isin?.Isin,
-          ValueLabel: element.Isin?.ValueLabel,
-        });
-        break;
-      case "021":
-        formattedArray.push({
-          CategoryLabel: "Av clts libres Tun",
-          CategoryCode: element.CategoryCode?.CategoryCode,
-          Quantity: +element.Quantity,
-          Isin: element.Isin?.Isin,
-          ValueLabel: element.Isin?.ValueLabel,
-        });
-        break;
-      case "031":
-        formattedArray.push({
-          CategoryLabel: "Av clts libres étr",
-          CategoryCode: element.CategoryCode?.CategoryCode,
-          Quantity: +element.Quantity,
-          Isin: element.Isin?.Isin,
-          ValueLabel: element.Isin?.ValueLabel,
-        });
-        break;
-      case "022":
-        formattedArray.push({
-          CategoryLabel: "Av. clts gérés Tun",
-          CategoryCode: element.CategoryCode?.CategoryCode,
-          Quantity: +element.Quantity,
-          Isin: element.Isin?.Isin,
-          ValueLabel: element.Isin?.ValueLabel,
-        });
-        break;
-      case "999":
-        formattedArray.push({
-          CategoryLabel: "Avoirs ordin-depo",
-          CategoryCode: element.CategoryCode?.CategoryCode,
-          Quantity: +element.Quantity,
-          Isin: element.Isin?.Isin,
-          ValueLabel: element.Isin?.ValueLabel,
-        });
-        break;
+  const newArray = groupBy(reducedStocks, "Isin");
+  const formattedArray =
+    newArray &&
+    Object.keys(newArray)?.map((el) => ({
+      Isin: el,
+      groupedStocks: newArray[el],
+    }));
 
-      default:
-        break;
-    }
+  const groupedArrayByCategory = formattedArray?.map((el, index) => ({
+    Isin: el.Isin,
+    ValueLabel: el.groupedStocks[index]?.ValueLabel,
+    ...groupBy(el.groupedStocks, "CategoryLabel"),
+  }));
+  //console.log(groupedArrayByCategory);
+
+  const groupedArrayByCategoryWithSum = groupedArrayByCategory?.map((el) => ({
+    Isin: el.Isin,
+    ValueLabel: el.ValueLabel,
+    "Av clts gérés étr": reduceItems(el["Av clts gérés étr"]),
+    "Av clts libres Tun": reduceItems(el["Av clts libres Tun"]),
+    "Av clts libres étr": reduceItems(el["Av clts libres étr"]),
+    "Av cont liq/rachat": reduceItems(el["Av cont liq/rachat"]),
+    "Av. clts gérés Tun": reduceItems(el["Av. clts gérés Tun"]),
+    "Avoirs étrangers": reduceItems(el["Avoirs étrangers"]),
+    "Avoirs domestiques": reduceItems(el["Avoirs domestiques"]),
+    "Avoirs indiff.": reduceItems(el["Avoirs indiff."]),
+    "Avoirs ordin-depo": reduceItems(el["Avoirs ordin-depo"]),
+    "Avoirs propres": reduceItems(el["Avoirs propres"]),
+    "O.P.C.V.M": reduceItems(el["O.P.C.V.M"]),
+  }));
+  //console.log(groupedArrayByCategoryWithSum);
+
+  const groupedArrayWithTotal = groupedArrayByCategoryWithSum?.map((item) => ({
+    ...item,
+    total:
+      item["Av clts gérés étr"] +
+      item["Av clts libres Tun"] +
+      item["Av clts libres étr"] +
+      item["Av cont liq/rachat"] +
+      item["Av. clts gérés Tun"] +
+      item["Avoirs étrangers"] +
+      item["Avoirs domestiques"] +
+      item["Avoirs indiff."] +
+      item["Avoirs ordin-depo"] +
+      item["Avoirs propres"] +
+      item["O.P.C.V.M"],
+  }));
+
+  const totalArray = [];
+  totalArray.push({
+    "Av clts gérés étr": reduceTotals(
+      groupedArrayWithTotal,
+      "Av clts gérés étr"
+    ),
+    "Av clts libres Tun": reduceTotals(
+      groupedArrayWithTotal,
+      "Av clts libres Tun"
+    ),
+    "Av clts libres étr": reduceTotals(
+      groupedArrayWithTotal,
+      "Av clts libres étr"
+    ),
+    "Av cont liq/rachat": reduceTotals(
+      groupedArrayWithTotal,
+      "Av cont liq/rachat"
+    ),
+    "Av. clts gérés Tun": reduceTotals(
+      groupedArrayWithTotal,
+      "Av. clts gérés Tun"
+    ),
+    "Avoirs étrangers": reduceTotals(groupedArrayWithTotal, "Avoirs étrangers"),
+    "Avoirs domestiques": reduceTotals(
+      groupedArrayWithTotal,
+      "Avoirs domestiques"
+    ),
+    "Avoirs indiff.": reduceTotals(groupedArrayWithTotal, "Avoirs indiff."),
+    "Avoirs ordin-depo": reduceTotals(
+      groupedArrayWithTotal,
+      "Avoirs ordin-depo"
+    ),
+    "Avoirs propres": reduceTotals(groupedArrayWithTotal, "Avoirs propres"),
+    "O.P.C.V.M": reduceTotals(groupedArrayWithTotal, "O.P.C.V.M"),
+    Total: reduceTotals(groupedArrayWithTotal, "total"),
   });
-  // console.log(stocks);
-  // let holder = {};
-  // formattedArray.forEach((el) => {
-  //   if (holder.hasOwnProperty(el.Isin)) {
-  //     holder[el.Isin] = holder[el.Isin] + el.Quantity;
-  //   } else {
-  //     holder[el.Isin] = el.Quantity;
-  //   }
-  // });
-  // const obj2 = [];
-  // console.log(holder);
-  // for (let prop in holder) {
-  //   obj2.push({ Isin: prop, sum: holder[prop] });
-  // }
-  // console.log(obj2);
 
-  const data = Array.from(
-    formattedArray
-      .reduce((acc, { Quantity, ...r }) => {
-        const key = JSON.stringify(r);
-        const current = acc.get(key) || { ...r, Quantity: 0 };
-        return acc.set(key, {
-          ...current,
-          Quantity: current.Quantity + Quantity,
-        });
-      }, new Map())
-      .values()
-  );
+  const data = groupedArrayWithTotal?.map((el) => ({
+    ...el,
+    part: (el.total / totalArray[0].Total) * 100,
+  }));
   //console.log(data);
 
-  let orderedData = data.reduce((acc, next) => {
-    let nextQuantity = {
-      CategoryCode: next.CategoryCode,
-      CategoryLabel: next.CategoryLabel,
-      Quantity: next.Quantity,
-    };
-    let exist = acc.find((v) => v.Isin === next.Isin);
-    if (exist) {
-      exist.Quantities.push(nextQuantity);
-    } else {
-      acc.push({
-        Isin: next.Isin,
-        ValueLabel: next.ValueLabel,
-        Quantities: [nextQuantity],
-      });
-    }
-    return acc;
-  }, []);
-  //console.log(orderedData);
+  const Totals = totalArray?.map((item) => ({
+    ...item,
+    Part: Math.round(reduceTotals(data, "part")),
+  }));
+  //console.log(Totals);
 
-  const finalDataArray = [];
-  orderedData.forEach((element) => {
-    let sum = element.Quantities.reduce(
-      (accumulator, currentValue) => accumulator + currentValue.Quantity,
-      0
-    );
-    finalDataArray.push({
-      Isin: element.Isin,
-      ValueLabel: element.ValueLabel,
-      Quantities: element.Quantities,
-      sum: sum,
-    });
-  });
-  console.log(finalDataArray);
+  useEffect(() => {
+    dispatch(selectTotalStocks(Totals));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stocks]);
 
   const columns = [
     {
       name: "Libellé Valeur",
-      selector: "ValueLabel",
+      cell: (row) => <div>{row.ValueLabel ? row.ValueLabel : "-"}</div>,
       sortable: true,
-      grow: 3,
+      width: "150px",
     },
     {
       name: "Av clts gérés étr",
       cell: (row) => (
         <div>
-          {row.CategoryCode === "032"
-            ? row.Quantity.toLocaleString(undefined, {
+          {row["Av clts gérés étr"]
+            ? row["Av clts gérés étr"].toLocaleString(undefined, {
                 maximumFractionDigits: 2,
               })
-            : "0"}
+            : 0}
         </div>
       ),
       right: true,
@@ -203,11 +146,11 @@ const ValueStockTable = ({ stocks }) => {
       name: "Av clts libres Tun",
       cell: (row) => (
         <div>
-          {row.CategoryCode === "021"
-            ? row.Quantity.toLocaleString(undefined, {
+          {row["Av clts libres Tun"]
+            ? row["Av clts libres Tun"].toLocaleString(undefined, {
                 maximumFractionDigits: 2,
               })
-            : "0"}
+            : 0}
         </div>
       ),
       right: true,
@@ -216,11 +159,11 @@ const ValueStockTable = ({ stocks }) => {
       name: "Av clts libres étr",
       cell: (row) => (
         <div>
-          {row.CategoryCode === "031"
-            ? row.Quantity.toLocaleString(undefined, {
+          {row["Av clts libres étr"]
+            ? row["Av clts libres étr"].toLocaleString(undefined, {
                 maximumFractionDigits: 2,
               })
-            : "0"}
+            : 0}
         </div>
       ),
       right: true,
@@ -229,11 +172,11 @@ const ValueStockTable = ({ stocks }) => {
       name: "Av cont liq/rachat",
       cell: (row) => (
         <div>
-          {row.CategoryCode === "006"
-            ? row.Quantity.toLocaleString(undefined, {
+          {row["Av cont liq/rachat"]
+            ? row["Av cont liq/rachat"].toLocaleString(undefined, {
                 maximumFractionDigits: 2,
               })
-            : "0"}
+            : 0}
         </div>
       ),
       right: true,
@@ -242,11 +185,11 @@ const ValueStockTable = ({ stocks }) => {
       name: "Av. clts gérés Tun",
       cell: (row) => (
         <div>
-          {row.CategoryCode === "022"
-            ? row.Quantity.toLocaleString(undefined, {
+          {row["Av. clts gérés Tun"]
+            ? row["Av. clts gérés Tun"].toLocaleString(undefined, {
                 maximumFractionDigits: 2,
               })
-            : "0"}
+            : 0}
         </div>
       ),
       right: true,
@@ -255,11 +198,11 @@ const ValueStockTable = ({ stocks }) => {
       name: "Avoirs étrangers",
       cell: (row) => (
         <div>
-          {row.CategoryCode === "003"
-            ? row.Quantity.toLocaleString(undefined, {
+          {row["Avoirs étrangers"]
+            ? row["Avoirs étrangers"].toLocaleString(undefined, {
                 maximumFractionDigits: 2,
               })
-            : "0"}
+            : 0}
         </div>
       ),
       right: true,
@@ -268,11 +211,11 @@ const ValueStockTable = ({ stocks }) => {
       name: "Avoirs domestiques",
       cell: (row) => (
         <div>
-          {row.CategoryCode === "002"
-            ? row.Quantity.toLocaleString(undefined, {
+          {row["Avoirs domestiques"]
+            ? row["Avoirs domestiques"].toLocaleString(undefined, {
                 maximumFractionDigits: 2,
               })
-            : "0"}
+            : 0}
         </div>
       ),
       right: true,
@@ -281,11 +224,11 @@ const ValueStockTable = ({ stocks }) => {
       name: "Avoirs indiff.",
       cell: (row) => (
         <div>
-          {row.CategoryCode === "000"
-            ? row.Quantity.toLocaleString(undefined, {
+          {row["Avoirs indiff."]
+            ? row["Avoirs indiff."].toLocaleString(undefined, {
                 maximumFractionDigits: 2,
               })
-            : "0"}
+            : 0}
         </div>
       ),
       right: true,
@@ -294,11 +237,11 @@ const ValueStockTable = ({ stocks }) => {
       name: "Avoirs ordin-depo",
       cell: (row) => (
         <div>
-          {row.CategoryCode === "999"
-            ? row.Quantity.toLocaleString(undefined, {
+          {row["Avoirs ordin-depo"]
+            ? row["Avoirs ordin-depo"].toLocaleString(undefined, {
                 maximumFractionDigits: 2,
               })
-            : "0"}
+            : 0}
         </div>
       ),
       right: true,
@@ -307,11 +250,11 @@ const ValueStockTable = ({ stocks }) => {
       name: "Avoirs propres",
       cell: (row) => (
         <div>
-          {row.CategoryCode === "001"
-            ? row.Quantity.toLocaleString(undefined, {
+          {row["Avoirs propres"]
+            ? row["Avoirs propres"].toLocaleString(undefined, {
                 maximumFractionDigits: 2,
               })
-            : "0"}
+            : 0}
         </div>
       ),
       right: true,
@@ -320,23 +263,31 @@ const ValueStockTable = ({ stocks }) => {
       name: "O.P.C.V.M",
       cell: (row) => (
         <div>
-          {row.CategoryCode === "004"
-            ? row.Quantity.toLocaleString(undefined, {
+          {row["O.P.C.V.M"]
+            ? row["O.P.C.V.M"].toLocaleString(undefined, {
                 maximumFractionDigits: 2,
               })
-            : "0"}
+            : 0}
         </div>
       ),
       right: true,
     },
     {
       name: "Total",
-      cell: (row) => <div>0</div>,
+      cell: (row) => (
+        <div>
+          {row.total
+            ? row.total.toLocaleString(undefined, {
+                maximumFractionDigits: 2,
+              })
+            : 0}
+        </div>
+      ),
       right: true,
     },
     {
       name: "Part (%)",
-      cell: (row) => <div>0%</div>,
+      cell: (row) => <div>{row.part ? row.part.toFixed(2) : 0}%</div>,
       right: true,
     },
   ];
@@ -347,7 +298,7 @@ const ValueStockTable = ({ stocks }) => {
   };
 
   return (
-    <div className="fixed-height">
+    <div className="mb-3">
       <div className="card">
         <DataTableExtensions
           {...tableData}

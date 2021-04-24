@@ -50,7 +50,7 @@ const StocksDaySearchForm = () => {
       MembershipCode: values.MembershipCode ? values.MembershipCode.value : "",
       NatureCode: values.NatureCode ? values.NatureCode.value : "",
     };
-    console.log(search);
+    //console.log(search);
     dispatch(getStocks(search));
     dispatch(StockTable());
     //dispatch(MouvementTable());

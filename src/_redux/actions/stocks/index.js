@@ -45,3 +45,7 @@ export const StockTable = () => (dispatch) => {
 export const resetStockTable = () => (dispatch) => {
   dispatch({ type: "HIDE_STOCK_TABLES" });
 };
+
+export const selectTotalStocks = (totals) => (dispatch) => {
+  dispatch({ type: "SELECT_TOTAL_STOCKS", payload: totals });
+};

@@ -33,6 +33,11 @@ export default (state = initialState, action) => {
         ...state,
         showStocks: false,
       };
+    case "SELECT_TOTAL_STOCKS":
+      return {
+        ...state,
+        totalStocks: payload,
+      };
     default:
       return state;
   }

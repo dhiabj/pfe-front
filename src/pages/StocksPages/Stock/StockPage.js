@@ -12,19 +12,10 @@ const StockPage = () => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  // const search = {
-  //   AccountingDate: "",
-  //   StockExchangeDate: "",
-  //   ValueCode: "",
-  //   MembershipCode: "",
-  //   NatureCode: "",
-  // };
-  // useEffect(() => {
-  //   dispatch(getStocks(search));
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+
   const stocks = useSelector((state) => state.stocks.data);
   const { showStocks } = useSelector((state) => state.stocks);
+  const { totalStocks } = useSelector((state) => state.stocks);
 
   return (
     <>
@@ -37,7 +28,9 @@ const StockPage = () => {
           <StocksDaySearchForm />
         </div>
       </div>
-      {showStocks && <FullWidthTabs stocks={stocks} />}
+      {showStocks && (
+        <FullWidthTabs stocks={stocks} valueStockTotal={totalStocks} />
+      )}
     </>
   );
 };

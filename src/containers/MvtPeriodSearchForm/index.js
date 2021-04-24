@@ -71,7 +71,7 @@ const MvtPeriodSearchForm = () => {
     };
     delete search.AccountingDate;
     delete search.StockExchangeDate;
-    console.log(search);
+    //console.log(search);
     dispatch(getMouvements(search));
     dispatch(getMouvementSum(search));
     dispatch(MouvementTable());
