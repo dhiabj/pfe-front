@@ -15,6 +15,7 @@ import AddValue from "../../../Modals/GeneralRef/AddValue";
 import EditValue from "../../../Modals/GeneralRef/EditValue";
 import DeleteValue from "../../../Modals/GeneralRef/DeleteValue";
 import NoData from "../../../../components/NoData";
+import TableProgress from "../../../../components/TableProgress";
 
 const ValuesTable = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,17 @@ const ValuesTable = () => {
     setDeleteModalShow(true);
     setId(id);
   };
+
+  const [pending, setPending] = useState(true);
+  const [rows, setRows] = useState([]);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setRows(data);
+      setPending(false);
+    }, 2000);
+    return () => clearTimeout(timeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const columns = [
     {
@@ -126,7 +138,9 @@ const ValuesTable = () => {
             responsive
             overflowY
             columns={columns}
-            data={data}
+            data={rows}
+            progressPending={pending}
+            progressComponent={<TableProgress />}
             defaultSortField="id"
             pagination
             highlightOnHover

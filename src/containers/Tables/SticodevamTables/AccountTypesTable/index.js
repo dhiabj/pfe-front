@@ -15,6 +15,7 @@ import AddAccountType from "../../../Modals/Sticodevam/AddAccountType";
 import EditAccountType from "../../../Modals/Sticodevam/EditAccountType";
 import DeleteAccType from "../../../Modals/Sticodevam/DeleteAccType";
 import NoData from "../../../../components/NoData";
+import TableProgress from "../../../../components/TableProgress";
 
 const AccountTypesTable = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,17 @@ const AccountTypesTable = () => {
     setDeleteModalShow(true);
     setId(id);
   };
+
+  const [pending, setPending] = useState(true);
+  const [rows, setRows] = useState([]);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setRows(data);
+      setPending(false);
+    }, 2000);
+    return () => clearTimeout(timeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const columns = [
     {
@@ -101,7 +113,9 @@ const AccountTypesTable = () => {
             responsive
             overflowY
             columns={columns}
-            data={data}
+            data={rows}
+            progressPending={pending}
+            progressComponent={<TableProgress />}
             defaultSortField="id"
             pagination
             highlightOnHover

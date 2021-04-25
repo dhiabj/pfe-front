@@ -17,6 +17,7 @@ import EditMember from "../../../Modals/Sticodevam/EditMember";
 import DeleteMember from "../../../Modals/Sticodevam/DeleteMember";
 import { getMemberTypes } from "../../../../_redux/actions/memberType";
 import NoData from "../../../../components/NoData";
+import TableProgress from "../../../../components/TableProgress";
 
 const MemberTable = () => {
   const dispatch = useDispatch();
@@ -43,6 +44,17 @@ const MemberTable = () => {
     setDeleteModalShow(true);
     setId(id);
   };
+
+  const [pending, setPending] = useState(true);
+  const [rows, setRows] = useState([]);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setRows(data);
+      setPending(false);
+    }, 2000);
+    return () => clearTimeout(timeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const columns = [
     {
@@ -118,7 +130,9 @@ const MemberTable = () => {
             responsive
             overflowY
             columns={columns}
-            data={data}
+            data={rows}
+            progressPending={pending}
+            progressComponent={<TableProgress />}
             defaultSortField="id"
             pagination
             highlightOnHover

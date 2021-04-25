@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
@@ -8,6 +8,7 @@ import "../../../../css/styles.css";
 import moment from "moment";
 import DeleteMvtFile from "../../../Modals/Sticodevam/DeleteMvtFile";
 import NoData from "../../../../components/NoData";
+import TableProgress from "../../../../components/TableProgress";
 
 const MvtUploadTable = ({ data }) => {
   const [deleteModalShow, setDeleteModalShow] = useState(false);
@@ -17,6 +18,17 @@ const MvtUploadTable = ({ data }) => {
     setDeleteModalShow(true);
     setId(id);
   };
+
+  const [pending, setPending] = useState(true);
+  const [rows, setRows] = useState([]);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setRows(data);
+      setPending(false);
+    }, 2000);
+    return () => clearTimeout(timeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const columns = [
     {
@@ -92,7 +104,9 @@ const MvtUploadTable = ({ data }) => {
             responsive
             overflowY
             columns={columns}
-            data={data}
+            data={rows}
+            progressPending={pending}
+            progressComponent={<TableProgress />}
             defaultSortField="id"
             pagination
             highlightOnHover

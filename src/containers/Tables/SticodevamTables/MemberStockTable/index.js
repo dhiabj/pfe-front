@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
@@ -10,6 +10,7 @@ import { groupBy } from "../../../../helpers/groupBy";
 import { useDispatch } from "react-redux";
 import { reduceTotals } from "../../../../helpers/reduceTotals";
 import { selectTotalMemberStocks } from "../../../../_redux/actions/stocks";
+import TableProgress from "../../../../components/TableProgress";
 const MemberStockTable = ({ stocks }) => {
   const dispatch = useDispatch();
   const reducedStocks = stocks?.map((el) => ({
@@ -123,6 +124,17 @@ const MemberStockTable = ({ stocks }) => {
     dispatch(selectTotalMemberStocks(Totals));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stocks]);
+
+  const [pending, setPending] = useState(true);
+  const [rows, setRows] = useState([]);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setRows(data);
+      setPending(false);
+    }, 2000);
+    return () => clearTimeout(timeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const columns = [
     {
@@ -310,7 +322,9 @@ const MemberStockTable = ({ stocks }) => {
             noHeader
             responsive
             columns={columns}
-            data={data}
+            data={rows}
+            progressPending={pending}
+            progressComponent={<TableProgress />}
             defaultSortField="id"
             pagination
             paginationPerPage={8}

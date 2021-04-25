@@ -16,6 +16,7 @@ import AddTitle from "../../../Modals/Intermediaire/AddTitle";
 import EditTitle from "../../../Modals/Intermediaire/EditTitle";
 import DeleteTitle from "../../../Modals/Intermediaire/DeleteTitle";
 import NoData from "../../../../components/NoData";
+import TableProgress from "../../../../components/TableProgress";
 
 const TitlesTable = () => {
   const dispatch = useDispatch();
@@ -39,6 +40,17 @@ const TitlesTable = () => {
     setDeleteModalShow(true);
     setId(id);
   };
+
+  const [pending, setPending] = useState(true);
+  const [rows, setRows] = useState([]);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setRows(data);
+      setPending(false);
+    }, 2000);
+    return () => clearTimeout(timeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const columns = [
     {
@@ -108,7 +120,9 @@ const TitlesTable = () => {
             responsive
             overflowY
             columns={columns}
-            data={data}
+            data={rows}
+            progressPending={pending}
+            progressComponent={<TableProgress />}
             defaultSortField="id"
             pagination
             highlightOnHover

@@ -16,6 +16,7 @@ import AddReglement from "../../../Modals/Intermediaire/AddReglement";
 import EditReglement from "../../../Modals/Intermediaire/EditReglement";
 import DeleteReglement from "../../../Modals/Intermediaire/DeleteReglement";
 import NoData from "../../../../components/NoData";
+import TableProgress from "../../../../components/TableProgress";
 
 const ReglementsTable = () => {
   const dispatch = useDispatch();
@@ -39,6 +40,17 @@ const ReglementsTable = () => {
     setDeleteModalShow(true);
     setId(id);
   };
+
+  const [pending, setPending] = useState(true);
+  const [rows, setRows] = useState([]);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setRows(data);
+      setPending(false);
+    }, 2000);
+    return () => clearTimeout(timeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const columns = [
     {
@@ -108,7 +120,9 @@ const ReglementsTable = () => {
             responsive
             overflowY
             columns={columns}
-            data={data}
+            data={rows}
+            progressPending={pending}
+            progressComponent={<TableProgress />}
             defaultSortField="id"
             pagination
             highlightOnHover

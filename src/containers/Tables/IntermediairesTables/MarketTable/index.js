@@ -16,6 +16,7 @@ import AddMarket from "../../../Modals/Intermediaire/AddMarket";
 import EditMarket from "../../../Modals/Intermediaire/EditMarket";
 import DeleteMarket from "../../../Modals/Intermediaire/DeleteMarket";
 import NoData from "../../../../components/NoData";
+import TableProgress from "../../../../components/TableProgress";
 
 const MarketTable = () => {
   const dispatch = useDispatch();
@@ -39,6 +40,17 @@ const MarketTable = () => {
     setDeleteModalShow(true);
     setId(id);
   };
+
+  const [pending, setPending] = useState(true);
+  const [rows, setRows] = useState([]);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setRows(data);
+      setPending(false);
+    }, 2000);
+    return () => clearTimeout(timeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const columns = [
     {
@@ -108,7 +120,9 @@ const MarketTable = () => {
             responsive
             overflowY
             columns={columns}
-            data={data}
+            data={rows}
+            progressPending={pending}
+            progressComponent={<TableProgress />}
             defaultSortField="id"
             pagination
             highlightOnHover

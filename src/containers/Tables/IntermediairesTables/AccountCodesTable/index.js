@@ -16,6 +16,7 @@ import AddIntermAccount from "../../../Modals/Intermediaire/AddIntermAccount";
 import EditIntermAccount from "../../../Modals/Intermediaire/EditIntermAccount";
 import DeleteIntermAcc from "../../../Modals/Intermediaire/DeleteIntermAcc";
 import NoData from "../../../../components/NoData";
+import TableProgress from "../../../../components/TableProgress";
 
 const AccountCodesTable = () => {
   const dispatch = useDispatch();
@@ -39,6 +40,17 @@ const AccountCodesTable = () => {
     setDeleteModalShow(true);
     setId(id);
   };
+
+  const [pending, setPending] = useState(true);
+  const [rows, setRows] = useState([]);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setRows(data);
+      setPending(false);
+    }, 2000);
+    return () => clearTimeout(timeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const columns = [
     {
@@ -108,7 +120,9 @@ const AccountCodesTable = () => {
             responsive
             overflowY
             columns={columns}
-            data={data}
+            data={rows}
+            progressPending={pending}
+            progressComponent={<TableProgress />}
             defaultSortField="id"
             pagination
             highlightOnHover
