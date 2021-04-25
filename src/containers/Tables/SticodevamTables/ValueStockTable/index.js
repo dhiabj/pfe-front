@@ -7,7 +7,7 @@ import "../../../../css/styles.css";
 import NoData from "../../../../components/NoData";
 import { reduceTotals } from "../../../../helpers/reduceTotals";
 import { useDispatch } from "react-redux";
-import { selectTotalStocks } from "../../../../_redux/actions/stocks";
+import { selectTotalValueStocks } from "../../../../_redux/actions/stocks";
 import { groupBy } from "../../../../helpers/groupBy";
 import { reduceItems } from "../../../../helpers/reduceItems";
 const ValueStockTable = ({ stocks }) => {
@@ -28,9 +28,9 @@ const ValueStockTable = ({ stocks }) => {
       groupedStocks: newArray[el],
     }));
 
-  const groupedArrayByCategory = formattedArray?.map((el, index) => ({
+  const groupedArrayByCategory = formattedArray?.map((el) => ({
     Isin: el.Isin,
-    ValueLabel: el.groupedStocks[index]?.ValueLabel,
+    ValueLabel: el.groupedStocks[0]?.ValueLabel,
     ...groupBy(el.groupedStocks, "CategoryLabel"),
   }));
   //console.log(groupedArrayByCategory);
@@ -118,7 +118,7 @@ const ValueStockTable = ({ stocks }) => {
   //console.log(Totals);
 
   useEffect(() => {
-    dispatch(selectTotalStocks(Totals));
+    dispatch(selectTotalValueStocks(Totals));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stocks]);
 

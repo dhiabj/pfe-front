@@ -15,7 +15,8 @@ const StockPage = () => {
 
   const stocks = useSelector((state) => state.stocks.data);
   const { showStocks } = useSelector((state) => state.stocks);
-  const { totalStocks } = useSelector((state) => state.stocks);
+  const { totalValueStocks } = useSelector((state) => state.stocks);
+  const { totalMemberStocks } = useSelector((state) => state.stocks);
 
   return (
     <>
@@ -29,7 +30,11 @@ const StockPage = () => {
         </div>
       </div>
       {showStocks && (
-        <FullWidthTabs stocks={stocks} valueStockTotal={totalStocks} />
+        <FullWidthTabs
+          stocks={stocks}
+          totalValueStocks={totalValueStocks}
+          totalMemberStocks={totalMemberStocks}
+        />
       )}
     </>
   );

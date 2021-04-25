@@ -1,7 +1,7 @@
 import React from "react";
 import DataTable from "react-data-table-component";
 import "../../../../css/styles.css";
-const ValueStockTableTotal = ({ totalValueStocks }) => {
+const MemberStockTableTotal = ({ totalMemberStocks }) => {
   const columns = [
     {
       name: "Av clts gérés étr",
@@ -173,7 +173,7 @@ const ValueStockTableTotal = ({ totalValueStocks }) => {
           title="Total"
           responsive
           columns={columns}
-          data={totalValueStocks}
+          data={totalMemberStocks}
           defaultSortField="id"
           noDataComponent=""
         />
@@ -181,4 +181,4 @@ const ValueStockTableTotal = ({ totalValueStocks }) => {
     </div>
   );
 };
-export default ValueStockTableTotal;
+export default MemberStockTableTotal;
