@@ -4,7 +4,7 @@ import MouvementTable from "../../../containers/Tables/SticodevamTables/Mouvemen
 import { useDispatch, useSelector } from "react-redux";
 import { resetMouvementTable } from "../../../_redux/actions/mouvements";
 import MvtPeriodSearchForm from "../../../containers/MvtPeriodSearchForm";
-import MouvementSumTable from "../../../containers/Tables/SticodevamTables/MouvementSumTable";
+
 const MouvementPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -14,7 +14,6 @@ const MouvementPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const mouvements = useSelector((state) => state.mouvements.data);
-  const mouvementSum = useSelector((state) => state.mouvements.sum);
   const { showMouvements } = useSelector((state) => state.mouvements);
   //let combinedData = [mouvements, mouvementSum];
   //console.log(combinedData);
@@ -32,7 +31,6 @@ const MouvementPage = () => {
       {showMouvements && (
         <>
           <MouvementTable mouvements={mouvements} />
-          <MouvementSumTable mouvementSum={mouvementSum} />
         </>
       )}
     </>

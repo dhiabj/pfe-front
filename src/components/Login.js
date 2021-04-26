@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import LoginForm from "../containers/LoginForm";
 import "../css/Login.css";
-import logo from "../logo.png";
+import logo from "../assets/logo.png";
 import { login } from "../_redux/actions/auth";
 
 const Login = () => {

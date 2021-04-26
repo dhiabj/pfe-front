@@ -8,11 +8,6 @@ export default (state = initialState, action) => {
         ...state,
         data: payload,
       };
-    case "MOUVEMENT_SUM":
-      return {
-        ...state,
-        sum: payload,
-      };
     case "MOUVEMENT_UPLOADS":
       return {
         ...state,

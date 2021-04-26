@@ -8,7 +8,7 @@ import {
 import Message from "../../containers/Message";
 import ProgressBar from "../../containers/ProgressBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import logo from "../../logo.png";
+import logo from "../../assets/logo.png";
 
 const ChargementMouvement = () => {
   const { handleSubmit } = useForm();

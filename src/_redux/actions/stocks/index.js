@@ -45,11 +45,3 @@ export const StockTable = () => (dispatch) => {
 export const resetStockTable = () => (dispatch) => {
   dispatch({ type: "HIDE_STOCK_TABLES" });
 };
-
-export const selectTotalValueStocks = (totals) => (dispatch) => {
-  dispatch({ type: "SELECT_TOTAL_VALUE_STOCKS", payload: totals });
-};
-
-export const selectTotalMemberStocks = (totals) => (dispatch) => {
-  dispatch({ type: "SELECT_TOTAL_MEMBER_STOCKS", payload: totals });
-};

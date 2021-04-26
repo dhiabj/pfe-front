@@ -5,7 +5,7 @@ import { intermUpload, resetProgress } from "../../_redux/actions/fileUpload";
 import Message from "../../containers/Message";
 import ProgressBar from "../../containers/ProgressBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import logo from "../../logo.png";
+import logo from "../../assets/logo.png";
 
 const ChargementInterm = () => {
   const { handleSubmit } = useForm();

@@ -8,7 +8,7 @@ import { logout } from "../../_redux/actions/auth";
 import Collapsible from "../../components/Collapsible/Collapsible";
 
 const SideBar = ({ children, logged }) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const toggleSideBar = () => {
     setOpen(!open);
   };

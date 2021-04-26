@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
 import { resetStockTable } from "../../../_redux/actions/stocks";
 import FullWidthTabs from "../../../components/StockTabs";
+
 const StockPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -15,8 +16,6 @@ const StockPage = () => {
 
   const stocks = useSelector((state) => state.stocks.data);
   const { showStocks } = useSelector((state) => state.stocks);
-  const { totalValueStocks } = useSelector((state) => state.stocks);
-  const { totalMemberStocks } = useSelector((state) => state.stocks);
 
   return (
     <>
@@ -29,13 +28,7 @@ const StockPage = () => {
           <StocksDaySearchForm />
         </div>
       </div>
-      {showStocks && (
-        <FullWidthTabs
-          stocks={stocks}
-          totalValueStocks={totalValueStocks}
-          totalMemberStocks={totalMemberStocks}
-        />
-      )}
+      {showStocks && <FullWidthTabs stocks={stocks} />}
     </>
   );
 };

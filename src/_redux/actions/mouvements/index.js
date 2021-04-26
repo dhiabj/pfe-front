@@ -15,20 +15,6 @@ export const getMouvements = (search) => async (dispatch) => {
   }
 };
 
-export const getMouvementSum = (search) => async (dispatch) => {
-  const token = localStorage.token;
-  if (token) {
-    const response = await axios.get(`${api}/mouvement-sum`, {
-      headers: { Authorization: `Bearer ${token}` },
-      params: {
-        search: search,
-      },
-    });
-    dispatch({ type: "MOUVEMENT_SUM", payload: response.data });
-    //console.log(response.data);
-  }
-};
-
 export const getMvtUploads = () => async (dispatch) => {
   const token = localStorage.token;
   if (token) {

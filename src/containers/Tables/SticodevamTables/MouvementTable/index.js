@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import DataTable from "react-data-table-component";
+import DataTable from "react-data-table-component-footer";
 import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
 import NoData from "../../../../components/NoData";
 import TableProgress from "../../../../components/TableProgress";
 import "../../../../css/styles.css";
+import { reduceTotals } from "../../../../helpers/reduceTotals";
 
 const MouvementTable = ({ mouvements }) => {
   const formattedArray = [];
@@ -29,31 +30,26 @@ const MouvementTable = ({ mouvements }) => {
       }, new Map())
       .values()
   );
+  const total = [];
+  total.push({
+    OperationLabel: "Total",
+    TitlesNumber: reduceTotals(data, "TitlesNumber"),
+    Amount: reduceTotals(data, "Amount"),
+  });
+  // console.log(total);
 
   const columns = [
     {
       name: "Libellé opération",
-      cell: (row) => <div>{row.OperationLabel}</div>,
+      cell: (row) => <div>{row.OperationLabel ? row.OperationLabel : 0}</div>,
     },
     {
       name: "Nombre de titres",
-      cell: (row) => (
-        <div>
-          {row.TitlesNumber.toLocaleString(undefined, {
-            maximumFractionDigits: 2,
-          })}
-        </div>
-      ),
+      cell: (row) => <div>{row.TitlesNumber ? row.TitlesNumber : 0}</div>,
     },
     {
       name: "Montant",
-      cell: (row) => (
-        <div>
-          {row.Amount.toLocaleString(undefined, {
-            maximumFractionDigits: 2,
-          })}
-        </div>
-      ),
+      cell: (row) => <div>{row.Amount ? row.Amount : 0}</div>,
     },
   ];
 
@@ -91,6 +87,7 @@ const MouvementTable = ({ mouvements }) => {
           pagination
           highlightOnHover
           noDataComponent={<NoData />}
+          footer={total[0]}
         />
       </DataTableExtensions>
     </div>

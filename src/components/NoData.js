@@ -1,5 +1,6 @@
 import React from "react";
-import NoDataFound from "../NoDataFound.png";
+import NoDataFound from "../assets/NoDataFound.png";
+
 const NoData = () => {
   return (
     <div>

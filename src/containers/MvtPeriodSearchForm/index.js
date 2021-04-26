@@ -5,11 +5,7 @@ import { getOperations } from "../../_redux/actions/operationCode";
 import { getValues } from "../../_redux/actions/values";
 import { Controller, useForm } from "react-hook-form";
 import moment from "moment";
-import {
-  getMouvementSum,
-  getMouvements,
-  MouvementTable,
-} from "../../_redux/actions/mouvements";
+import { getMouvements, MouvementTable } from "../../_redux/actions/mouvements";
 import PeriodDatepicker from "../../components/DatePicker/PeriodDatePicker";
 import { getMembers } from "../../_redux/actions/member";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -73,7 +69,6 @@ const MvtPeriodSearchForm = () => {
     delete search.StockExchangeDate;
     //console.log(search);
     dispatch(getMouvements(search));
-    dispatch(getMouvementSum(search));
     dispatch(MouvementTable());
   };
   const validate = () => {

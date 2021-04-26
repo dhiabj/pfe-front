@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from "react";
-import DataTable from "react-data-table-component";
+import DataTable from "react-data-table-component-footer";
 import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
 import SortIcon from "@material-ui/icons/ArrowDownward";
 import "../../../../css/styles.css";
 import NoData from "../../../../components/NoData";
 import { reduceTotals } from "../../../../helpers/reduceTotals";
-import { useDispatch } from "react-redux";
-import { selectTotalValueStocks } from "../../../../_redux/actions/stocks";
 import { groupBy } from "../../../../helpers/groupBy";
 import { reduceItems } from "../../../../helpers/reduceItems";
 import TableProgress from "../../../../components/TableProgress";
 
 const ValueStockTable = ({ stocks }) => {
-  const dispatch = useDispatch();
   const reducedStocks = stocks?.map((el) => ({
     Isin: el.Isin.Isin,
     ValueLabel: el.Isin.ValueLabel,
@@ -72,6 +69,7 @@ const ValueStockTable = ({ stocks }) => {
 
   const totalArray = [];
   totalArray.push({
+    ValueLabel: "Total",
     "Av clts gérés étr": reduceTotals(
       groupedArrayWithTotal,
       "Av clts gérés étr"
@@ -104,25 +102,21 @@ const ValueStockTable = ({ stocks }) => {
     ),
     "Avoirs propres": reduceTotals(groupedArrayWithTotal, "Avoirs propres"),
     "O.P.C.V.M": reduceTotals(groupedArrayWithTotal, "O.P.C.V.M"),
-    Total: reduceTotals(groupedArrayWithTotal, "total"),
+    total: reduceTotals(groupedArrayWithTotal, "total"),
   });
 
   const data = groupedArrayWithTotal?.map((el) => ({
     ...el,
-    part: (el.total / totalArray[0].Total) * 100,
+    part: ((el.total / totalArray[0].total) * 100).toFixed(2),
+    totalPart: (el.total / totalArray[0].total) * 100,
   }));
   //console.log(data);
 
-  const Totals = totalArray?.map((item) => ({
+  const total = totalArray?.map((item) => ({
     ...item,
-    Part: Math.round(reduceTotals(data, "part")),
+    part: Math.round(reduceTotals(data, "totalPart")).toFixed(2),
   }));
-  //console.log(Totals);
-
-  useEffect(() => {
-    dispatch(selectTotalValueStocks(Totals));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [stocks]);
+  //console.log(total);
 
   const [pending, setPending] = useState(true);
   const [rows, setRows] = useState([]);
@@ -145,162 +139,86 @@ const ValueStockTable = ({ stocks }) => {
     {
       name: "Av clts gérés étr",
       cell: (row) => (
-        <div>
-          {row["Av clts gérés étr"]
-            ? row["Av clts gérés étr"].toLocaleString(undefined, {
-                maximumFractionDigits: 2,
-              })
-            : 0}
-        </div>
+        <div>{row["Av clts gérés étr"] ? row["Av clts gérés étr"] : 0}</div>
       ),
       right: true,
     },
     {
       name: "Av clts libres Tun",
       cell: (row) => (
-        <div>
-          {row["Av clts libres Tun"]
-            ? row["Av clts libres Tun"].toLocaleString(undefined, {
-                maximumFractionDigits: 2,
-              })
-            : 0}
-        </div>
+        <div>{row["Av clts libres Tun"] ? row["Av clts libres Tun"] : 0}</div>
       ),
       right: true,
     },
     {
       name: "Av clts libres étr",
       cell: (row) => (
-        <div>
-          {row["Av clts libres étr"]
-            ? row["Av clts libres étr"].toLocaleString(undefined, {
-                maximumFractionDigits: 2,
-              })
-            : 0}
-        </div>
+        <div>{row["Av clts libres étr"] ? row["Av clts libres étr"] : 0}</div>
       ),
       right: true,
     },
     {
       name: "Av cont liq/rachat",
       cell: (row) => (
-        <div>
-          {row["Av cont liq/rachat"]
-            ? row["Av cont liq/rachat"].toLocaleString(undefined, {
-                maximumFractionDigits: 2,
-              })
-            : 0}
-        </div>
+        <div>{row["Av cont liq/rachat"] ? row["Av cont liq/rachat"] : 0}</div>
       ),
       right: true,
     },
     {
       name: "Av. clts gérés Tun",
       cell: (row) => (
-        <div>
-          {row["Av. clts gérés Tun"]
-            ? row["Av. clts gérés Tun"].toLocaleString(undefined, {
-                maximumFractionDigits: 2,
-              })
-            : 0}
-        </div>
+        <div>{row["Av. clts gérés Tun"] ? row["Av. clts gérés Tun"] : 0}</div>
       ),
       right: true,
     },
     {
       name: "Avoirs étrangers",
       cell: (row) => (
-        <div>
-          {row["Avoirs étrangers"]
-            ? row["Avoirs étrangers"].toLocaleString(undefined, {
-                maximumFractionDigits: 2,
-              })
-            : 0}
-        </div>
+        <div>{row["Avoirs étrangers"] ? row["Avoirs étrangers"] : 0}</div>
       ),
       right: true,
     },
     {
       name: "Avoirs domestiques",
       cell: (row) => (
-        <div>
-          {row["Avoirs domestiques"]
-            ? row["Avoirs domestiques"].toLocaleString(undefined, {
-                maximumFractionDigits: 2,
-              })
-            : 0}
-        </div>
+        <div>{row["Avoirs domestiques"] ? row["Avoirs domestiques"] : 0}</div>
       ),
       right: true,
     },
     {
       name: "Avoirs indiff.",
       cell: (row) => (
-        <div>
-          {row["Avoirs indiff."]
-            ? row["Avoirs indiff."].toLocaleString(undefined, {
-                maximumFractionDigits: 2,
-              })
-            : 0}
-        </div>
+        <div>{row["Avoirs indiff."] ? row["Avoirs indiff."] : 0}</div>
       ),
       right: true,
     },
     {
       name: "Avoirs ordin-depo",
       cell: (row) => (
-        <div>
-          {row["Avoirs ordin-depo"]
-            ? row["Avoirs ordin-depo"].toLocaleString(undefined, {
-                maximumFractionDigits: 2,
-              })
-            : 0}
-        </div>
+        <div>{row["Avoirs ordin-depo"] ? row["Avoirs ordin-depo"] : 0}</div>
       ),
       right: true,
     },
     {
       name: "Avoirs propres",
       cell: (row) => (
-        <div>
-          {row["Avoirs propres"]
-            ? row["Avoirs propres"].toLocaleString(undefined, {
-                maximumFractionDigits: 2,
-              })
-            : 0}
-        </div>
+        <div>{row["Avoirs propres"] ? row["Avoirs propres"] : 0}</div>
       ),
       right: true,
     },
     {
       name: "O.P.C.V.M",
-      cell: (row) => (
-        <div>
-          {row["O.P.C.V.M"]
-            ? row["O.P.C.V.M"].toLocaleString(undefined, {
-                maximumFractionDigits: 2,
-              })
-            : 0}
-        </div>
-      ),
+      cell: (row) => <div>{row["O.P.C.V.M"] ? row["O.P.C.V.M"] : 0}</div>,
       right: true,
     },
     {
       name: "Total",
-      cell: (row) => (
-        <div>
-          {row.total
-            ? row.total.toLocaleString(undefined, {
-                maximumFractionDigits: 2,
-              })
-            : 0}
-        </div>
-      ),
+      cell: (row) => <div>{row.total ? row.total : 0}</div>,
       right: true,
     },
     {
       name: "Part (%)",
-      cell: (row) => <div>{row.part ? row.part.toFixed(2) : 0}%</div>,
+      cell: (row) => <div>{row.part ? row.part : 0}%</div>,
       right: true,
     },
   ];
@@ -311,7 +229,7 @@ const ValueStockTable = ({ stocks }) => {
   };
 
   return (
-    <div className="mb-3">
+    <div className="fixed-height">
       <div className="card">
         <DataTableExtensions
           {...tableData}
@@ -326,10 +244,11 @@ const ValueStockTable = ({ stocks }) => {
             progressComponent={<TableProgress />}
             defaultSortField="id"
             pagination
-            paginationPerPage={8}
+            paginationPerPage={7}
             highlightOnHover
             sortIcon={<SortIcon />}
             noDataComponent={<NoData />}
+            footer={total[0]}
           />
         </DataTableExtensions>
       </div>

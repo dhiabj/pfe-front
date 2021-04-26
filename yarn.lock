@@ -9686,6 +9686,15 @@ react-data-table-component-extensions@^1.5.2:
   dependencies:
     react "^16.9.0"
 
+react-data-table-component-footer@^6.12.0-beta.2:
+  version "6.12.0-beta.2"
+  resolved "https://registry.yarnpkg.com/react-data-table-component-footer/-/react-data-table-component-footer-6.12.0-beta.2.tgz#3eadb956e592eedf31bb1678a8dce78188f0a8ac"
+  integrity sha512-6FUmlERPtkCN9dsO/VWYUkFXX9xUx/e9fPCqEbJ+/3rdYrwYTjdWK1nTXYSc1JNSC18CfQV9WNr2IEYaxCY3eg==
+  dependencies:
+    deepmerge "^4.2.2"
+    lodash.orderby "^4.6.0"
+    shortid "^2.2.16"
+
 react-data-table-component@^6.11.7:
   version "6.11.7"
   resolved "https://registry.yarnpkg.com/react-data-table-component/-/react-data-table-component-6.11.7.tgz#112761005ceb13ae09732e1c1125eeacbda9e21d"
