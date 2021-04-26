@@ -8,7 +8,7 @@ import { logout } from "../../_redux/actions/auth";
 import Collapsible from "../../components/Collapsible/Collapsible";
 
 const SideBar = ({ children, logged }) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const toggleSideBar = () => {
     setOpen(!open);
   };
@@ -21,7 +21,7 @@ const SideBar = ({ children, logged }) => {
     <div className={logged ? "row no-gutters" : ""}>
       {logged && (
         <div>
-          <Header toggleSideBar={toggleSideBar} />
+          <Header toggleSideBar={toggleSideBar} open={open} />
           <div className="col-3 pl-0">
             <nav id="sidebar" className={!open ? "active" : null}>
               <div className="sidebar-header">

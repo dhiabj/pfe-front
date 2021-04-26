@@ -8,7 +8,6 @@ import {
   faChartLine,
   faUserCog,
   faFileUpload,
-  faBars,
   faSignOutAlt,
   faChevronRight,
   faSearch,
@@ -23,7 +22,6 @@ library.add(
   faChartLine,
   faUserCog,
   faFileUpload,
-  faBars,
   faSignOutAlt,
   faChevronRight,
   faSearch
