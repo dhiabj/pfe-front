@@ -7,6 +7,7 @@ import Tab from "@material-ui/core/Tab";
 import Box from "@material-ui/core/Box";
 import PeriodStockTable from "../containers/Tables/SticodevamTables/PeriodStockTable";
 import PeriodStock from "../containers/Graphs/PeriodStock";
+import { stocksWithSum } from "../helpers/stocksWithSum";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -46,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 export default function PeriodFullWidthTabs({ stocks }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-
+  const groupedArrayWithTotal = stocksWithSum(stocks);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -72,10 +73,10 @@ export default function PeriodFullWidthTabs({ stocks }) {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <PeriodStockTable stocks={stocks} />
+        <PeriodStockTable groupedArrayWithTotal={groupedArrayWithTotal} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <PeriodStock />
+        <PeriodStock groupedArrayWithTotal={groupedArrayWithTotal} />
       </TabPanel>
     </div>
   );
