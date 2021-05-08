@@ -68,6 +68,8 @@ const PeriodStockTable = ({ stocks }) => {
       item["O.P.C.V.M"],
   }));
 
+  //console.log(groupedArrayWithTotal);
+
   const totalArray = [];
   totalArray.push({
     StockExchangeDate: "Total",
@@ -232,7 +234,7 @@ const PeriodStockTable = ({ stocks }) => {
 
   return (
     <div className="fixed-height">
-      <div className="card">
+      <div className="card mt-0">
         <DataTableExtensions
           {...tableData}
           print={false}

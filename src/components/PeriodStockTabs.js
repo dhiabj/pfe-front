@@ -6,6 +6,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Box from "@material-ui/core/Box";
 import PeriodStockTable from "../containers/Tables/SticodevamTables/PeriodStockTable";
+import PeriodStock from "../containers/Graphs/PeriodStock";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -73,7 +74,9 @@ export default function PeriodFullWidthTabs({ stocks }) {
       <TabPanel value={value} index={0}>
         <PeriodStockTable stocks={stocks} />
       </TabPanel>
-      <TabPanel value={value} index={1}></TabPanel>
+      <TabPanel value={value} index={1}>
+        <PeriodStock />
+      </TabPanel>
     </div>
   );
 }

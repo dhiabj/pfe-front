@@ -230,7 +230,7 @@ const ValueStockTable = ({ stocks }) => {
 
   return (
     <div className="fixed-height">
-      <div className="card">
+      <div className="card mt-0">
         <DataTableExtensions
           {...tableData}
           print={false}

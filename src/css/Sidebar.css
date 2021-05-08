@@ -91,7 +91,6 @@ a[aria-expanded="true"] {
 }
 
 .content {
-  margin-top: 6%;
   overflow: auto;
   height: 100vh;
 }

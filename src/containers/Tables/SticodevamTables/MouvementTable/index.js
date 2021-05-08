@@ -70,7 +70,7 @@ const MouvementTable = ({ mouvements }) => {
   };
 
   return (
-    <div className="card mb-3 pl-3">
+    <div className="card mb-3 pl-3 mt-0">
       <DataTableExtensions
         {...tableData}
         print={false}

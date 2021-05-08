@@ -9684,6 +9684,13 @@ react-bootstrap@^1.5.2:
     uncontrollable "^7.2.1"
     warning "^4.0.3"
 
+react-chartjs-2@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/react-chartjs-2/-/react-chartjs-2-3.0.3.tgz#9cb1981396f9574afebd29aff4e6df71ed615596"
+  integrity sha512-jOFZKwZ8sMLkddewZ/tToxuu4pYimAvvY5I6uK+hCpSFT16Pvo2bdHhUoZ0X87zu9I+dx2I+JCqaLN6XhmrbDg==
+  dependencies:
+    lodash "^4.17.19"
+
 react-data-table-component-extensions@^1.5.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/react-data-table-component-extensions/-/react-data-table-component-extensions-1.5.2.tgz#47df3b3c5a5deba900ab829f650f38355dd83380"
