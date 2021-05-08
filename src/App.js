@@ -13,7 +13,7 @@ import { getUser } from "./_redux/actions/auth";
 import HomePage from "./pages/HomePage/HomePage";
 import TransactionsPage from "./pages/TransactionsPages/TransactionsPage";
 import OrdresPage from "./pages/OrdresPages/OrdresPage";
-import StockPage from "./pages/StocksPages/Stock/StockPage";
+import DayStockPage from "./pages/StocksPages/Stock/DayStockPage";
 import MouvementPage from "./pages/StocksPages/Mouvement/MouvementPage";
 import ChargementStock from "./pages/ChargementPages/ChargementStock";
 import ChargementMouvement from "./pages/ChargementPages/ChargementMouvement";
@@ -32,6 +32,7 @@ import CodesMarche from "./pages/ReferentielPages/IntermediairesPages/CodesMarch
 import CodesProfit from "./pages/ReferentielPages/IntermediairesPages/CodesProfit";
 import CodesReglements from "./pages/ReferentielPages/IntermediairesPages/CodesReglements";
 import CodesTitre from "./pages/ReferentielPages/IntermediairesPages/CodesTitre";
+import PeriodStockPage from "./pages/StocksPages/Stock/PeriodStockPage";
 function App() {
   const loading = useSelector((state) => state.loading.loading);
   const { logged, isVerified } = useSelector((state) => state.auth);
@@ -70,7 +71,16 @@ function App() {
                       path="/ordres"
                       component={OrdresPage}
                     />
-                    <LoggedInRoute exact path="/stocks" component={StockPage} />
+                    <LoggedInRoute
+                      exact
+                      path="/stocks-par-jour"
+                      component={DayStockPage}
+                    />
+                    <LoggedInRoute
+                      exact
+                      path="/stocks-par-periode"
+                      component={PeriodStockPage}
+                    />
                     <LoggedInRoute
                       exact
                       path="/mouvements"

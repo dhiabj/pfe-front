@@ -1,10 +1,24 @@
 import axios from "axios";
 import { api } from "../../../api/api";
 
-export const getStocks = (search) => async (dispatch) => {
+export const getDayStocks = (search) => async (dispatch) => {
   const token = localStorage.token;
   if (token) {
-    const response = await axios.get(`${api}/stocks`, {
+    const response = await axios.get(`${api}/day-stocks`, {
+      headers: { Authorization: `Bearer ${token}` },
+      params: {
+        search: search,
+      },
+    });
+    dispatch({ type: "STOCKS_DATA", payload: response.data }); // stocks in redux
+    //console.log(response.data);
+  }
+};
+
+export const getPeriodStocks = (search) => async (dispatch) => {
+  const token = localStorage.token;
+  if (token) {
+    const response = await axios.get(`${api}/period-stocks`, {
       headers: { Authorization: `Bearer ${token}` },
       params: {
         search: search,

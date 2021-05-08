@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FullWidthTabs({ stocks }) {
+export default function DayFullWidthTabs({ stocks }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 

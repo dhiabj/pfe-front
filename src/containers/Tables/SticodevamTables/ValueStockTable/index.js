@@ -114,7 +114,7 @@ const ValueStockTable = ({ stocks }) => {
 
   const total = totalArray?.map((item) => ({
     ...item,
-    part: Math.round(reduceTotals(data, "totalPart")).toFixed(2),
+    part: reduceTotals(data, "totalPart")?.toFixed(2),
   }));
   //console.log(total);
 

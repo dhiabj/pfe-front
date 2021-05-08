@@ -7,11 +7,11 @@ import moment from "moment";
 import { getMembers } from "../../_redux/actions/member";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CustomSelect from "../../components/Select";
-import DayDatePicker from "../../components/DatePicker/DayDatePicker";
-import { getDayStocks, StockTable } from "../../_redux/actions/stocks";
+import { getPeriodStocks, StockTable } from "../../_redux/actions/stocks";
 import { getAccountTypes } from "../../_redux/actions/accountTypes";
+import PeriodDatepicker from "../../components/DatePicker/PeriodDatePicker";
 
-const StocksDaySearchForm = () => {
+const StocksPeriodSearchForm = () => {
   const { handleSubmit, register, control, watch } = useForm();
   const dispatch = useDispatch();
 
@@ -40,18 +40,26 @@ const StocksDaySearchForm = () => {
   const onSubmit = (values) => {
     const search = {
       ...values,
-      AccountingDate: values.AccountingDate
-        ? moment(values.AccountingDate).format("YYYY-MM-DD")
+      startAccountingDate: values.AccountingDate?.startDate
+        ? moment(values.AccountingDate.startDate).format("YYYY-MM-DD")
         : "",
-      StockExchangeDate: values.StockExchangeDate
-        ? moment(values.StockExchangeDate).format("YYYY-MM-DD")
+      endAccountingDate: values.AccountingDate?.endDate
+        ? moment(values.AccountingDate.endDate).format("YYYY-MM-DD")
+        : "",
+      startStockExchangeDate: values.StockExchangeDate?.startDate
+        ? moment(values.StockExchangeDate.startDate).format("YYYY-MM-DD")
+        : "",
+      endStockExchangeDate: values.StockExchangeDate?.endDate
+        ? moment(values.StockExchangeDate.endDate).format("YYYY-MM-DD")
         : "",
       ValueCode: values.ValueCode ? values.ValueCode.value : "",
       MembershipCode: values.MembershipCode ? values.MembershipCode.value : "",
       NatureCode: values.NatureCode ? values.NatureCode.value : "",
     };
+    delete search.AccountingDate;
+    delete search.StockExchangeDate;
     //console.log(search);
-    dispatch(getDayStocks(search));
+    dispatch(getPeriodStocks(search));
     dispatch(StockTable());
   };
   const validate = () => {
@@ -61,8 +69,8 @@ const StocksDaySearchForm = () => {
     const MembershipCode = watch("MembershipCode");
     const NatureCode = watch("NatureCode");
     return !!(
-      AccountingDate ||
-      StockExchangeDate ||
+      (AccountingDate?.startDate && !!AccountingDate?.endDate) ||
+      (StockExchangeDate?.startDate && !!StockExchangeDate?.endDate) ||
       ValueCode ||
       MembershipCode ||
       NatureCode
@@ -77,26 +85,26 @@ const StocksDaySearchForm = () => {
         <Row>
           <Col sm={4}>
             <Form.Group controlId="AccountingDate">
-              <Form.Label>Date comptable</Form.Label>
+              <Form.Label>Période (Date Comptable)</Form.Label>
               <Controller
                 name="AccountingDate"
                 defaultValue={null}
                 control={control}
                 ref={register("AccountingDate", { validate })}
                 render={({ onChange, value }) => (
-                  <DayDatePicker value={value} onChange={onChange} />
+                  <PeriodDatepicker value={value} onChange={onChange} />
                 )}
               />
             </Form.Group>
             <Form.Group controlId="StockExchangeDate">
-              <Form.Label>Date bourse</Form.Label>
+              <Form.Label>Période (Date Bourse)</Form.Label>
               <Controller
                 name="StockExchangeDate"
                 defaultValue={null}
                 control={control}
                 ref={register("StockExchangeDate", { validate })}
                 render={({ onChange, value }) => (
-                  <DayDatePicker value={value} onChange={onChange} />
+                  <PeriodDatepicker value={value} onChange={onChange} />
                 )}
               />
             </Form.Group>
@@ -173,4 +181,4 @@ const StocksDaySearchForm = () => {
   );
 };
 
-export default StocksDaySearchForm;
+export default StocksPeriodSearchForm;

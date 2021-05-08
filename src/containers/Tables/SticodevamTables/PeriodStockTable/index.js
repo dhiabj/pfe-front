@@ -5,40 +5,39 @@ import "react-data-table-component-extensions/dist/index.css";
 import SortIcon from "@material-ui/icons/ArrowDownward";
 import "../../../../css/styles.css";
 import NoData from "../../../../components/NoData";
-import { reduceItems } from "../../../../helpers/reduceItems";
-import { groupBy } from "../../../../helpers/groupBy";
 import { reduceTotals } from "../../../../helpers/reduceTotals";
+import { groupBy } from "../../../../helpers/groupBy";
+import { reduceItems } from "../../../../helpers/reduceItems";
 import TableProgress from "../../../../components/TableProgress";
+import moment from "moment";
 
-const MemberStockTable = ({ stocks }) => {
+const PeriodStockTable = ({ stocks }) => {
   const reducedStocks = stocks?.map((el) => ({
-    MembershipCode: el.MembershipCode.MembershipCode,
-    MemberName: el.MembershipCode.MemberName,
+    StockExchangeDate: moment(el.StockExchangeDate).format("YYYY-MM-DD"),
     CategoryCode: el.CategoryCode.CategoryCode,
     CategoryLabel: el.CategoryCode.CategoryLabel,
     Quantity: +el.Quantity,
   }));
-  // console.log(reducedStocks);
+  //console.log(reducedStocks);
 
-  const newArray = groupBy(reducedStocks, "MembershipCode");
+  const newArray = groupBy(reducedStocks, "StockExchangeDate");
+  //console.log(newArray);
   const formattedArray =
     newArray &&
     Object.keys(newArray)?.map((el) => ({
-      MembershipCode: el,
+      StockExchangeDate: el,
       groupedStocks: newArray[el],
     }));
-  // console.log(formattedArray);
+  //console.log(formattedArray);
 
   const groupedArrayByCategory = formattedArray?.map((el) => ({
-    MembershipCode: el.MembershipCode,
-    MemberName: el.groupedStocks[0]?.MemberName,
+    StockExchangeDate: el.StockExchangeDate,
     ...groupBy(el.groupedStocks, "CategoryLabel"),
   }));
   //console.log(groupedArrayByCategory);
 
   const groupedArrayByCategoryWithSum = groupedArrayByCategory?.map((el) => ({
-    MembershipCode: el.MembershipCode,
-    MemberName: el.MemberName,
+    StockExchangeDate: el.StockExchangeDate,
     "Av clts gérés étr": reduceItems(el["Av clts gérés étr"]),
     "Av clts libres Tun": reduceItems(el["Av clts libres Tun"]),
     "Av clts libres étr": reduceItems(el["Av clts libres étr"]),
@@ -71,7 +70,7 @@ const MemberStockTable = ({ stocks }) => {
 
   const totalArray = [];
   totalArray.push({
-    MemberName: "Total",
+    StockExchangeDate: "Total",
     "Av clts gérés étr": reduceTotals(
       groupedArrayWithTotal,
       "Av clts gérés étr"
@@ -112,7 +111,7 @@ const MemberStockTable = ({ stocks }) => {
     part: ((el.total / totalArray[0].total) * 100).toFixed(2),
     totalPart: (el.total / totalArray[0].total) * 100,
   }));
-  // console.log(data);
+  //console.log(data);
 
   const total = totalArray?.map((item) => ({
     ...item,
@@ -133,10 +132,11 @@ const MemberStockTable = ({ stocks }) => {
 
   const columns = [
     {
-      name: "Nom Adhérent",
-      cell: (row) => <div>{row.MemberName ? row.MemberName : "-"}</div>,
+      name: "Date Bourse",
+      cell: (row) => (
+        <div>{row.StockExchangeDate ? row.StockExchangeDate : "-"}</div>
+      ),
       sortable: true,
-      width: "150px",
     },
     {
       name: "Av clts gérés étr",
@@ -257,4 +257,4 @@ const MemberStockTable = ({ stocks }) => {
     </div>
   );
 };
-export default MemberStockTable;
+export default PeriodStockTable;

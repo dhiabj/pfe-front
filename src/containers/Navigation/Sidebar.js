@@ -80,8 +80,12 @@ const SideBar = ({ children, logged }) => {
                           Historique Stock
                         </div>
                       }>
-                      <Link to="/stocks">Historique STOCK par jour</Link>
-                      <Link to="/sticodevam">Historique STOCK par periode</Link>
+                      <Link to="/stocks-par-jour">
+                        Historique STOCK par jour
+                      </Link>
+                      <Link to="/stocks-par-periode">
+                        Historique STOCK par periode
+                      </Link>
                     </Collapsible>
                     <Collapsible
                       open={false}
