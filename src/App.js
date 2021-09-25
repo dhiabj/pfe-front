@@ -33,6 +33,7 @@ import CodesProfit from "./pages/ReferentielPages/IntermediairesPages/CodesProfi
 import CodesReglements from "./pages/ReferentielPages/IntermediairesPages/CodesReglements";
 import CodesTitre from "./pages/ReferentielPages/IntermediairesPages/CodesTitre";
 import PeriodStockPage from "./pages/StocksPages/Stock/PeriodStockPage";
+import UsersPage from "./pages/UsersPage/UsersPage";
 function App() {
   const loading = useSelector((state) => state.loading.loading);
   const { logged, isVerified } = useSelector((state) => state.auth);
@@ -165,6 +166,11 @@ function App() {
                       exact
                       path="/chargement-intermediaire"
                       component={ChargementInterm}
+                    />
+                    <LoggedInRoute
+                      exact
+                      path="/utilisateurs"
+                      component={UsersPage}
                     />
                   </Switch>
                 </SideBar>

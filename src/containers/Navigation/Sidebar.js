@@ -196,6 +196,18 @@ const SideBar = ({ children, logged }) => {
                     </Collapsible>
                   </Collapsible>
                 </li>
+                <li>
+                  <Collapsible
+                    open={false}
+                    header={
+                      <div>
+                        <FontAwesomeIcon icon="users" className="mr-2" />
+                        Administration-Gestion d'accès
+                      </div>
+                    }>
+                    <Link to="/utilisateurs">Utilisateurs</Link>
+                  </Collapsible>
+                </li>
               </ul>
               <ul className="p-0 ml-2">
                 <li>

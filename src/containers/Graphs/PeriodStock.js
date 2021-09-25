@@ -2,7 +2,7 @@ import React from "react";
 import { Line } from "react-chartjs-2";
 
 const PeriodStock = ({ groupedArrayWithTotal }) => {
-  console.log(groupedArrayWithTotal);
+  //console.log(groupedArrayWithTotal);
   const dateArray = groupedArrayWithTotal.map((date) => date.StockExchangeDate);
   const quantityArray = groupedArrayWithTotal.map((quantity) => quantity.total);
   const labels = dateArray;
@@ -10,9 +10,9 @@ const PeriodStock = ({ groupedArrayWithTotal }) => {
     labels: labels,
     datasets: [
       {
-        label: "Historique par adhérent-valeur",
+        label: "Quantité",
         data: quantityArray,
-        fill: false,
+        fill: true,
         borderColor: "rgb(75, 192, 192)",
         tension: 0.1,
       },

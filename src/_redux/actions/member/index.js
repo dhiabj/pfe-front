@@ -25,7 +25,7 @@ export const addMember = (values) => async (dispatch) => {
     );
     dispatch({ type: "MEMBER_ADD_SUCCESS", payload: response.data });
     dispatch(getMembers());
-    toast.success("Adhérent inséré avec succès");
+    toast.success("Adhérent ajouté avec succès");
   } catch (error) {
     //console.log({ error });
     dispatch({ type: "MEMBER_ADD_FAILED", payload: error.response });
